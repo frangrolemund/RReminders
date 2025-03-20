@@ -1,0 +1,138 @@
+//
+//  Reminder.swift
+//  RReminders
+//
+//  Created by Francis Grolemund on 3/11/25.
+//
+
+import Foundation
+
+// - reminders are unique instances of a note that are tracked to completion.
+@Observable
+class Reminder: Identifiable, Codable, Equatable {
+	static func == (lhs: Reminder, rhs: Reminder) -> Bool {
+		return lhs.id == rhs.id &&
+				lhs.created == rhs.created &&
+				lhs.title == rhs.title &&
+				lhs.notes == rhs.notes &&
+				lhs.notifyOn == rhs.notifyOn &&
+				lhs.priority == rhs.priority &&
+				lhs.completedOn == rhs.completedOn
+	}
+	
+	static var `default`: Reminder { Reminder(title: "New Reminder") }
+
+	let id: UUID
+	let created: Date
+	var title: String { didSet { isModified = true } }
+	var notes: String? { didSet { isModified = true } }
+	var notifyOn: RemindOn? { didSet { isModified = true } }
+	var priority: Priority? { didSet { isModified = true } }
+	var completedOn: Date? { didSet { isModified = true } }
+	
+	// ...track this explicitly to support .onChange with this instance
+	var isModified: Bool = false // - not persisted
+	
+	init(id: UUID = .init(),
+		created: String? = nil,
+		title: String,
+		notes: String? = nil,
+		notifyOn: RemindOn? = nil,
+		priority: Priority? = nil,
+		completedOn: Date? = nil) {
+		self.id = id
+		self.created = ISO8601DateFormatter().date(from: created ?? "") ?? Date()
+		self.title = title
+		self.notes = notes
+		self.notifyOn = notifyOn
+		self.priority = priority
+		self.completedOn = completedOn
+	}
+	
+	// - add CodingKeys to both encode using non-private names but to also omit the extra @Observable property
+	private enum CodingKeys: String, CodingKey {
+		case id = "id"
+		case created = "created"
+		case _title = "title"
+		case _notes = "notes"
+		case _notifyOn = "notifyOn"
+		case _priority = "priority"
+		case _completedOn = "completedOn"
+	}
+}
+
+// - types/computed
+extension Reminder {
+	var isCompleted: Bool {
+		get { completedOn != nil }
+		set {
+			if newValue {
+				completedOn = completedOn == nil ? Date() : completedOn
+			} else {
+				completedOn = nil
+			}
+		}
+	}
+	
+	
+	var dueDate: Date { notifyOn?.date ?? Date.distantFuture }
+	
+	
+	func cloned() -> Reminder {
+		do {
+			// - auto-catch upgrades
+			let je = JSONEncoder()
+			let rData = try je.encode(self)
+			let jd = JSONDecoder()
+			return try jd.decode(Reminder.self, from: rData)
+		} catch {
+			return Reminder.default
+		}
+	}
+	
+	
+	func update(from other: Reminder) {
+		guard self.id == other.id && self != other else { return }
+		self.title = other.title
+		self.notes = other.notes
+		self.notifyOn = other.notifyOn
+		self.priority = other.priority
+		self.completedOn = other.completedOn
+		self._isModified = false
+	}
+
+
+	enum Priority: Int, CaseIterable, Codable, Equatable {
+		case low = 0
+		case medium = 1
+		case high = 2
+	}
+
+	enum RemindOn : Codable, Equatable {
+		case date(date: Date, repeats: Repeats? = nil)
+		case dateTime(dateTime: Date, repeats: Repeats? = nil)
+		
+		var date: Date {
+			switch self {
+			case .date(let dt, _):
+					return dt
+			case .dateTime(let dt, _):
+					return dt
+			}
+		}
+	}
+
+	enum Repeats : Codable, CaseIterable, Identifiable {
+		var id: Repeats { self }
+		
+		case daily
+		case weekdays
+		case weekends
+		case weekly
+		case biweekly
+		case monthly
+		case every3Months
+		case every6Months
+		case yearly
+	}
+}
