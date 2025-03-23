@@ -24,7 +24,7 @@ extension ReminderList.Color {
 
 extension Reminder.Repeats: CustomStringConvertible {
 	var description: String {
-		switch self {
+		switch self.id {
 		case .daily: return "Daily"
 		case .weekdays: return "Weekdays"
 		case .weekends: return "Weekends"

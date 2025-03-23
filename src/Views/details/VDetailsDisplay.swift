@@ -5,6 +5,7 @@
 //  Created by Francis Grolemund on 3/15/25.
 //
 
+import Foundation
 import SwiftUI
 
 struct VDetailsDisplay: View {
@@ -41,7 +42,20 @@ struct VDetailsDisplay: View {
 					} label: {
 						VRepeatsField(repeats: $repeats)
 					}
+					
+					if (repeats != nil) {
+						NavigationLink {
+							VEndRepeatsSelection(repeats: $repeats)
+						} label: {
+							HStack {
+								Text("End Repeat")
+								Spacer()
+								Text(self.endRepeatsDescription)
+							}
+						}
+					}
 				}
+				
 			}
 		}
 		.listSectionSpacing(15)
@@ -102,5 +116,13 @@ private extension VDetailsDisplay {
 			reminder.notifyOn = .date(date: notifyDate, repeats: repeats)
 		}
 	}
+	
+	private var endRepeatsDescription: String {
+		guard let repeats = repeats else { return "" }
+		guard let ends = repeats.ends else { return "Never" }
+		
+		let df = DateFormatter()
+		df.setLocalizedDateFormatFromTemplate("EEE, MMM d, yyyy")
+		return df.string(from: ends)
+	}
 }
-

@@ -122,17 +122,35 @@ extension Reminder {
 		}
 	}
 
-	enum Repeats : Codable, CaseIterable, Identifiable {
-		var id: Repeats { self }
+	// - the Repeats type behaves like an enum with a common stored
+	//   value for an end date that is available across all options.
+	struct Repeats: Codable, Identifiable, Equatable {
+		let id: Period
+		var ends: Date?
+		var isNeverEnding: Bool { self.ends == nil }
 		
-		case daily
-		case weekdays
-		case weekends
-		case weekly
-		case biweekly
-		case monthly
-		case every3Months
-		case every6Months
-		case yearly
+		static let daily = Repeats(id: .daily)
+		static let weekdays = Repeats(id: .weekdays)
+		static let weekends = Repeats(id: .weekends)
+		static let weekly = Repeats(id: .weekly)
+		static let biweekly = Repeats(id: .biweekly)
+		static let monthly = Repeats(id: .monthly)
+		static let every3Months = Repeats(id: .every3Months)
+		static let every6Months = Repeats(id: .every6Months)
+		static let yearly = Repeats(id: .yearly)
+		static let allCases: [Repeats] = { Period.allCases.map( {Repeats(id: $0)} ) }()
+
+		enum Period : Codable, CaseIterable, Identifiable {
+			var id: Period { self }
+			case daily
+			case weekdays
+			case weekends
+			case weekly
+			case biweekly
+			case monthly
+			case every3Months
+			case every6Months
+			case yearly
+		}
 	}
 }

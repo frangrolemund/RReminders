@@ -42,6 +42,7 @@
 		A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */; };
 		A1BF28492D8B630D00EB451F /* VRepeatsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */; };
 		A1DB067C2D75F86800DE8D42 /* _VExpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DB067B2D75F86800DE8D42 /* _VExpTextField.swift */; };
+		A1E37E172D90516600D73BB6 /* VEndRepeatsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */; };
 		A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4BCE42D8701D40098D192 /* VDetailsDateField.swift */; };
 		A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4BCE62D8748EE0098D192 /* Date+Util.swift */; };
 		A1F5A8772D773DA500AB406E /* _VExpSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5A8762D773DA500AB406E /* _VExpSearchField.swift */; };
@@ -86,6 +87,7 @@
 		A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsField.swift; sourceTree = "<group>"; };
 		A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsSelection.swift; sourceTree = "<group>"; };
 		A1DB067B2D75F86800DE8D42 /* _VExpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpTextField.swift; sourceTree = "<group>"; };
+		A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEndRepeatsSelection.swift; sourceTree = "<group>"; };
 		A1E4BCE42D8701D40098D192 /* VDetailsDateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsDateField.swift; sourceTree = "<group>"; };
 		A1E4BCE62D8748EE0098D192 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
 		A1F5A8762D773DA500AB406E /* _VExpSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpSearchField.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				A1BF28442D8B3C6A00EB451F /* VTimePicker.swift */,
 				A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */,
 				A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */,
+				A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */,
 			);
 			path = details;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				A13CDF992D80AFFF0041EF82 /* ReminderList.swift in Sources */,
 				A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */,
 				A13CDF9A2D80AFFF0041EF82 /* Reminder.swift in Sources */,
+				A1E37E172D90516600D73BB6 /* VEndRepeatsSelection.swift in Sources */,
 				A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */,
 				A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */,
 				A1DB067C2D75F86800DE8D42 /* _VExpTextField.swift in Sources */,
