@@ -13,6 +13,7 @@
 		A10FEF342D7B42D400595B66 /* VCategoryCardGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10FEF332D7B42D400595B66 /* VCategoryCardGroup.swift */; };
 		A11094FC2D85B55100B2B0F3 /* VReminderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11094FB2D85B55100B2B0F3 /* VReminderDetails.swift */; };
 		A11094FE2D85C09500B2B0F3 /* VDetailsDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */; };
+		A11C14162D919AFE0051156B /* _VExpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C14152D919AFE0051156B /* _VExpModel.swift */; };
 		A127D2AF2D7F1D7D00D4C43F /* _VExpObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */; };
 		A13771622D709E860088C95A /* RRemindersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13771612D709E860088C95A /* RRemindersApp.swift */; };
 		A13771662D709E870088C95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13771652D709E870088C95A /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		A10FEF332D7B42D400595B66 /* VCategoryCardGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryCardGroup.swift; sourceTree = "<group>"; };
 		A11094FB2D85B55100B2B0F3 /* VReminderDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderDetails.swift; sourceTree = "<group>"; };
 		A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsDisplay.swift; sourceTree = "<group>"; };
+		A11C14152D919AFE0051156B /* _VExpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpModel.swift; sourceTree = "<group>"; };
 		A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable.swift; sourceTree = "<group>"; };
 		A137715E2D709E860088C95A /* RReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13771612D709E860088C95A /* RRemindersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRemindersApp.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */,
 				A1B58F822D80717F005B8435 /* _VExpObservable2.swift */,
 				A1BF28422D8B28F700EB451F /* _VExpPicker.swift */,
+				A11C14152D919AFE0051156B /* _VExpModel.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				A19F1C492D7DEBC7003D6E43 /* VSummaryListItem.swift in Sources */,
 				A17A4D5A2D81F65C00A01584 /* VReminderListInfo.swift in Sources */,
 				A17A4D5C2D81FB1A00A01584 /* VListInfoDisplay.swift in Sources */,
+				A11C14162D919AFE0051156B /* _VExpModel.swift in Sources */,
 				A10FEF342D7B42D400595B66 /* VCategoryCardGroup.swift in Sources */,
 				A13D35732D7341DB00D1DEF9 /* VReminderGenericList.swift in Sources */,
 				A10FEF322D7B2A1500595B66 /* VCategoryCard.swift in Sources */,
