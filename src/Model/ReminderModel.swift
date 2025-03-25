@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import SwiftData
 
 // - the reminder store saves all reminders in their respective lists along with app configuration
-@Observable
-class ReminderModel: Codable {
+@Model
+class ReminderModel {
 	var summaryCategories: [SummaryCategoryConfig]
+	@Relationship(deleteRule: .cascade)
 	var lists: [ReminderList]
 	
 	init(summaryCategories: [SummaryCategoryConfig] = [.today, .scheduled, .all, .completed],
@@ -18,17 +20,11 @@ class ReminderModel: Codable {
 		self.summaryCategories = summaryCategories
 		self.lists = lists
 	}
-	
-	// - add CodingKeys to both encode using non-private names but to also omit the extra @Observable property
-	private enum CodingKeys: String, CodingKey {
-		case _summaryCategories = "summaryCategories"
-		case _lists = "lists"
-	}
 }
 
 // - types/computed
 extension ReminderModel {
-	enum SummaryCategory: Codable, CaseIterable, Identifiable {
+	enum SummaryCategory: CaseIterable, Codable, Identifiable {
 		var id: Self { return self }
 		
 		case today

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 // - reminder lists are unique groups of unique reminders and permit basic iteration
 protocol ReminderListDisplayable: RandomAccessCollection, AnyObject, Identifiable, Observable {
@@ -17,15 +18,17 @@ protocol ReminderListDisplayable: RandomAccessCollection, AnyObject, Identifiabl
 
 
 // - an authoritative list of unique reminders
-@Observable
-class ReminderList: Identifiable, Codable, ReminderListDisplayable, MutableCollection {
+@Model
+class ReminderList: Identifiable, ReminderListDisplayable, MutableCollection {
 	static var `default`: ReminderList {
 		.init(name: "Reminders", color: .blue)
 	}
 
-	let id: UUID
+	@Attribute(.unique) private(set) var id: UUID
 	var name: String
 	var color: ReminderList.Color
+	
+	@Relationship(deleteRule: .cascade)
 	private var manualReminders: [Reminder] {
 		didSet { self.sortedReminders = nil }
 	}
@@ -34,7 +37,7 @@ class ReminderList: Identifiable, Codable, ReminderListDisplayable, MutableColle
 		didSet { self.sortedReminders = nil }
 	}
 	
-	private var sortedReminders: [Reminder]?	// cache
+	@Transient private var sortedReminders: [Reminder]?	// cache
 		
 	init(id: UUID = .init(),
 		name: String,
@@ -49,17 +52,7 @@ class ReminderList: Identifiable, Codable, ReminderListDisplayable, MutableColle
 		self.showCompleted = showCompleted
 		self.sortOrder = sortOrder
 	}
-	
-	// - add CodingKeys to both encode using non-private names but to also omit the extra @Observable property
-	private enum CodingKeys: String, CodingKey {
-		case id = "id"
-		case _name = "name"
-		case _color = "color"
-		case _manualReminders = "reminders"
-		case _showCompleted = "showCompleted"
-		case _sortOrder = "sortOrder"
-	}
-	
+		
 	subscript(index: Int) -> Reminder {
 		get { reminders[index] }
 		set {
@@ -81,7 +74,7 @@ class ReminderList: Identifiable, Codable, ReminderListDisplayable, MutableColle
 
 // - types/computed
 extension ReminderList {
-	enum Color : Codable {
+	enum Color: Codable {
 		case red
 		case orange
 		case yellow
@@ -91,7 +84,7 @@ extension ReminderList {
 		case brown
 	}
 	
-	enum SortOrder: Codable {
+	enum SortOrder : Codable {
 		case manual
 		case dueDate
 		case creationDate

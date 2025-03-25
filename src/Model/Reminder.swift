@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftData
 
 // - reminders are unique instances of a note that are tracked to completion.
-@Observable
-class Reminder: Identifiable, Codable, Equatable {
+@Model
+class Reminder: Identifiable, Equatable {
 	static func == (lhs: Reminder, rhs: Reminder) -> Bool {
 		return lhs.id == rhs.id &&
 				lhs.created == rhs.created &&
@@ -22,8 +23,8 @@ class Reminder: Identifiable, Codable, Equatable {
 	
 	static var `default`: Reminder { Reminder(title: "New Reminder") }
 
-	let id: UUID
-	let created: Date
+	@Attribute(.unique) private(set) var id: UUID
+	private(set) var created: Date
 	var title: String { didSet { isModified = true } }
 	var notes: String? { didSet { isModified = true } }
 	var notifyOn: RemindOn? { didSet { isModified = true } }
@@ -31,7 +32,7 @@ class Reminder: Identifiable, Codable, Equatable {
 	var completedOn: Date? { didSet { isModified = true } }
 	
 	// ...track this explicitly to support .onChange with this instance
-	var isModified: Bool = false // - not persisted
+	@Transient var isModified: Bool = false // - not persisted
 	
 	init(id: UUID = .init(),
 		created: String? = nil,
@@ -79,18 +80,15 @@ extension Reminder {
 	
 	
 	func cloned() -> Reminder {
-		do {
-			// - auto-catch upgrades
-			let je = JSONEncoder()
-			let rData = try je.encode(self)
-			let jd = JSONDecoder()
-			return try jd.decode(Reminder.self, from: rData)
-		} catch {
-			return Reminder.default
-		}
+		return .init(id: self.id,
+				created: self.created.ISO8601Format(),
+				title: self.title,
+				notes: self.notes,
+				notifyOn: self.notifyOn,
+				priority: self.priority,
+				completedOn: self.completedOn)
 	}
-	
-	
+		
 	func update(from other: Reminder) {
 		guard self.id == other.id && self != other else { return }
 		self.title = other.title
@@ -98,7 +96,7 @@ extension Reminder {
 		self.notifyOn = other.notifyOn
 		self.priority = other.priority
 		self.completedOn = other.completedOn
-		self._isModified = false
+		self.isModified = false
 	}
 
 
