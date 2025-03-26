@@ -16,7 +16,7 @@ class ReminderModel {
 	var lists: [ReminderList]
 	
 	init(summaryCategories: [SummaryCategoryConfig] = [.today, .scheduled, .all, .completed],
-		lists: [ReminderList] = [ReminderList.default]) {
+		lists: [ReminderList] = []) {
 		self.summaryCategories = summaryCategories
 		self.lists = lists
 	}

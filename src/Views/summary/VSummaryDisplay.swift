@@ -74,6 +74,7 @@ struct VSummaryDisplay: View {
 					.bold()
 					.foregroundStyle(.primary)
 					.padding([.bottom], 4)
+					.visible(!modelData.lists.isEmpty)
 			}
 		}
 		.listStyle(.insetGrouped)

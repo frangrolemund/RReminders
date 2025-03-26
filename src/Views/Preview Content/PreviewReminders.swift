@@ -13,3 +13,5 @@ let _PCReminderListDefault: ReminderList = ReminderModel.debugReminderListDefaul
 let _PCReminderListAlt: ReminderList = ReminderModel.debugReminderListAlt
 
 let _PCReminderModel: ReminderModel = ReminderModel.debugReminderModelDefault
+
+let _PCReminderModelNew: ReminderModel = .init(lists: [])
