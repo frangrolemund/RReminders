@@ -12,6 +12,7 @@ struct VReminderSummary: View {
 	@Environment(ReminderModel.self) var modelData
 	@State private var localEditMode: EditMode = .inactive
 	@State private var isListInfoDisplayed: Bool = false
+	@State private var isNewReminderDisplayed: Bool = false
 
 	var body: some View {
 		NavigationStack {
@@ -21,7 +22,7 @@ struct VReminderSummary: View {
 					Spacer()
 					HStack {
 						Button {
-							print("TODO: add reminder")
+							isNewReminderDisplayed = true
 						} label: {
 							HStack(spacing: 10) {
 								Circle()
@@ -61,6 +62,9 @@ struct VReminderSummary: View {
 			}
 			.sheet(isPresented: $isListInfoDisplayed, content: {
 				VReminderListInfo()
+			})
+			.sheet(isPresented: $isNewReminderDisplayed, content: {
+				VReminderNew(model: modelData)
 			})
 			.environment(\.editMode, $localEditMode)
 		}

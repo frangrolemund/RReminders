@@ -15,6 +15,8 @@
 		A11094FE2D85C09500B2B0F3 /* VDetailsDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */; };
 		A11C14162D919AFE0051156B /* _VExpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C14152D919AFE0051156B /* _VExpModel.swift */; };
 		A127D2AF2D7F1D7D00D4C43F /* _VExpObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */; };
+		A12842E82D9435040021B7BD /* VReminderNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12842E72D9435040021B7BD /* VReminderNew.swift */; };
+		A12842EA2D9435A10021B7BD /* VReminderNewDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12842E92D9435A10021B7BD /* VReminderNewDisplay.swift */; };
 		A13771622D709E860088C95A /* RRemindersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13771612D709E860088C95A /* RRemindersApp.swift */; };
 		A13771662D709E870088C95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13771652D709E870088C95A /* Assets.xcassets */; };
 		A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137719B2D70B0F00088C95A /* VReminderListItem.swift */; };
@@ -60,6 +62,8 @@
 		A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsDisplay.swift; sourceTree = "<group>"; };
 		A11C14152D919AFE0051156B /* _VExpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpModel.swift; sourceTree = "<group>"; };
 		A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable.swift; sourceTree = "<group>"; };
+		A12842E72D9435040021B7BD /* VReminderNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderNew.swift; sourceTree = "<group>"; };
+		A12842E92D9435A10021B7BD /* VReminderNewDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderNewDisplay.swift; sourceTree = "<group>"; };
 		A137715E2D709E860088C95A /* RReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13771612D709E860088C95A /* RRemindersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRemindersApp.swift; sourceTree = "<group>"; };
 		A13771652D709E870088C95A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -131,6 +135,15 @@
 			path = details;
 			sourceTree = "<group>";
 		};
+		A12842E62D9434D40021B7BD /* new */ = {
+			isa = PBXGroup;
+			children = (
+				A12842E72D9435040021B7BD /* VReminderNew.swift */,
+				A12842E92D9435A10021B7BD /* VReminderNewDisplay.swift */,
+			);
+			path = new;
+			sourceTree = "<group>";
+		};
 		A13771552D709E860088C95A = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +195,7 @@
 				A13D35762D735DB700D1DEF9 /* experiments */,
 				A166C83A2D7201F900ADDDC4 /* util */,
 				A1FD5DB32D74915B008057AC /* summary */,
+				A12842E62D9434D40021B7BD /* new */,
 				A19F1C4A2D7DF059003D6E43 /* list */,
 				A17A4D582D81F63A00A01584 /* listInfo */,
 				A11094FA2D85B2F700B2B0F3 /* details */,
@@ -345,9 +359,11 @@
 				A137719E2D70B7930088C95A /* VStyleModifiers.swift in Sources */,
 				A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */,
 				A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */,
+				A12842E82D9435040021B7BD /* VReminderNew.swift in Sources */,
 				A13771622D709E860088C95A /* RRemindersApp.swift in Sources */,
 				A17A4D602D8229CD00A01584 /* VListInfoPicker.swift in Sources */,
 				A1FD5DD82D74A9D6008057AC /* _VExpEdit.swift in Sources */,
+				A12842EA2D9435A10021B7BD /* VReminderNewDisplay.swift in Sources */,
 				A1F5A8772D773DA500AB406E /* _VExpSearchField.swift in Sources */,
 				A10FEF302D7B23E700595B66 /* VSummaryDisplay.swift in Sources */,
 				A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */,
