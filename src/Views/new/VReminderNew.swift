@@ -37,20 +37,16 @@ struct VReminderNew: View {
 						} label: {
 							Text("Add")
 						}
-						.disabled(!canAddReminder)
+						.disabled(!reminder.allowCreation)
 					}
 				}
 		}
     }
 }
 
+
 #Preview {
 	@Previewable @State var modelData: ReminderModel = _PCReminderModel
 	return VReminderNew(model: modelData)
 }
 
-fileprivate extension VReminderNew {
-	var canAddReminder: Bool {
-		return !reminder.title.isEmpty
-	}
-}

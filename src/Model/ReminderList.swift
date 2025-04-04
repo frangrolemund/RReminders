@@ -37,8 +37,10 @@ class ReminderList: Identifiable, ReminderListDisplayable, MutableCollection {
 		didSet { self.sortedReminders = nil }
 	}
 	
+	
 	@Transient private var sortedReminders: [Reminder]?	// cache
-		
+	
+	
 	init(id: UUID = .init(),
 		name: String,
 		color: ReminderList.Color = .blue,
