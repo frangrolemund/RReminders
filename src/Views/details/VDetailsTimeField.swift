@@ -87,18 +87,12 @@ private extension VDetailsTimeField {
 
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var time: Date? = nil
-		@State private var isExpanded: Bool = true
-		
-		var body: some View {
-			List {
-				Section {
-					VDetailsTimeField(time: $time, isExpanded: $isExpanded)
-					Text("More Data...")
-				}
-			}
+	@Previewable @State var time: Date? = nil
+	@Previewable @State var isExpanded: Bool = true
+	List {
+		Section {
+			VDetailsTimeField(time: $time, isExpanded: $isExpanded)
+			Text("More Data...")
 		}
 	}
-	return PreviewWrapper()
 }

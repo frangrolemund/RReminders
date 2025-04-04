@@ -58,16 +58,10 @@ fileprivate struct PickerColorItem: View {
 }
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State var listColor: ReminderList.Color = .blue
-
-        var body: some View {
-			VStack {
-				VListInfoPicker(listColor: $listColor)
-				Spacer()
-			}
-			.background(.secondarySystemBackground)
-        }
-    }
-    return PreviewWrapper()
+	@Previewable @State var listColor: ReminderList.Color = .blue
+	VStack {
+		VListInfoPicker(listColor: $listColor)
+		Spacer()
+	}
+	.background(.secondarySystemBackground)
 }

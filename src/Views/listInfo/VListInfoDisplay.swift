@@ -29,12 +29,7 @@ struct VListInfoDisplay: View {
 }
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var listColor: ReminderList.Color = .blue
-		@State private var listTitle: String = ""
-		var body: some View {
-			VListInfoDisplay(listColor: $listColor, listTitle: $listTitle)
-		}
-	}
-	return PreviewWrapper()
+	@Previewable @State var listColor: ReminderList.Color = .blue
+	@Previewable @State var listTitle: String = ""
+	VListInfoDisplay(listColor: $listColor, listTitle: $listTitle)
 }

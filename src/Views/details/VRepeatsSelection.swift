@@ -48,12 +48,5 @@ fileprivate struct VRepeatsRowItem: View {
 }
 
 #Preview {
-	struct PreviewWrapper : View {
-		@State private var repeats: Reminder.Repeats?
-		
-		var body: some View {
-			VRepeatsSelection(repeats: $repeats)
-		}
-	}
-	return PreviewWrapper()
-}
+	@Previewable @State var repeats: Reminder.Repeats?
+	VRepeatsSelection(repeats: $repeats)}

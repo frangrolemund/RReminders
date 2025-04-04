@@ -8,11 +8,38 @@
 import SwiftUI
 
 struct VReminderNewDisplay: View {
+	@Binding var reminder: Reminder
+	@Binding var list: ReminderList
+	@State private var notes: String = ""
+	
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    	List {
+    		Section {
+				TextField("Title", text: $reminder.title)
+				TextField("Notes", text: $notes)
+    		}
+    		
+    		Section {
+				NavigationLink {
+					Text("Destination")
+				} label: {
+					Text("Details")
+				}
+    		}
+    		
+    		Section {
+				NavigationLink {
+					Text("List")
+				} label: {
+					Text("List")
+				}
+    		}
+    	}
     }
 }
 
 #Preview {
-    VReminderNewDisplay()
+	@Previewable @State var reminder: Reminder = .init(title: "")
+	@Previewable @State var list: ReminderList = _PCReminderListDefault
+	VReminderNewDisplay(reminder: $reminder, list: $list)
 }

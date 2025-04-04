@@ -20,20 +20,13 @@ struct VTimePicker: View {
 
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var time: Date = .now
-		 
-		var body: some View {
-			Form {
-				VTimePicker(time: $time)
-			}
-			.onChange(of: time) { oldValue, newValue in
-				print("Date/time changed to \(DateFormatter.localizedString(from: newValue, dateStyle: .none, timeStyle: .short))")
-			}
-		}
+	@Previewable @State var time: Date = .now
+	Form {
+		VTimePicker(time: $time)
 	}
-	
-	return PreviewWrapper()
+	.onChange(of: time) { oldValue, newValue in
+		print("Date/time changed to \(DateFormatter.localizedString(from: newValue, dateStyle: .none, timeStyle: .short))")
+	}
 }
 
 

@@ -51,15 +51,8 @@ struct VEndRepeatsSelection: View {
 
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State var repeats: Reminder.Repeats? = .biweekly
-		
-		var body: some View {
-			VEndRepeatsSelection(repeats: $repeats)
-		}
-	}
-	
-	return PreviewWrapper()
+	@Previewable @State var repeats: Reminder.Repeats? = .biweekly
+	VEndRepeatsSelection(repeats: $repeats)
 }
 
 

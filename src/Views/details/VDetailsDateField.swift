@@ -90,25 +90,20 @@ private extension VDetailsDateField {
 
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var date: Date? = nil
-		@State private var isExpanded: Bool = false
+	@Previewable @State var date: Date? = nil
+	@Previewable @State var isExpanded: Bool = false
 		
-		var body: some View {
-			List {
-				Section {
-					VDetailsDateField(date: $date, isExpanded: $isExpanded)
-					Text("Second line")
-				}
-			}
-			.onChange(of: date) { oldValue, newValue in
-				// - because the flag is shared, it is best coordinated by
-				//   the owner of the field
-				if oldValue == nil, newValue != nil {
-					isExpanded = true
-				}
-			}
+	List {
+		Section {
+			VDetailsDateField(date: $date, isExpanded: $isExpanded)
+			Text("Second line")
 		}
 	}
-	return PreviewWrapper()
+	.onChange(of: date) { oldValue, newValue in
+		// - because the flag is shared, it is best coordinated by
+		//   the owner of the field
+		if oldValue == nil, newValue != nil {
+			isExpanded = true
+		}
+	}
 }

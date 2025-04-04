@@ -8,24 +8,49 @@
 import SwiftUI
 
 struct VReminderNew: View {
+	@Environment(\.dismiss) var dismiss
 	var modelData: ReminderModel
+	@State private var reminder: Reminder
+	@State private var list: ReminderList
 	
 	init(model: ReminderModel) {
 		self.modelData = model
+		self.reminder = .init(title: "")
+		self.list = model.lists.first ?? ReminderList(name: "New List")
 	}
 	
     var body: some View {
-		Text("New Reminder -> \(modelData.lists.count)")
+		NavigationStack {
+			VReminderNewDisplay(reminder: $reminder, list: $list)
+				.toolbar {
+					ToolbarItem(placement: .topBarLeading) {
+						Button {
+							dismiss()
+						} label: {
+							Text("Cancel")
+						}
+					}
+
+					ToolbarItem(placement: .topBarTrailing) {
+						Button {
+							dismiss()
+						} label: {
+							Text("Add")
+						}
+						.disabled(!canAddReminder)
+					}
+				}
+		}
     }
 }
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var modelData: ReminderModel = _PCReminderModel
-		
-		var body: some View {
-			VReminderNew(model: modelData)
-		}
+	@Previewable @State var modelData: ReminderModel = _PCReminderModel
+	return VReminderNew(model: modelData)
+}
+
+fileprivate extension VReminderNew {
+	var canAddReminder: Bool {
+		return !reminder.title.isEmpty
 	}
-	return PreviewWrapper()
 }

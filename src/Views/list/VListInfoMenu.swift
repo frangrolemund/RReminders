@@ -42,16 +42,6 @@ struct VListInfoMenu: View {
 }
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var list: ReminderList = _PCReminderListAlt
-		var body: some View {
-			NavigationStack {
-				Text("Sample Menu")
-					.toolbar {
-						VListInfoMenu(list: list)
-					}
-			}
-		}
-	}
-	return PreviewWrapper()
+	@Previewable @State var list: ReminderList = _PCReminderListAlt
+	VListInfoMenu(list: list)
 }

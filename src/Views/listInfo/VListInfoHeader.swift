@@ -75,17 +75,12 @@ fileprivate struct InfoBadge: View {
 }
 
 #Preview {
-	struct PreviewWrapper: View {
-		@State private var listColor: ReminderList.Color = .blue
-		@State private var listTitle: String = ""
-		var body: some View {
-			VStack {
-				VListInfoHeader(listColor: $listColor, listTitle: $listTitle)
-			}
-			.frame(maxWidth: .infinity, maxHeight: .infinity)
-			.padding()
-			.background(.secondarySystemBackground)
-		}
+	@Previewable @State var listColor: ReminderList.Color = .blue
+	@Previewable @State var listTitle: String = ""
+	VStack {
+			VListInfoHeader(listColor: $listColor, listTitle: $listTitle)
 	}
-	return PreviewWrapper()
+	.frame(maxWidth: .infinity, maxHeight: .infinity)
+	.padding()
+	.background(.secondarySystemBackground)
 }
