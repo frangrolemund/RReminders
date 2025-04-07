@@ -24,13 +24,12 @@ struct VReminderListSelection: View {
 					VSummaryListItem(list: list, displayStyle: reminder.list?.id == list.id ? .check : .none)
 						.background {
 							Button {
-								print("Set list to -> \(list.id)")
 								reminder.list = list
 							} label: {
 								Text("")
 							}
 						}
-						.listRowInsets(EdgeInsets(top: 10, leading: 20, bottom: 5, trailing: 20))
+						.listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
 				}
 			} header: {
 				VStack(alignment: .leading, spacing: 40) {
@@ -48,8 +47,9 @@ struct VReminderListSelection: View {
 						.fontWeight(.semibold)
 				}
 				.foregroundStyle(Color.primary)
+				.padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
 			}
-			.listSectionSeparator(.hidden)
+			.listSectionSeparator(.hidden, edges: .top)
 		}
 		.listStyle(.plain)
 		.navigationTitle("List")
