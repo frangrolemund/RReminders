@@ -9,10 +9,16 @@ import SwiftUI
 
 struct VDetailsListField: View {
 	@Binding var reminder: Reminder
+	let isNewItem: Bool
+	
+	init(reminder: Binding<Reminder>, isNewItem: Bool = false) {
+		self._reminder = reminder
+		self.isNewItem = isNewItem
+	}
 
     var body: some View {
 		NavigationLink(destination: {
-			VReminderListSelection(reminder: $reminder)
+			VReminderListSelection(reminder: $reminder, isNewItem: isNewItem)
 		}, label: {
 			HStack(spacing: 15) {
 				Circle()

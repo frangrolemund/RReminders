@@ -38,6 +38,8 @@ struct VReminderNew: View {
 						.disabled(!reminder.allowCreation)
 					}
 				}
+				.navigationTitle("New Reminder")
+				.navigationBarTitleDisplayMode(.inline)
 		}
     }
 }

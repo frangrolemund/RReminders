@@ -10,10 +10,16 @@ import SwiftUI
 struct VReminderListSelection: View {
 	@Environment(ReminderModel.self) var modelData: ReminderModel
 	@Binding var reminder:Reminder
+	let isNewItem: Bool
+	
+	init(reminder: Binding<Reminder>, isNewItem: Bool = false) {
+		self._reminder = reminder
+		self.isNewItem = isNewItem
+	}
 	
     var body: some View {
-		Section("Local") {
-			List {
+		List {
+			Section {
 				ForEach(modelData.lists) { list in
 					VSummaryListItem(list: list, displayStyle: reminder.list?.id == list.id ? .check : .none)
 						.background {
@@ -24,10 +30,28 @@ struct VReminderListSelection: View {
 								Text("")
 							}
 						}
+						.listRowInsets(EdgeInsets(top: 10, leading: 20, bottom: 5, trailing: 20))
 				}
+			} header: {
+				VStack(alignment: .leading, spacing: 40) {
+					if isNewItem {
+						VStack(alignment: .center) {
+						Text("Reminder will be created in \"\(reminder.list.name)\"")
+								.font(.headline)
+								.fontWeight(.semibold)
+								.frame(maxWidth: .infinity)
+						}
+					}
+				
+					Text("Local")
+						.font(.title3)
+						.fontWeight(.semibold)
+				}
+				.foregroundStyle(Color.primary)
 			}
-			.listStyle(.plain)
+			.listSectionSeparator(.hidden)
 		}
+		.listStyle(.plain)
 		.navigationTitle("List")
 		.navigationBarTitleDisplayMode(.inline)
     }

@@ -27,7 +27,7 @@ struct VReminderNewDisplay: View {
     		}
     		
     		Section {
-				VDetailsListField(reminder: $reminder)
+				VDetailsListField(reminder: $reminder, isNewItem: true)
     		}
     	}
     }
