@@ -20,7 +20,7 @@ struct VReminderGenericList: View {
 				.selectionDisabled()
 				.listRowSeparator(.hidden)
 		
-			ForEach(list) { (reminder: Reminder) in
+			ForEach(list.reminders) { (reminder: Reminder) in
 				VReminderListItem(reminder: reminder)
 					.tag(reminder.id)
 			}

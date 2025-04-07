@@ -11,17 +11,15 @@ struct VReminderNew: View {
 	@Environment(\.dismiss) var dismiss
 	var modelData: ReminderModel
 	@State private var reminder: Reminder
-	@State private var list: ReminderList
 	
-	init(model: ReminderModel) {
+	init(model: ReminderModel, list: ReminderList) {
 		self.modelData = model
-		self.reminder = .init(title: "")
-		self.list = model.lists.first ?? ReminderList(name: "New List")
+		self._reminder = .init(initialValue: Reminder(list: list, title: ""))
 	}
 	
     var body: some View {
 		NavigationStack {
-			VReminderNewDisplay(reminder: $reminder, list: $list)
+			VReminderNewDisplay(reminder: $reminder)
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
 						Button {
@@ -47,6 +45,7 @@ struct VReminderNew: View {
 
 #Preview {
 	@Previewable @State var modelData: ReminderModel = _PCReminderModel
-	return VReminderNew(model: modelData)
+	return VReminderNew(model: modelData, list: modelData.lists.first!)
+		.environment(modelData)
 }
 

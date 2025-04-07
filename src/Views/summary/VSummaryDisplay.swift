@@ -60,7 +60,7 @@ struct VSummaryDisplay: View {
 						NavigationLink {
 							VReminderGenericList(list: list)
 						} label: {
-							VSummaryListItem(list: list)
+							VSummaryListItem(list: list, displayStyle: .count)
 						}
 					}
 				}

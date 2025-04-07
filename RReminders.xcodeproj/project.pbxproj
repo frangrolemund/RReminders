@@ -38,6 +38,8 @@
 		A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF882D7C7DB6007C9024 /* _VExpList2.swift */; };
 		A19F1C492D7DEBC7003D6E43 /* VSummaryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */; };
 		A1B58F832D80717F005B8435 /* _VExpObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F822D80717F005B8435 /* _VExpObservable2.swift */; };
+		A1BE0B642DA44074004F3AA6 /* VDetailsListField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */; };
+		A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */; };
 		A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF283E2D8AF46400EB451F /* Color+Util.swift */; };
 		A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */; };
 		A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28422D8B28F700EB451F /* _VExpPicker.swift */; };
@@ -87,6 +89,8 @@
 		A1B58F722D8062AD005B8435 /* ReminderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderList.swift; sourceTree = "<group>"; };
 		A1B58F742D8067CD005B8435 /* ReminderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderModel.swift; sourceTree = "<group>"; };
 		A1B58F822D80717F005B8435 /* _VExpObservable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable2.swift; sourceTree = "<group>"; };
+		A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsListField.swift; sourceTree = "<group>"; };
+		A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderListSelection.swift; sourceTree = "<group>"; };
 		A1BF283E2D8AF46400EB451F /* Color+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Util.swift"; sourceTree = "<group>"; };
 		A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsTimeField.swift; sourceTree = "<group>"; };
 		A1BF28422D8B28F700EB451F /* _VExpPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpPicker.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 				A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */,
 				A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */,
 				A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */,
+				A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */,
+				A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */,
 			);
 			path = details;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 				A10FEF322D7B2A1500595B66 /* VCategoryCard.swift in Sources */,
 				A1BF28452D8B3C6A00EB451F /* VTimePicker.swift in Sources */,
 				A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */,
+				A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */,
 				A137719E2D70B7930088C95A /* VStyleModifiers.swift in Sources */,
 				A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */,
 				A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */,
@@ -367,6 +374,7 @@
 				A13771622D709E860088C95A /* RRemindersApp.swift in Sources */,
 				A17A4D602D8229CD00A01584 /* VListInfoPicker.swift in Sources */,
 				A1FD5DD82D74A9D6008057AC /* _VExpEdit.swift in Sources */,
+				A1BE0B642DA44074004F3AA6 /* VDetailsListField.swift in Sources */,
 				A12842EA2D9435A10021B7BD /* VReminderNewDisplay.swift in Sources */,
 				A1F5A8772D773DA500AB406E /* _VExpSearchField.swift in Sources */,
 				A10FEF302D7B23E700595B66 /* VSummaryDisplay.swift in Sources */,

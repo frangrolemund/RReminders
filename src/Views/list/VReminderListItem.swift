@@ -105,7 +105,7 @@ struct VReminderListItem: View {
 #Preview {
 	VStack {
 		Divider()
-		VReminderListItem(reminder: Reminder.default)
+		VReminderListItem(reminder:  _PCReminderListDefault[1])
 		Divider()
 		
 		VReminderListItem(reminder: _PCReminderListDefault[2])

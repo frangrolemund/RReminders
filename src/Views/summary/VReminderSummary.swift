@@ -64,7 +64,7 @@ struct VReminderSummary: View {
 				VReminderListInfo()
 			})
 			.sheet(isPresented: $isNewReminderDisplayed, content: {
-				VReminderNew(model: modelData)
+				VReminderNew(model: modelData, list: modelData.lists.first!)
 			})
 			.environment(\.editMode, $localEditMode)
 		}

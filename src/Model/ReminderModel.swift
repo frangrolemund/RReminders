@@ -10,7 +10,7 @@ import SwiftData
 
 // - the reminder store saves all reminders in their respective lists along with app configuration
 @Model
-class ReminderModel {
+final class ReminderModel {
 	var summaryCategories: [SummaryCategoryConfig]
 	@Relationship(deleteRule: .cascade)
 	var lists: [ReminderList]
@@ -47,18 +47,19 @@ extension ReminderModel {
 	
 	func reminders(for category: SummaryCategory) -> [Reminder] {
 		return lists.reduce(into: [Reminder]()) { (partialResult, next) in
+			let listRem = next.reminders
 			switch category {
 			case .all:
-				partialResult += Array(next)
+				partialResult += Array(listRem)
 				
 			case .completed:
-				partialResult += next.filter({$0.isCompleted})
+				partialResult += listRem.filter({$0.isCompleted})
 				
 			case .scheduled:
-				partialResult += next.filter({$0.notifyOn != nil})
+				partialResult += listRem.filter({$0.notifyOn != nil})
 				
 			case .today:
-				partialResult += next.filter({$0.isCompleted == false})
+				partialResult += listRem.filter({$0.isCompleted == false})
 			}
 		}
 	}	
@@ -68,18 +69,18 @@ extension ReminderModel {
 extension ReminderModel{
 	static var debugReminderListDefault: ReminderList {
 		let ret = ReminderList.default
-		ret.append(.init(title: "Take out dogs"))
-		ret.append(.init(title: "Read about SwiftUI", notes: "...carefully", notifyOn: .dateTime(dateTime: Date().addingTimeInterval(60 * 60 * 12), repeats: .daily), priority: .high))
-		ret.append(.init(title: "Car work", priority: .medium))
-		ret.append(.init(title: "Past Reminder", priority: .low, completedOn: Date()))
+		ret.append(.init(list: ret, title: "Take out dogs"))
+		ret.append(.init(list: ret, title: "Read about SwiftUI", notes: "...carefully", notifyOn: .dateTime(dateTime: Date().addingTimeInterval(60 * 60 * 12), repeats: .daily), priority: .high))
+		ret.append(.init(list: ret, title: "Car work", priority: .medium))
+		ret.append(.init(list: ret, title: "Past Reminder", priority: .low, completedOn: Date()))
 		return ret
 	}
 	
 	static var debugReminderListAlt: ReminderList {
 		let ret = ReminderList(name: "Alternative", color: .green)
-		ret.append(.init(title: "Quit Job", priority: .medium))
-		ret.append(.init(title: "Learn an Instrument", priority: .high))
-		ret.append(.init(title: "Reflect on Life", completedOn: Date()))
+		ret.append(.init(list: ret, title: "Quit Job", priority: .medium))
+		ret.append(.init(list: ret, title: "Learn an Instrument", priority: .high))
+		ret.append(.init(list: ret, title: "Reflect on Life", completedOn: Date()))
 		return ret
 	}
 

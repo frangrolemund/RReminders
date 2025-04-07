@@ -9,7 +9,6 @@ import SwiftUI
 
 struct VReminderNewDisplay: View {
 	@Binding var reminder: Reminder
-	@Binding var list: ReminderList
 	@State private var notes: String = ""
 	
     var body: some View {
@@ -28,18 +27,13 @@ struct VReminderNewDisplay: View {
     		}
     		
     		Section {
-				NavigationLink {
-					Text("List")
-				} label: {
-					Text("List")
-				}
+				VDetailsListField(reminder: $reminder)
     		}
     	}
     }
 }
 
 #Preview {
-	@Previewable @State var reminder: Reminder = .init(title: "")
-	@Previewable @State var list: ReminderList = _PCReminderListDefault
-	VReminderNewDisplay(reminder: $reminder, list: $list)
+	@Previewable @State var reminder: Reminder = .init(list: _PCReminderListDefault, title: "")
+	VReminderNewDisplay(reminder: $reminder)
 }

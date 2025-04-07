@@ -10,7 +10,7 @@ import SwiftData
 
 // - reminders are unique instances of a note that are tracked to completion.
 @Model
-class Reminder: Identifiable, Equatable {
+final class Reminder: Identifiable, Equatable {
 	static func == (lhs: Reminder, rhs: Reminder) -> Bool {
 		return lhs.id == rhs.id &&
 				lhs.created == rhs.created &&
@@ -20,8 +20,6 @@ class Reminder: Identifiable, Equatable {
 				lhs.priority == rhs.priority &&
 				lhs.completedOn == rhs.completedOn
 	}
-	
-	static var `default`: Reminder { Reminder(title: "New Reminder") }
 
 	@Attribute(.unique) private(set) var id: UUID
 	private(set) var created: Date
@@ -31,11 +29,15 @@ class Reminder: Identifiable, Equatable {
 	var priority: Priority? { didSet { isModified = true } }
 	var completedOn: Date? { didSet { isModified = true } }
 	
+	// ...convenience reference to the enclosing list
+	weak var list: ReminderList!
+	
 	// ...track this explicitly to support .onChange with this instance
 	@Transient var isModified: Bool = false // - not persisted
 	
 	init(id: UUID = .init(),
 		created: String? = nil,
+		list: ReminderList,
 		title: String,
 		notes: String? = nil,
 		notifyOn: RemindOn? = nil,
@@ -43,6 +45,7 @@ class Reminder: Identifiable, Equatable {
 		completedOn: Date? = nil) {
 		self.id = id
 		self.created = ISO8601DateFormatter().date(from: created ?? "") ?? Date()
+		self.list = list
 		self.title = title
 		self.notes = notes
 		self.notifyOn = notifyOn
@@ -86,6 +89,7 @@ extension Reminder {
 	func cloned() -> Reminder {
 		return .init(id: self.id,
 				created: self.created.ISO8601Format(),
+				list: self.list,
 				title: self.title,
 				notes: self.notes,
 				notifyOn: self.notifyOn,
