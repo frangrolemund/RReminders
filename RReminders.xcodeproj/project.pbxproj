@@ -40,6 +40,7 @@
 		A1B58F832D80717F005B8435 /* _VExpObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F822D80717F005B8435 /* _VExpObservable2.swift */; };
 		A1BE0B642DA44074004F3AA6 /* VDetailsListField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */; };
 		A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */; };
+		A1BE0B6A2DA46EAE004F3AA6 /* _VTextEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */; };
 		A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF283E2D8AF46400EB451F /* Color+Util.swift */; };
 		A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */; };
 		A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28422D8B28F700EB451F /* _VExpPicker.swift */; };
@@ -91,6 +92,7 @@
 		A1B58F822D80717F005B8435 /* _VExpObservable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable2.swift; sourceTree = "<group>"; };
 		A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsListField.swift; sourceTree = "<group>"; };
 		A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderListSelection.swift; sourceTree = "<group>"; };
+		A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VTextEd.swift; sourceTree = "<group>"; };
 		A1BF283E2D8AF46400EB451F /* Color+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Util.swift"; sourceTree = "<group>"; };
 		A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsTimeField.swift; sourceTree = "<group>"; };
 		A1BF28422D8B28F700EB451F /* _VExpPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpPicker.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				A1B58F822D80717F005B8435 /* _VExpObservable2.swift */,
 				A1BF28422D8B28F700EB451F /* _VExpPicker.swift */,
 				A11C14152D919AFE0051156B /* _VExpModel.swift */,
+				A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				A13CDF992D80AFFF0041EF82 /* ReminderList.swift in Sources */,
 				A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */,
 				A13CDF9A2D80AFFF0041EF82 /* Reminder.swift in Sources */,
+				A1BE0B6A2DA46EAE004F3AA6 /* _VTextEd.swift in Sources */,
 				A1E37E172D90516600D73BB6 /* VEndRepeatsSelection.swift in Sources */,
 				A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */,
 				A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */,

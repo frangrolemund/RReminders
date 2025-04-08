@@ -10,12 +10,25 @@ import SwiftUI
 struct VReminderNewDisplay: View {
 	@Binding var reminder: Reminder
 	@State private var notes: String = ""
+	@FocusState private var isNotesFocused: Bool
 	
     var body: some View {
     	List {
     		Section {
 				TextField("Title", text: $reminder.title)
-				TextField("Notes", text: $notes)
+				TextEditor(text: $notes)
+					.focused($isNotesFocused)
+					.frame(minHeight: 75, maxHeight: 175)
+					.overlay {
+						VStack(alignment: .leading) {
+							Text("Notes")
+								.frame(maxWidth: .infinity, alignment: .leading)
+								.foregroundStyle(.tertiary)
+								.padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
+								.visible(!isNotesFocused && notes.isEmpty)
+							Spacer()
+						}
+					}
     		}
     		
     		Section {
