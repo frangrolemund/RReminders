@@ -68,7 +68,7 @@ final class Reminder: Identifiable, Equatable {
 // - types/computed
 extension Reminder {
 	var allowCreation: Bool {
-		return !(title.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty
+		return !(title.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty && self.list != nil
 	}
 
 	var isCompleted: Bool {

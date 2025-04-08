@@ -16,9 +16,11 @@ struct VDetailsDisplay: View {
 	@State private var dExpanded: Bool = false
 	@State private var tExpanded: Bool = false
 	@State private var repeats: Reminder.Repeats?
+	@State private var list: ReminderList
 	
 	init(reminder: Reminder) {
 		self.reminder = reminder
+		self._list = .init(initialValue: reminder.list)
 		self._notes = State(initialValue: reminder.notes ?? "")
 	}
 	
@@ -55,7 +57,11 @@ struct VDetailsDisplay: View {
 						}
 					}
 				}
-				
+			}
+			
+			Section {
+				VDetailsPriorityField(priority: $reminder.priority)
+				VDetailsListField(list: $list)
 			}
 		}
 		.listSectionSpacing(15)
@@ -74,6 +80,9 @@ struct VDetailsDisplay: View {
 			} else if (!oldValue[1] && tExpanded) {
 				dExpanded = false
 			}
+		}
+		.onChange(of: list) { _, newValue in
+			reminder.list = newValue
 		}
     }
 }

@@ -28,6 +28,7 @@
 		A13D357A2D735DFE00D1DEF9 /* _VExpColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D35792D735DFE00D1DEF9 /* _VExpColor.swift */; };
 		A13D357C2D73673500D1DEF9 /* VReminderSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D357B2D73673500D1DEF9 /* VReminderSummary.swift */; };
 		A13D35802D7367C300D1DEF9 /* _VExpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D357F2D7367C300D1DEF9 /* _VExpList.swift */; };
+		A143378E2DA58E7E00B8AF9E /* VDetailsPriorityField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A143378D2DA58E7E00B8AF9E /* VDetailsPriorityField.swift */; };
 		A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1540B662D833AE0001F41FF /* VListInfoMenu.swift */; };
 		A17A4D5A2D81F65C00A01584 /* VReminderListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D592D81F65C00A01584 /* VReminderListInfo.swift */; };
 		A17A4D5C2D81FB1A00A01584 /* VListInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */; };
@@ -77,6 +78,7 @@
 		A13D35792D735DFE00D1DEF9 /* _VExpColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpColor.swift; sourceTree = "<group>"; };
 		A13D357B2D73673500D1DEF9 /* VReminderSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderSummary.swift; sourceTree = "<group>"; };
 		A13D357F2D7367C300D1DEF9 /* _VExpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList.swift; sourceTree = "<group>"; };
+		A143378D2DA58E7E00B8AF9E /* VDetailsPriorityField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsPriorityField.swift; sourceTree = "<group>"; };
 		A1540B662D833AE0001F41FF /* VListInfoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoMenu.swift; sourceTree = "<group>"; };
 		A17A4D592D81F65C00A01584 /* VReminderListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderListInfo.swift; sourceTree = "<group>"; };
 		A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoDisplay.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */,
 				A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */,
 				A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */,
+				A143378D2DA58E7E00B8AF9E /* VDetailsPriorityField.swift */,
 			);
 			path = details;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				A17A4D5E2D820C8200A01584 /* VListInfoHeader.swift in Sources */,
 				A13D35802D7367C300D1DEF9 /* _VExpList.swift in Sources */,
 				A192EF872D7C719A007C9024 /* VCategoryListItem.swift in Sources */,
+				A143378E2DA58E7E00B8AF9E /* VDetailsPriorityField.swift in Sources */,
 				A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */,
 				A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */,
 				A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */,

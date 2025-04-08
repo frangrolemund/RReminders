@@ -11,19 +11,26 @@ struct VReminderNew: View {
 	@Environment(\.dismiss) var dismiss
 	var modelData: ReminderModel
 	@State private var reminder: Reminder
+	@State private var isConfirmCancel: Bool = false
+	@State private var list: ReminderList
 	
 	init(model: ReminderModel, list: ReminderList) {
 		self.modelData = model
-		self._reminder = .init(initialValue: Reminder(list: list, title: ""))
+		self._list = .init(initialValue: list)
+		self._reminder = .init(initialValue: Reminder(list: ReminderList(name: ""), title: ""))
 	}
 	
     var body: some View {
 		NavigationStack {
-			VReminderNewDisplay(reminder: $reminder)
+			VReminderNewDisplay(reminder: $reminder, list: $list)
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
 						Button {
-							dismiss()
+							if reminder.allowCreation {
+								isConfirmCancel = true
+							} else {
+								dismiss()
+							}
 						} label: {
 							Text("Cancel")
 						}
@@ -31,15 +38,23 @@ struct VReminderNew: View {
 
 					ToolbarItem(placement: .topBarTrailing) {
 						Button {
+							let rem = reminder.cloned()
+							list.append(rem)
 							dismiss()
 						} label: {
 							Text("Add")
+								.bold()
 						}
 						.disabled(!reminder.allowCreation)
 					}
 				}
 				.navigationTitle("New Reminder")
 				.navigationBarTitleDisplayMode(.inline)
+				.confirmationDialog("", isPresented: $isConfirmCancel, titleVisibility: .hidden) {
+					Button("Discard Changes", role: .destructive) {
+						dismiss()
+					}
+				}
 		}
     }
 }

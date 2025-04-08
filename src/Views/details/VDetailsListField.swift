@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct VDetailsListField: View {
-	@Binding var reminder: Reminder
+	@Binding var list: ReminderList
 	let isNewItem: Bool
 	
-	init(reminder: Binding<Reminder>, isNewItem: Bool = false) {
-		self._reminder = reminder
+	init(list: Binding<ReminderList>, isNewItem: Bool = false) {
+		self._list = list
 		self.isNewItem = isNewItem
 	}
 
     var body: some View {
 		NavigationLink(destination: {
-			VReminderListSelection(reminder: $reminder, isNewItem: isNewItem)
+			VReminderListSelection(list: $list, isNewItem: isNewItem)
 		}, label: {
 			HStack(spacing: 15) {
 				Circle()
-					.foregroundStyle(reminder.list.color.uiColor)
+					.foregroundStyle(list.color.uiColor)
 					.overlay {
 						Image(systemName: "list.bullet")
 							.resizable()
@@ -35,18 +35,16 @@ struct VDetailsListField: View {
 				Text("List")
 				
 				Spacer()
-				
-				if let list = reminder.list {
-					Text(list.name)
-						.foregroundStyle(.secondary)
-				}
+
+				Text(list.name)
+					.foregroundStyle(.secondary)
 			}
 		})
     }
 }
 
 #Preview {
-	@Previewable @State var reminder: Reminder = _PCReminderListDefault.reminders[0]
-	VDetailsListField(reminder: $reminder)
+	@Previewable @State var list: ReminderList = _PCReminderListDefault
+	VDetailsListField(list: $list)
 		.padding()
 }

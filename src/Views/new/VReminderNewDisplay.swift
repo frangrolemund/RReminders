@@ -11,6 +11,12 @@ struct VReminderNewDisplay: View {
 	@Binding var reminder: Reminder
 	@State private var notes: String = ""
 	@FocusState private var isNotesFocused: Bool
+	@Binding private var list: ReminderList
+	
+	init(reminder: Binding<Reminder>, list: Binding<ReminderList>) {
+		self._reminder = reminder
+		self._list = list
+	}
 	
     var body: some View {
     	List {
@@ -40,7 +46,7 @@ struct VReminderNewDisplay: View {
     		}
     		
     		Section {
-				VDetailsListField(reminder: $reminder, isNewItem: true)
+				VDetailsListField(list: $list, isNewItem: true)
     		}
     	}
     }
@@ -48,5 +54,5 @@ struct VReminderNewDisplay: View {
 
 #Preview {
 	@Previewable @State var reminder: Reminder = .init(list: _PCReminderListDefault, title: "")
-	VReminderNewDisplay(reminder: $reminder)
+	VReminderNewDisplay(reminder: $reminder, list: $reminder.list)
 }

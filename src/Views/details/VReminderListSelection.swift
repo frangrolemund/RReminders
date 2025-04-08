@@ -9,11 +9,11 @@ import SwiftUI
 
 struct VReminderListSelection: View {
 	@Environment(ReminderModel.self) var modelData: ReminderModel
-	@Binding var reminder:Reminder
+	@Binding var reminderList: ReminderList
 	let isNewItem: Bool
 	
-	init(reminder: Binding<Reminder>, isNewItem: Bool = false) {
-		self._reminder = reminder
+	init(list: Binding<ReminderList>, isNewItem: Bool = false) {
+		self._reminderList = list
 		self.isNewItem = isNewItem
 	}
 	
@@ -21,10 +21,10 @@ struct VReminderListSelection: View {
 		List {
 			Section {
 				ForEach(modelData.lists) { list in
-					VSummaryListItem(list: list, displayStyle: reminder.list?.id == list.id ? .check : .none)
+					VSummaryListItem(list: list, displayStyle: reminderList.id == list.id ? .check : .none)
 						.background {
 							Button {
-								reminder.list = list
+								reminderList = list
 							} label: {
 								Text("")
 							}
@@ -35,7 +35,7 @@ struct VReminderListSelection: View {
 				VStack(alignment: .leading, spacing: 40) {
 					if isNewItem {
 						VStack(alignment: .center) {
-						Text("Reminder will be created in \"\(reminder.list.name)\"")
+						Text("Reminder will be created in \"\(reminderList.name)\"")
 								.font(.headline)
 								.fontWeight(.semibold)
 								.frame(maxWidth: .infinity)
@@ -59,6 +59,6 @@ struct VReminderListSelection: View {
 
 #Preview {
 	@Previewable @State var model: ReminderModel = _PCReminderModel
-	VReminderListSelection(reminder: $model.lists[0].reminders[0])
+	VReminderListSelection(list: $model.lists[0])
 		.environment(model)
 }
