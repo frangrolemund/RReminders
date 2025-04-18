@@ -54,11 +54,12 @@ struct VReminderListSelection: View {
 		.listStyle(.plain)
 		.navigationTitle("List")
 		.navigationBarTitleDisplayMode(.inline)
+		.padding(.top, -20)
     }
 }
 
 #Preview {
 	@Previewable @State var model: ReminderModel = _PCReminderModel
-	VReminderListSelection(list: $model.lists[0])
+	VReminderListSelection(list: $model.lists[0], isNewItem: true)
 		.environment(model)
 }

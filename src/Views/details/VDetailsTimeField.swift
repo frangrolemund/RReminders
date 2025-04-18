@@ -11,8 +11,15 @@ struct VDetailsTimeField: View {
 	@Binding var time: Date?
 	@Binding var isExpanded: Bool
 	
-	@State private var isOn: Bool = false
-	@State private var pendingTime: Date = .now
+	@State private var isOn: Bool
+	@State private var pendingTime: Date
+	
+	init(time: Binding<Date?>, isExpanded: Binding<Bool>) {
+		self._time = time
+		self._isExpanded = isExpanded
+		self.isOn = isExpanded.wrappedValue
+		self.pendingTime = time.wrappedValue ?? .now
+	}
 
     var body: some View {
 		VStack {
@@ -88,11 +95,19 @@ private extension VDetailsTimeField {
 
 #Preview {
 	@Previewable @State var time: Date? = nil
-	@Previewable @State var isExpanded: Bool = true
+	@Previewable @State var isExpanded: Bool = false
+	
+	@Previewable @State var time2: Date? = nil
+	@Previewable @State var isExpanded2: Bool = true
 	List {
 		Section {
 			VDetailsTimeField(time: $time, isExpanded: $isExpanded)
 			Text("More Data...")
 		}
+		
+		Section {
+			VDetailsTimeField(time: $time2, isExpanded: $isExpanded2)
+			Text("Even more Data...")
+		}		
 	}
 }

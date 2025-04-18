@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VReminderNew: View {
+	@Environment(\.modelContext) var modelContext
 	@Environment(\.dismiss) var dismiss
 	var modelData: ReminderModel
 	@State private var reminder: Reminder
@@ -40,6 +41,7 @@ struct VReminderNew: View {
 						Button {
 							let rem = reminder.cloned()
 							list.append(rem)
+							try? modelContext.save()
 							dismiss()
 						} label: {
 							Text("Add")
@@ -55,6 +57,7 @@ struct VReminderNew: View {
 						dismiss()
 					}
 				}
+				.padding(.top, -20)
 		}
     }
 }

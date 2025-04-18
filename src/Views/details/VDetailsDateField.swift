@@ -10,8 +10,15 @@ import SwiftUI
 struct VDetailsDateField: View {
 	@Binding var date: Date?
 	@Binding var isExpanded: Bool
-	@State private var isOn: Bool = false
-	@State private var pendingDate: Date = .now
+	@State private var isOn: Bool
+	@State private var pendingDate: Date
+	
+	init(date: Binding<Date?>, isExpanded: Binding<Bool>) {
+		self._date = date
+		self._isExpanded = isExpanded
+		self.isOn = isExpanded.wrappedValue
+		self.pendingDate = date.wrappedValue ?? .now
+	}
 
     var body: some View {
 		VStack {
@@ -92,11 +99,19 @@ private extension VDetailsDateField {
 #Preview {
 	@Previewable @State var date: Date? = nil
 	@Previewable @State var isExpanded: Bool = false
+	
+	@Previewable @State var date2: Date? = nil
+	@Previewable @State var isExpanded2: Bool = true
 		
 	List {
 		Section {
 			VDetailsDateField(date: $date, isExpanded: $isExpanded)
 			Text("Second line")
+		}
+		
+		Section {
+			VDetailsDateField(date: $date2, isExpanded: $isExpanded2)
+			Text("Fourth line")
 		}
 	}
 	.onChange(of: date) { oldValue, newValue in

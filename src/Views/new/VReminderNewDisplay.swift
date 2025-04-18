@@ -25,6 +25,7 @@ struct VReminderNewDisplay: View {
 				TextEditor(text: $notes)
 					.focused($isNotesFocused)
 					.frame(minHeight: 75, maxHeight: 175)
+					.offset(x: -2)
 					.overlay {
 						VStack(alignment: .leading) {
 							Text("Notes")
@@ -39,7 +40,17 @@ struct VReminderNewDisplay: View {
     		
     		Section {
 				NavigationLink {
-					Text("Destination")
+					VDetailsDisplay(reminder: reminder, style: .new)
+						.navigationTitle("Details")
+						.toolbar {
+							ToolbarItem {
+								Button(action: {}) {
+									Text("Add")
+										.bold()
+								}
+								.disabled(true)
+							}
+						}
 				} label: {
 					Text("Details")
 				}

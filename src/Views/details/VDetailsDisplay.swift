@@ -17,18 +17,33 @@ struct VDetailsDisplay: View {
 	@State private var tExpanded: Bool = false
 	@State private var repeats: Reminder.Repeats?
 	@State private var list: ReminderList
+	private let style: Style
 	
-	init(reminder: Reminder) {
-		self.reminder = reminder
+	enum Style {
+		case full
+		case new
+	}
+	
+	init(reminder: Reminder, style: Style = .full) {
+		self.reminder   = reminder
+		self.style      = style
+		let nDate       = reminder.notifyOn?.date
+		self.notifyDate = nDate
+		let nTime       = reminder.notifyOn?.time
+		self.notifyTime = nTime
+		self.dExpanded  = (nDate != nil && nTime == nil)
+		self.tExpanded  = (nTime != nil)
 		self._list = .init(initialValue: reminder.list)
 		self._notes = State(initialValue: reminder.notes ?? "")
 	}
 	
     var body: some View {
 		List {
-			Section {
-				TextField("Title", text: $reminder.title)
-				TextField("Notes", text: $notes, axis: .vertical)
+			if style == .full {
+				Section {
+					TextField("Title", text: $reminder.title)
+					TextField("Notes", text: $notes, axis: .vertical)
+				}
 			}
 			
 			Section {
@@ -61,7 +76,9 @@ struct VDetailsDisplay: View {
 			
 			Section {
 				VDetailsPriorityField(priority: $reminder.priority)
-				VDetailsListField(list: $list)
+				if style == .full {
+					VDetailsListField(list: $list)
+				}
 			}
 		}
 		.listSectionSpacing(15)
@@ -88,11 +105,18 @@ struct VDetailsDisplay: View {
 }
 
 
-#Preview {
+#Preview("Full") {
 	NavigationStack {
 		VDetailsDisplay(reminder: _PCReminderListDefault[1])
 	}
 }
+
+#Preview("New") {
+	NavigationStack {
+		VDetailsDisplay(reminder: _PCReminderListDefault[1], style: .new)
+	}
+}
+
 
 
 private extension VDetailsDisplay {

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct VDetailsPriorityField: View {
 	@Binding var priority: Reminder.Priority?
-	@State private var editPrio: PriorityType = .none
+	@State private var editPrio: PriorityType
 	
 	init(priority: Binding<Reminder.Priority?>) {
 		self._priority = priority
-		self.editPrio = editPrio
+		self.editPrio  = PriorityType.fromReminderPrio(priority.wrappedValue)
 	}
 
     var body: some View {
@@ -64,6 +64,15 @@ extension VDetailsPriorityField {
 				return .medium
 			case .high:
 				return .high
+			}
+		}
+		
+		static func fromReminderPrio(_ prio: Reminder.Priority?) -> PriorityType {
+			guard let prio else { return .none }
+			switch prio {
+			case .high: return .high
+			case .medium: return .medium
+			case .low: return .low
 			}
 		}
 	}

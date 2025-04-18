@@ -121,9 +121,19 @@ extension Reminder {
 		var date: Date {
 			switch self {
 			case .date(let dt, _):
-					return dt
+				return dt
 			case .dateTime(let dt, _):
-					return dt
+				return dt
+			}
+		}
+		
+		var time: Date? {
+			switch self {
+			case .date(_, _):
+				return nil
+				
+			case .dateTime(let dt, _):
+				return dt
 			}
 		}
 	}
