@@ -23,7 +23,9 @@ struct VReminderNew: View {
 	
     var body: some View {
 		NavigationStack {
-			VReminderNewDisplay(reminder: $reminder, list: $list)
+			VReminderNewDisplay(reminder: $reminder, list: $list, addAction: {
+				addReminderAndDismiss()
+			})
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
 						Button {
@@ -39,10 +41,7 @@ struct VReminderNew: View {
 
 					ToolbarItem(placement: .topBarTrailing) {
 						Button {
-							let rem = reminder.cloned()
-							list.append(rem)
-							try? modelContext.save()
-							dismiss()
+							addReminderAndDismiss()
 						} label: {
 							Text("Add")
 								.bold()
@@ -60,6 +59,15 @@ struct VReminderNew: View {
 				.padding(.top, -20)
 		}
     }
+}
+
+extension VReminderNew {
+	private func addReminderAndDismiss() {
+		let rem = reminder.cloned()
+		list.append(rem)
+		try? modelContext.save()
+		dismiss()
+	}
 }
 
 

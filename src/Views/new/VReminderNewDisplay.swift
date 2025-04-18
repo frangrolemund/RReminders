@@ -12,10 +12,14 @@ struct VReminderNewDisplay: View {
 	@State private var notes: String = ""
 	@FocusState private var isNotesFocused: Bool
 	@Binding private var list: ReminderList
+	private var addAction: AddAction?
 	
-	init(reminder: Binding<Reminder>, list: Binding<ReminderList>) {
+	typealias AddAction = () -> Void
+	
+	init(reminder: Binding<Reminder>, list: Binding<ReminderList>, addAction: AddAction? = nil) {
 		self._reminder = reminder
 		self._list = list
+		self.addAction = addAction
 	}
 	
     var body: some View {
@@ -44,11 +48,13 @@ struct VReminderNewDisplay: View {
 						.navigationTitle("Details")
 						.toolbar {
 							ToolbarItem {
-								Button(action: {}) {
+								Button(action: {
+									self.addAction?()
+								}) {
 									Text("Add")
 										.bold()
 								}
-								.disabled(true)
+								.disabled(!reminder.allowCreation)
 							}
 						}
 				} label: {
