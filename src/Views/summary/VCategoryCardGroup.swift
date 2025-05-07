@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct VCategoryCardGroup: View {
-	let categories: [ReminderModel.SummaryCategoryConfig]
-	let countedWith: (_ cat: ReminderModel.SummaryCategory) -> Int
+	let categories: [ReminderStore.SummaryCategoryConfig]
+	let countedWith: (_ cat: ReminderStore.SummaryCategory) -> Int
 	
     var body: some View {
 		let vCat = visibleCategories
@@ -38,7 +38,7 @@ struct VCategoryCardGroup: View {
 		}
     }
     
-	private var visibleCategories: [ReminderModel.SummaryCategoryConfig] {
+	private var visibleCategories: [ReminderStore.SummaryCategoryConfig] {
 		return categories.filter({$0.isVisible})
 	}
 }

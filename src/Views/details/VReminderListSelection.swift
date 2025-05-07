@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct VReminderListSelection: View {
-	@Environment(ReminderModel.self) var modelData: ReminderModel
-	@Binding var reminderList: ReminderList
+	@Environment(VMReminderStore.self) var modelData: VMReminderStore
+	@Binding var reminderList: VMReminderList
 	let isNewItem: Bool
 	
-	init(list: Binding<ReminderList>, isNewItem: Bool = false) {
+	init(list: Binding<VMReminderList>, isNewItem: Bool = false) {
 		self._reminderList = list
 		self.isNewItem = isNewItem
 	}
@@ -59,7 +59,7 @@ struct VReminderListSelection: View {
 }
 
 #Preview {
-	@Previewable @State var model: ReminderModel = _PCReminderModel
+	@Previewable @State var model: VMReminderStore = _PCReminderModel
 	VReminderListSelection(list: $model.lists[0], isNewItem: true)
 		.environment(model)
 }

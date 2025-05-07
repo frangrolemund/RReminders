@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VCategoryCard: View {
-	let category: ReminderModel.SummaryCategory
+	let category: ReminderStore.SummaryCategory
 	let count: Int
 	
     var body: some View {

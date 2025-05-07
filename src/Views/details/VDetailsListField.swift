@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct VDetailsListField: View {
-	@Binding var list: ReminderList
+	@Binding var list: VMReminderList
 	let isNewItem: Bool
 	
-	init(list: Binding<ReminderList>, isNewItem: Bool = false) {
+	init(list: Binding<VMReminderList>, isNewItem: Bool = false) {
 		self._list = list
 		self.isNewItem = isNewItem
 	}
@@ -44,7 +44,7 @@ struct VDetailsListField: View {
 }
 
 #Preview {
-	@Previewable @State var list: ReminderList = _PCReminderListDefault
+	@Previewable @State var list: VMReminderList = _PCReminderListDefault
 	VDetailsListField(list: $list)
 		.padding()
 }

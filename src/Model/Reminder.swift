@@ -2,7 +2,7 @@
 //  Reminder.swift
 //  RReminders
 //
-//  Created by Francis Grolemund on 3/11/25.
+//  Created by Francis Grolemund on 4/30/25.
 //
 
 import Foundation
@@ -10,104 +10,40 @@ import SwiftData
 
 // - reminders are unique instances of a note that are tracked to completion.
 @Model
-final class Reminder: Identifiable, Equatable {
-	static func == (lhs: Reminder, rhs: Reminder) -> Bool {
-		return lhs.id == rhs.id &&
-				lhs.created == rhs.created &&
-				lhs.title == rhs.title &&
-				lhs.notes == rhs.notes &&
-				lhs.notifyOn == rhs.notifyOn &&
-				lhs.priority == rhs.priority &&
-				lhs.completedOn == rhs.completedOn
-	}
-
+final class Reminder: Identifiable {
 	@Attribute(.unique) private(set) var id: UUID
+	var arrayOrder: Int		// - used by the ReminderList to preserve ordering
 	private(set) var created: Date
-	var title: String { didSet { isModified = true } }
-	var notes: String? { didSet { isModified = true } }
-	var notifyOn: RemindOn? { didSet { isModified = true } }
-	var priority: Priority? { didSet { isModified = true } }
-	var completedOn: Date? { didSet { isModified = true } }
+	var title: String
+	var notes: String?
+	var notifyOn: RemindOn?
+	var priority: Priority?
+	var completedOn: Date?
 	
-	// ...convenience reference to the enclosing list
-	weak var list: ReminderList!
-	
-	// ...track this explicitly to support .onChange with this instance
-	@Transient var isModified: Bool = false // - not persisted
+	var list: ReminderList?
 	
 	init(id: UUID = .init(),
-		created: String? = nil,
-		list: ReminderList,
+		created: Date? = nil,
 		title: String,
 		notes: String? = nil,
 		notifyOn: RemindOn? = nil,
 		priority: Priority? = nil,
-		completedOn: Date? = nil) {
+		completedOn: Date? = nil,
+		list: ReminderList? = nil) {
 		self.id = id
-		self.created = ISO8601DateFormatter().date(from: created ?? "") ?? Date()
-		self.list = list
+		self.arrayOrder = 0
+		self.created = created ?? Date()
 		self.title = title
 		self.notes = notes
 		self.notifyOn = notifyOn
 		self.priority = priority
 		self.completedOn = completedOn
-	}
-	
-	// - add CodingKeys to both encode using non-private names but to also omit the extra @Observable property
-	private enum CodingKeys: String, CodingKey {
-		case id = "id"
-		case created = "created"
-		case _title = "title"
-		case _notes = "notes"
-		case _notifyOn = "notifyOn"
-		case _priority = "priority"
-		case _completedOn = "completedOn"
+		self.list = list
 	}
 }
 
 // - types/computed
 extension Reminder {
-	var allowCreation: Bool {
-		return !(title.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty && self.list != nil
-	}
-
-	var isCompleted: Bool {
-		get { completedOn != nil }
-		set {
-			if newValue {
-				completedOn = completedOn == nil ? Date() : completedOn
-			} else {
-				completedOn = nil
-			}
-		}
-	}
-	
-	
-	var dueDate: Date { notifyOn?.date ?? Date.distantFuture }
-	
-	
-	func cloned() -> Reminder {
-		return .init(id: self.id,
-				created: self.created.ISO8601Format(),
-				list: self.list,
-				title: self.title,
-				notes: self.notes,
-				notifyOn: self.notifyOn,
-				priority: self.priority,
-				completedOn: self.completedOn)
-	}
-		
-	func update(from other: Reminder) {
-		guard self.id == other.id && self != other else { return }
-		self.title = other.title
-		self.notes = other.notes
-		self.notifyOn = other.notifyOn
-		self.priority = other.priority
-		self.completedOn = other.completedOn
-		self.isModified = false
-	}
-
-
 	enum Priority: Int, CaseIterable, Codable, Equatable {
 		case low = 0
 		case medium = 1
@@ -115,8 +51,12 @@ extension Reminder {
 	}
 
 	enum RemindOn : Codable, Equatable {
-		case date(date: Date, repeats: Repeats? = nil)
-		case dateTime(dateTime: Date, repeats: Repeats? = nil)
+		// FYI: the 'repeats' associated value was originally an Optional, but SwiftData
+		//      was unable to decode that optional successfully once assigned and would
+		//      hit an internal breakpoint if the Reminder were accessed later.
+		//      Changing it to non-Optional allows it to work
+		case date(date: Date, repeats: Repeats = .never)
+		case dateTime(dateTime: Date, repeats: Repeats = .never)
 		
 		var date: Date {
 			switch self {
@@ -145,6 +85,7 @@ extension Reminder {
 		var ends: Date?
 		var isNeverEnding: Bool { self.ends == nil }
 		
+		static let never = Repeats(id: .never, ends: nil)
 		static let daily = Repeats(id: .daily)
 		static let weekdays = Repeats(id: .weekdays)
 		static let weekends = Repeats(id: .weekends)
@@ -158,6 +99,7 @@ extension Reminder {
 
 		enum Period : Codable, CaseIterable, Identifiable {
 			var id: Period { self }
+			case never
 			case daily
 			case weekdays
 			case weekends
@@ -170,3 +112,4 @@ extension Reminder {
 		}
 	}
 }
+

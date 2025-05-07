@@ -23,6 +23,7 @@ struct VSearchField: View {
 				Image(systemName: "magnifyingglass")
 				TextField("search", text: $searchText, prompt: Text("Search").foregroundStyle(Color.searchFieldText))
 					.textFieldStyle(.plain)
+					.foregroundStyle(.black)
 				Button {
 					// TODO: microphone
 				} label: {

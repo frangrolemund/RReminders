@@ -1,5 +1,5 @@
 //
-//  _VTextEd.swift
+//  _VExpTextEd.swift
 //  RReminders
 //
 //  Created by Francis Grolemund on 4/7/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-fileprivate struct _VTextEd: View {
+fileprivate struct _VExpTextEd: View {
 	@State private var text: String = ""
 	@State private var text2: String = ""
 	@FocusState private var isFocused: Bool
@@ -30,5 +30,5 @@ fileprivate struct _VTextEd: View {
 }
 
 #Preview {
-    _VTextEd()
+    _VExpTextEd()
 }

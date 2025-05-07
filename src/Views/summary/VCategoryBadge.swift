@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct VCategoryBadge: View {
-	let category: ReminderModel.SummaryCategory
+	let category: ReminderStore.SummaryCategory
 	
-	init(_ category: ReminderModel.SummaryCategory) {
+	init(_ category: ReminderStore.SummaryCategory) {
 		self.category = category
 	}
 
@@ -43,7 +43,7 @@ struct VCategoryBadge: View {
 
 #Preview {
 	HStack {
-		ForEach(ReminderModel.SummaryCategory.allCases) { cat in
+		ForEach(ReminderStore.SummaryCategory.allCases) { cat in
 			VCategoryBadge(cat)
 		}
 	}

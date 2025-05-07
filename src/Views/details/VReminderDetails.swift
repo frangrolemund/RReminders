@@ -9,24 +9,22 @@ import SwiftUI
 
 struct VReminderDetails: View {
 	@Environment(\.dismiss) var dismiss
-	@Bindable var reminder: Reminder
-	@State private var pendingReminder: Reminder
+	@Bindable var reminder: VMReminder
 	@State private var isConfirmCancel: Bool = false
 	
-	init(reminder: Reminder) {
+	init(reminder: VMReminder) {
 		self.reminder = reminder
-		self._pendingReminder = State(initialValue: reminder.cloned())
 	}
 
     var body: some View {
 		NavigationStack {
-			VDetailsDisplay(reminder: pendingReminder)
+			VDetailsDisplay(reminder: reminder)
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle("Details")
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
 						Button("Cancel") {
-							if pendingReminder.isModified {
+							if reminder.isModified {
 								isConfirmCancel = true
 							} else {
 								dismiss()
@@ -36,7 +34,7 @@ struct VReminderDetails: View {
 					
 					ToolbarItem(placement: .topBarTrailing) {
 						Button("Done") {
-							reminder.update(from: pendingReminder)
+							reminder.save()
 							dismiss()
 						}
 						.fontWeight(.semibold)

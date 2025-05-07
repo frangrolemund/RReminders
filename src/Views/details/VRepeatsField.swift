@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VRepeatsField: View {
-	@Binding var repeats: Reminder.Repeats?
+	@Binding var repeats: Reminder.Repeats
 
     var body: some View {
         HStack(spacing: 15) {
@@ -27,7 +27,7 @@ struct VRepeatsField: View {
 			
 			Spacer()
 			
-			Text(repeats == nil ? "Never" : repeats!.longDescription)
+			Text(repeats.longDescription)
 				.foregroundStyle(.secondary)
 		}
     }
@@ -36,7 +36,7 @@ struct VRepeatsField: View {
 #Preview {
 	Form {
 		Section {
-			VRepeatsField(repeats: .constant(nil))
+			VRepeatsField(repeats: .constant(.never))
 		}
 	}
 }

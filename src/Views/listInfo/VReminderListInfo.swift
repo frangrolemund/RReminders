@@ -8,34 +8,32 @@
 import SwiftUI
 
 struct VReminderListInfo: View {
-	@Environment(ReminderModel.self) var model: ReminderModel
+	@Environment(VMReminderStore.self) var model: VMReminderStore
 	@Environment(\.dismiss) var dismiss
 	
+	@State private var list: VMReminderList
 	@State private var listColor: ReminderList.Color = .blue
 	@State private var listTitle: String = ""
-	@State private var initialTitle: String = ""
 	@State private var isConfirmCancel: Bool = false
+	private let listAdded: ReminderListAdded?
 	
-	var list: ReminderList?
-	
-	init(list: ReminderList? = nil) {
-		self.list = list
-		if let list {
-			_listColor = State(initialValue: list.color)
-			_listTitle = State(initialValue: list.name)
-			_initialTitle = State(initialValue: list.name)
-		}
+	typealias ReminderListAdded = (_ list: VMReminderList) -> Void
+	init(list: VMReminderList, added: ReminderListAdded? = nil) {
+		self._list      = .init(initialValue: list)
+		self.listAdded = added
+		self._listColor = State(initialValue: list.color)
+		self._listTitle = State(initialValue: list.name)
 	}
 	
     var body: some View {
 		NavigationStack {
 			VListInfoDisplay(listColor: $listColor, listTitle: $listTitle)
 				.navigationBarTitleDisplayMode(.inline)
-				.navigationTitle(list == nil ? "New List" : "List Info")
+				.navigationTitle(list.isNew ? "New List" : "List Info")
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading, content: {
 						Button(role: .cancel) {
-							if listTitle != initialTitle {
+							if list.isModified {
 								isConfirmCancel = true
 							} else {
 								dismiss()
@@ -49,11 +47,12 @@ struct VReminderListInfo: View {
 			
 					ToolbarItem {
 						Button {
-							if let list = list {
-								list.name = listTitle
-								list.color = listColor
-							} else {
-								model.lists.append(.init(name: listTitle, color: listColor))
+							let isNew = list.isNew
+							list.save()
+							if isNew, !list.isNew, let listAdded {
+								Task {
+									listAdded(list)
+								}
 							}
 							dismiss()
 						} label: {
@@ -67,14 +66,22 @@ struct VReminderListInfo: View {
 				}
 				.confirmationDialog("", isPresented: $isConfirmCancel, titleVisibility: .hidden, actions: {
 					Button("Discard Changes", role: .destructive) {
+						list.revert()
 						dismiss()
 					}
 				})
+				.onChange(of: listTitle, { _, newValue in
+					list.name = newValue
+				})
+				.onChange(of: listColor) { _, newValue in
+					list.color = newValue
+				}
 		}
     }
 }
 
 #Preview {
-    VReminderListInfo()
-		.environment(_PCReminderModel)
+	@Previewable @State var model = _PCReminderModel
+    VReminderListInfo(list: model.addReminderList())
+		.environment(model)
 }

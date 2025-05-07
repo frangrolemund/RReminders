@@ -9,68 +9,37 @@
 import SwiftUI
 
 struct VReminderSummary: View {
-	@Environment(ReminderModel.self) var modelData
-	@State private var localEditMode: EditMode = .inactive
-	@State private var isListInfoDisplayed: Bool = false
+	@Environment(VMReminderStore.self) var modelData
+	@State private var isSearching: Bool = false
+	@State private var isNewListDisplayed: Bool = false
 	@State private var isNewReminderDisplayed: Bool = false
+	@State private var navPath: NavigationPath = .init()
 
 	var body: some View {
-		NavigationStack {
+		NavigationStack(path: $navPath) {
 			ZStack {
-				VSummaryDisplay()
-				VStack(alignment: .leading) {
-					Spacer()
-					HStack {
-						Button {
-							isNewReminderDisplayed = true
-						} label: {
-							HStack(spacing: 10) {
-								Circle()
-									.reminderIconSized(iconDimension: 25)
-									.overlay {
-										Image(systemName: "plus")
-											.foregroundStyle(.white)
-									}
-								Text("New Reminder")
-							}
-							.bold()
-						}
-						.disabled(modelData.lists.isEmpty)
-						
-						Spacer()
-						
-						Button {
-							isListInfoDisplayed = true
-						} label: {
-							Text("Add List")
-						}
-					}
-					.padding()
-				}
+				VSummaryDisplay(isSearching: $isSearching)
+
+				BottomBar(modelData, $isNewListDisplayed, $isNewReminderDisplayed)
+					.opacity(isSearching ? 0.0 : 1.0)
+					.offset(y: isSearching ? 50 : 0)
 			}
-			.toolbar {
-				// - EditButton won't propagate state to children through this
-				//   environmental context, so this is implemented explicitly.
-				ToolbarItem {
-					Button(isEditing ? "Done" : "Edit") {
-						withAnimation {
-							localEditMode = isEditing ? .inactive : .active
-						}
+			.navigationDestination(for: VMReminderList.self, destination: { list in
+				VReminderGenericList(list: list)
+			})
+			.sheet(isPresented: $isNewListDisplayed, content: {
+				VReminderListInfo(list: modelData.addReminderList(), added: { (newList) in
+					Task {
+						try? await Task.sleep(for: .milliseconds(400))
+						navPath.append(newList)
 					}
-					.fontWeight(isEditing ? .bold : .regular)
-				}
-			}
-			.sheet(isPresented: $isListInfoDisplayed, content: {
-				VReminderListInfo()
+				})
 			})
 			.sheet(isPresented: $isNewReminderDisplayed, content: {
 				VReminderNew(model: modelData, list: modelData.lists.first!)
 			})
-			.environment(\.editMode, $localEditMode)
 		}
     }
-    
-	private var isEditing: Bool { localEditMode == .active }
 }
 
 
@@ -82,4 +51,51 @@ struct VReminderSummary: View {
 #Preview("New") {
 	VReminderSummary()
 		.environment(_PCReminderModelNew)
+}
+
+
+fileprivate struct BottomBar: View {
+	var modelData: VMReminderStore
+	@Binding var isNewListDisplayed: Bool
+	@Binding var isNewReminderDisplayed: Bool
+	
+	init(_ modelData: VMReminderStore,
+		 _ isNewListDisplayed: Binding<Bool>,
+		 _ isNewReminderDisplayed: Binding<Bool>) {
+		self.modelData = modelData
+		self._isNewListDisplayed = isNewListDisplayed
+		self._isNewReminderDisplayed = isNewReminderDisplayed
+	}
+	
+	var body: some View {
+		VStack(alignment: .leading) {
+			Spacer()
+			HStack {
+				Button {
+					isNewReminderDisplayed = true
+				} label: {
+					HStack(spacing: 10) {
+						Circle()
+							.reminderIconSized(iconDimension: 25)
+							.overlay {
+								Image(systemName: "plus")
+									.foregroundStyle(.white)
+							}
+						Text("New Reminder")
+					}
+					.bold()
+				}
+				.disabled(modelData.lists.isEmpty)
+						
+				Spacer()
+						
+				Button {
+					isNewListDisplayed = true
+				} label: {
+					Text("Add List")
+				}
+			}
+			.padding()
+		}
+	}
 }

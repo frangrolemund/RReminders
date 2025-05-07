@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct VReminderListItem: View {
-	@Bindable var reminder: Reminder
+	@Bindable var reminder: VMReminder
 	@State private var title: String
 	@State private var notes: String
 	private let isSelected: Bool
@@ -21,7 +21,7 @@ struct VReminderListItem: View {
 		case notes
 	}
 		
-	init(reminder: Reminder, isSelected: Bool = false) {
+	init(reminder: VMReminder, isSelected: Bool = false) {
 		self.reminder = reminder
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
@@ -177,11 +177,11 @@ fileprivate struct ReminderRemindOnText: View {
 		switch remindOn {
 		case .date(let dt, let repeats):
 			return (DateFormatter.localizedString(from: dt, dateStyle: .short, timeStyle: .none),
-				repeats?.longDescription)
+				repeats.longDescription)
 
 		case .dateTime(let dt, let repeats):
 			return (DateFormatter.localizedString(from: dt, dateStyle: .short, timeStyle: .short),
-				repeats?.longDescription)
+				repeats.longDescription)
 		}
 	}
 }

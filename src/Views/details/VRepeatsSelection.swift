@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct VRepeatsSelection: View {
-	@Binding var repeats: Reminder.Repeats?
+	@Binding var repeats: Reminder.Repeats
 
     var body: some View {
 		List {
-			VRepeatsRowItem(text: "Never", isSelected: repeats == nil)
-				.onTapGesture {
-					repeats = nil
-				}
-			
 			ForEach(Reminder.Repeats.allCases) { rep in
 				VRepeatsRowItem(text: rep.description, isSelected: repeats == rep)
 					.onTapGesture {
@@ -48,5 +43,5 @@ fileprivate struct VRepeatsRowItem: View {
 }
 
 #Preview {
-	@Previewable @State var repeats: Reminder.Repeats?
+	@Previewable @State var repeats: Reminder.Repeats = .never
 	VRepeatsSelection(repeats: $repeats)}

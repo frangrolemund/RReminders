@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct VEndRepeatsSelection: View {
-	@Binding var repeats: Reminder.Repeats?
+	@Binding var repeats: Reminder.Repeats
 	@State private var endDate: Date = Date.now
 	
-	init(repeats: Binding<Reminder.Repeats?>) {
+	init(repeats: Binding<Reminder.Repeats>) {
 		self._repeats = repeats
 	}
 
     var body: some View {
     	List {
-			let isForever = repeats?.ends == nil
+			let isForever = repeats.ends == nil
 			VEndRepeatRow(text: "Repeat Forever", isSelected: isForever)
 				.onTapGesture {
-                if let curValue = repeats {
-                    repeats = .init(id: curValue.id)
+                if repeats != .never {
+                    repeats = .init(id: repeats.id)
                 }
             }
 			
 			VStack {
 				VEndRepeatRow(text: "End Repeat Date", isSelected: !isForever)
 					.onTapGesture {
-						if let curValue = repeats {
-	                        if curValue.ends == nil {
+						if repeats != .never {
+	                        if repeats.ends == nil {
 								endDate = Date.now
         	                }
             	        }
@@ -42,7 +42,7 @@ struct VEndRepeatsSelection: View {
 				}
 			}
 			.onChange(of: endDate) { _, newValue in
-				repeats = .init(id: repeats?.id ?? .daily, ends: newValue)
+				repeats = .init(id: repeats.id, ends: newValue)
 			}
     	}
 		.navigationTitle("End Repeat")
@@ -51,7 +51,7 @@ struct VEndRepeatsSelection: View {
 
 
 #Preview {
-	@Previewable @State var repeats: Reminder.Repeats? = .biweekly
+	@Previewable @State var repeats: Reminder.Repeats = .biweekly
 	VEndRepeatsSelection(repeats: $repeats)
 }
 

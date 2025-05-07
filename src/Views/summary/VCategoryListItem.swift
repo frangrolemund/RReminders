@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VCategoryListItem: View {
-	@Binding var catConfig: ReminderModel.SummaryCategoryConfig
+	@Binding var catConfig: ReminderStore.SummaryCategoryConfig
 	@State var isToggled: Bool = true
 	
     var body: some View {

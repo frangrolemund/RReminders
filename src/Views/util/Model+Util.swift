@@ -34,6 +34,7 @@ extension Reminder.Repeats: CustomStringConvertible {
 		case .every3Months: return "Every 3 Months"
 		case .every6Months: return "Every 6 Months"
 		case .yearly: return "Yearly"
+		case .never: return "Never"
 		}
 	}
 	
@@ -45,7 +46,7 @@ extension Reminder.Repeats: CustomStringConvertible {
 	}
 }
 
-extension ReminderModel.SummaryCategory: CustomStringConvertible {
+extension ReminderStore.SummaryCategory: CustomStringConvertible {
 	var description: String {
 		switch self {
 		case .today: return "Today"

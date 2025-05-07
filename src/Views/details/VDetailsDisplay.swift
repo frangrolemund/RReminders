@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 struct VDetailsDisplay: View {
-	@Bindable var reminder: Reminder
+	@Bindable var reminder: VMReminder
 	@State private var notes: String
 	@State private var notifyDate: Date?
 	@State private var notifyTime: Date?
 	@State private var dExpanded: Bool = false
 	@State private var tExpanded: Bool = false
-	@State private var repeats: Reminder.Repeats?
-	@State private var list: ReminderList
+	@State private var repeats: Reminder.Repeats
+	@State private var list: VMReminderList
 	private let style: Style
 	
 	enum Style {
@@ -24,7 +24,7 @@ struct VDetailsDisplay: View {
 		case new
 	}
 	
-	init(reminder: Reminder, style: Style = .full) {
+	init(reminder: VMReminder, style: Style = .full) {
 		self.reminder   = reminder
 		self.style      = style
 		let nDate       = reminder.notifyOn?.date
@@ -33,6 +33,7 @@ struct VDetailsDisplay: View {
 		self.notifyTime = nTime
 		self.dExpanded  = (nDate != nil && nTime == nil)
 		self.tExpanded  = (nTime != nil)
+		self.repeats    = .never
 		self._list = .init(initialValue: reminder.list)
 		self._notes = State(initialValue: reminder.notes ?? "")
 	}
@@ -60,7 +61,7 @@ struct VDetailsDisplay: View {
 						VRepeatsField(repeats: $repeats)
 					}
 					
-					if (repeats != nil) {
+					if (repeats != .never) {
 						NavigationLink {
 							VEndRepeatsSelection(repeats: $repeats)
 						} label: {
@@ -151,7 +152,7 @@ private extension VDetailsDisplay {
 	}
 	
 	private var endRepeatsDescription: String {
-		guard let repeats = repeats else { return "" }
+		guard repeats != .never else { return "" }
 		guard let ends = repeats.ends else { return "Never" }
 		
 		let df = DateFormatter()

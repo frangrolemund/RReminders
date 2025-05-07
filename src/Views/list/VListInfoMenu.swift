@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VListInfoMenu: View {
-	@Bindable var list: ReminderList
+	@Bindable var list: VMReminderList
 	@State private var isShowingListInfo: Bool = false
 	
     var body: some View {
@@ -26,9 +26,13 @@ struct VListInfoMenu: View {
 			}
 			
 			Button {
-				print("TODO: show completed")
+				list.showCompleted.toggle()
 			} label: {
-				Label("Show Completed", systemImage: "eye")
+				if list.showCompleted {
+					Label("Hide Completed", systemImage: "eye.slash")
+				} else {
+					Label("Show Completed", systemImage: "eye")
+				}
 			}
 			
 		} label: {
@@ -42,6 +46,6 @@ struct VListInfoMenu: View {
 }
 
 #Preview {
-	@Previewable @State var list: ReminderList = _PCReminderListAlt
+	@Previewable @State var list: VMReminderList = _PCReminderListAlt
 	VListInfoMenu(list: list)
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct VReminderGenericList: View {
-	@Bindable var list: ReminderList
+	@Bindable var list: VMReminderList
 
     var body: some View {
 		List {
@@ -20,7 +20,7 @@ struct VReminderGenericList: View {
 				.selectionDisabled()
 				.listRowSeparator(.hidden)
 		
-			ForEach(list.reminders) { (reminder: Reminder) in
+			ForEach(list.reminders) { (reminder: VMReminder) in
 				VReminderListItem(reminder: reminder)
 					.tag(reminder.id)
 			}

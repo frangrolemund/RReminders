@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct VReminderNewDisplay: View {
-	@Binding var reminder: Reminder
+	@Binding var reminder: VMReminder
 	@State private var notes: String = ""
 	@FocusState private var isNotesFocused: Bool
-	@Binding private var list: ReminderList
+	@Binding private var list: VMReminderList
 	private var addAction: AddAction?
 	
 	typealias AddAction = () -> Void
 	
-	init(reminder: Binding<Reminder>, list: Binding<ReminderList>, addAction: AddAction? = nil) {
+	init(reminder: Binding<VMReminder>, list: Binding<VMReminderList>, addAction: AddAction? = nil) {
 		self._reminder = reminder
 		self._list = list
 		self.addAction = addAction
@@ -39,6 +39,9 @@ struct VReminderNewDisplay: View {
 								.visible(!isNotesFocused && notes.isEmpty)
 							Spacer()
 						}
+					}
+					.onChange(of: notes) { _, newValue in
+						reminder.notes = newValue.isEmpty ? nil : newValue
 					}
     		}
     		
@@ -70,6 +73,6 @@ struct VReminderNewDisplay: View {
 }
 
 #Preview {
-	@Previewable @State var reminder: Reminder = .init(list: _PCReminderListDefault, title: "")
+	@Previewable @State var reminder: VMReminder = _PCReminderListDefault.addReminder()
 	VReminderNewDisplay(reminder: $reminder, list: $reminder.list)
 }

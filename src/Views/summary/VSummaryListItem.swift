@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VSummaryListItem: View {
-	let list: ReminderList
+	let list: VMReminderList
 	let displayStyle: DisplayStyle
 	
 	enum DisplayStyle {
@@ -17,7 +17,7 @@ struct VSummaryListItem: View {
 		case check
 	}
 
-	init(list: ReminderList, displayStyle: DisplayStyle = .none) {
+	init(list: VMReminderList, displayStyle: DisplayStyle = .none) {
 		self.list = list
 		self.displayStyle = displayStyle
 	}

@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct VReminderNew: View {
-	@Environment(\.modelContext) var modelContext
 	@Environment(\.dismiss) var dismiss
-	var modelData: ReminderModel
-	@State private var reminder: Reminder
+	var modelData: VMReminderStore
+	@State private var reminder: VMReminder
 	@State private var isConfirmCancel: Bool = false
-	@State private var list: ReminderList
+	@State private var list: VMReminderList
 	
-	init(model: ReminderModel, list: ReminderList) {
+	init(model: VMReminderStore, list: VMReminderList) {
 		self.modelData = model
 		self._list = .init(initialValue: list)
-		self._reminder = .init(initialValue: Reminder(list: ReminderList(name: ""), title: ""))
+		self._reminder = .init(initialValue: list.addReminder())
 	}
 	
     var body: some View {
 		NavigationStack {
 			VReminderNewDisplay(reminder: $reminder, list: $list, addAction: {
-				addReminderAndDismiss()
+				saveDismiss()
 			})
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
@@ -32,7 +31,7 @@ struct VReminderNew: View {
 							if reminder.allowCreation {
 								isConfirmCancel = true
 							} else {
-								dismiss()
+								revertDismiss()
 							}
 						} label: {
 							Text("Cancel")
@@ -41,7 +40,7 @@ struct VReminderNew: View {
 
 					ToolbarItem(placement: .topBarTrailing) {
 						Button {
-							addReminderAndDismiss()
+							saveDismiss()
 						} label: {
 							Text("Add")
 								.bold()
@@ -53,26 +52,32 @@ struct VReminderNew: View {
 				.navigationBarTitleDisplayMode(.inline)
 				.confirmationDialog("", isPresented: $isConfirmCancel, titleVisibility: .hidden) {
 					Button("Discard Changes", role: .destructive) {
-						dismiss()
+						revertDismiss()
 					}
 				}
 				.padding(.top, -20)
+				.onChange(of: list) { _, newValue in
+					reminder.list = newValue
+				}
 		}
     }
 }
 
 extension VReminderNew {
-	private func addReminderAndDismiss() {
-		let rem = reminder.cloned()
-		list.append(rem)
-		try? modelContext.save()
+	private func saveDismiss() {
+		reminder.save()
+		dismiss()
+	}
+	
+	private func revertDismiss() {
+		reminder.revert()
 		dismiss()
 	}
 }
 
 
 #Preview {
-	@Previewable @State var modelData: ReminderModel = _PCReminderModel
+	@Previewable @State var modelData: VMReminderStore = _PCReminderModel
 	return VReminderNew(model: modelData, list: modelData.lists.first!)
 		.environment(modelData)
 }

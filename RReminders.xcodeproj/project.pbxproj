@@ -7,29 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A105FCEB2DC26D73006A8E98 /* _VExpList4.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCEA2DC26D73006A8E98 /* _VExpList4.swift */; };
+		A105FCEF2DC28732006A8E98 /* VMReqs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCEE2DC28732006A8E98 /* VMReqs.swift */; };
+		A105FCF82DC2C3DF006A8E98 /* VMReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F742D8067CD005B8435 /* VMReminderStore.swift */; };
 		A10CD11E2D81BC310061F22F /* Model+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10CD11D2D81BC310061F22F /* Model+Util.swift */; };
 		A10FEF302D7B23E700595B66 /* VSummaryDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10FEF2F2D7B23E700595B66 /* VSummaryDisplay.swift */; };
 		A10FEF322D7B2A1500595B66 /* VCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10FEF312D7B2A1500595B66 /* VCategoryCard.swift */; };
 		A10FEF342D7B42D400595B66 /* VCategoryCardGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10FEF332D7B42D400595B66 /* VCategoryCardGroup.swift */; };
 		A11094FC2D85B55100B2B0F3 /* VReminderDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11094FB2D85B55100B2B0F3 /* VReminderDetails.swift */; };
 		A11094FE2D85C09500B2B0F3 /* VDetailsDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */; };
+		A1134C1E2DC13F2A00DAD0AF /* Result+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1134C1D2DC13F2A00DAD0AF /* Result+Util.swift */; };
 		A11C14162D919AFE0051156B /* _VExpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11C14152D919AFE0051156B /* _VExpModel.swift */; };
 		A127D2AF2D7F1D7D00D4C43F /* _VExpObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */; };
 		A12842E82D9435040021B7BD /* VReminderNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12842E72D9435040021B7BD /* VReminderNew.swift */; };
 		A12842EA2D9435A10021B7BD /* VReminderNewDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12842E92D9435A10021B7BD /* VReminderNewDisplay.swift */; };
+		A129B49D2DBA6AFB00FE84D9 /* _VExpObservable5.swift in Sources */ = {isa = PBXBuildFile; fileRef = A129B49C2DBA6AFB00FE84D9 /* _VExpObservable5.swift */; };
 		A13771622D709E860088C95A /* RRemindersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13771612D709E860088C95A /* RRemindersApp.swift */; };
 		A13771662D709E870088C95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13771652D709E870088C95A /* Assets.xcassets */; };
 		A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137719B2D70B0F00088C95A /* VReminderListItem.swift */; };
 		A137719E2D70B7930088C95A /* VStyleModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137719D2D70B78C0088C95A /* VStyleModifiers.swift */; };
-		A13CDF972D80AFFF0041EF82 /* ReminderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F742D8067CD005B8435 /* ReminderModel.swift */; };
-		A13CDF992D80AFFF0041EF82 /* ReminderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F722D8062AD005B8435 /* ReminderList.swift */; };
-		A13CDF9A2D80AFFF0041EF82 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F6F2D805CA5005B8435 /* Reminder.swift */; };
+		A13CDF992D80AFFF0041EF82 /* VMReminderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F722D8062AD005B8435 /* VMReminderList.swift */; };
+		A13CDF9A2D80AFFF0041EF82 /* VMReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F6F2D805CA5005B8435 /* VMReminder.swift */; };
 		A13D35732D7341DB00D1DEF9 /* VReminderGenericList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D35722D7341DB00D1DEF9 /* VReminderGenericList.swift */; };
 		A13D357A2D735DFE00D1DEF9 /* _VExpColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D35792D735DFE00D1DEF9 /* _VExpColor.swift */; };
 		A13D357C2D73673500D1DEF9 /* VReminderSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D357B2D73673500D1DEF9 /* VReminderSummary.swift */; };
 		A13D35802D7367C300D1DEF9 /* _VExpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D357F2D7367C300D1DEF9 /* _VExpList.swift */; };
 		A143378E2DA58E7E00B8AF9E /* VDetailsPriorityField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A143378D2DA58E7E00B8AF9E /* VDetailsPriorityField.swift */; };
 		A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1540B662D833AE0001F41FF /* VListInfoMenu.swift */; };
+		A1715DF42DBE64AA00A88297 /* _VExpObservable6.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1715DF32DBE64AA00A88297 /* _VExpObservable6.swift */; };
 		A17A4D5A2D81F65C00A01584 /* VReminderListInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D592D81F65C00A01584 /* VReminderListInfo.swift */; };
 		A17A4D5C2D81FB1A00A01584 /* VListInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */; };
 		A17A4D5E2D820C8200A01584 /* VListInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5D2D820C8200A01584 /* VListInfoHeader.swift */; };
@@ -37,17 +42,29 @@
 		A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF842D7C7102007C9024 /* VCategoryBadge.swift */; };
 		A192EF872D7C719A007C9024 /* VCategoryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF862D7C719A007C9024 /* VCategoryListItem.swift */; };
 		A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF882D7C7DB6007C9024 /* _VExpList2.swift */; };
+		A193BA072DB6BA2A00D24F13 /* _VExpAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A193BA062DB6BA2A00D24F13 /* _VExpAnim.swift */; };
+		A19527422DB913FD007936AF /* _VExpNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527412DB913FD007936AF /* _VExpNav.swift */; };
+		A19527442DB92269007936AF /* _VExpNav2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527432DB92269007936AF /* _VExpNav2.swift */; };
+		A19527462DB93A46007936AF /* _VExpSafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527452DB93A46007936AF /* _VExpSafeArea.swift */; };
+		A19527482DB94233007936AF /* _VExpAnim2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527472DB94233007936AF /* _VExpAnim2.swift */; };
 		A19F1C492D7DEBC7003D6E43 /* VSummaryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */; };
 		A1B58F832D80717F005B8435 /* _VExpObservable2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B58F822D80717F005B8435 /* _VExpObservable2.swift */; };
+		A1B9E7E22DB968B300E9AE2A /* _VExpList3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9E7E12DB968B300E9AE2A /* _VExpList3.swift */; };
+		A1B9E7E42DB9811700E9AE2A /* _VExpObservable3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9E7E32DB9811700E9AE2A /* _VExpObservable3.swift */; };
+		A1B9E7E62DB98C2700E9AE2A /* _VExpObservable4.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B9E7E52DB98C2700E9AE2A /* _VExpObservable4.swift */; };
 		A1BE0B642DA44074004F3AA6 /* VDetailsListField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */; };
 		A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */; };
-		A1BE0B6A2DA46EAE004F3AA6 /* _VTextEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */; };
+		A1BE0B6A2DA46EAE004F3AA6 /* _VExpTextEd.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BE0B692DA46EAE004F3AA6 /* _VExpTextEd.swift */; };
 		A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF283E2D8AF46400EB451F /* Color+Util.swift */; };
 		A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */; };
 		A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28422D8B28F700EB451F /* _VExpPicker.swift */; };
 		A1BF28452D8B3C6A00EB451F /* VTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28442D8B3C6A00EB451F /* VTimePicker.swift */; };
 		A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */; };
 		A1BF28492D8B630D00EB451F /* VRepeatsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */; };
+		A1CEAE302DC3956B0033CDDC /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCF92DC2C423006A8E98 /* ReminderStore.swift */; };
+		A1CEAE312DC3956B0033CDDC /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCFD2DC2C437006A8E98 /* Reminder.swift */; };
+		A1CEAE322DC3956B0033CDDC /* ReminderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCFB2DC2C42C006A8E98 /* ReminderList.swift */; };
+		A1CEAE342DC39DD60033CDDC /* _VExpFriendly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CEAE332DC39DD60033CDDC /* _VExpFriendly.swift */; };
 		A1DB067C2D75F86800DE8D42 /* _VExpTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DB067B2D75F86800DE8D42 /* _VExpTextField.swift */; };
 		A1E37E172D90516600D73BB6 /* VEndRepeatsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */; };
 		A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4BCE42D8701D40098D192 /* VDetailsDateField.swift */; };
@@ -58,17 +75,35 @@
 		A1FD5DDA2D74B9A6008057AC /* VSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD5DD92D74B9A6008057AC /* VSearchField.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A129B4AF2DBAB76100FE84D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A13771562D709E860088C95A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A137715D2D709E860088C95A;
+			remoteInfo = RReminders;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		A105FCEA2DC26D73006A8E98 /* _VExpList4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList4.swift; sourceTree = "<group>"; };
+		A105FCEE2DC28732006A8E98 /* VMReqs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMReqs.swift; sourceTree = "<group>"; };
+		A105FCF92DC2C423006A8E98 /* ReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStore.swift; sourceTree = "<group>"; };
+		A105FCFB2DC2C42C006A8E98 /* ReminderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderList.swift; sourceTree = "<group>"; };
+		A105FCFD2DC2C437006A8E98 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		A10CD11D2D81BC310061F22F /* Model+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Util.swift"; sourceTree = "<group>"; };
 		A10FEF2F2D7B23E700595B66 /* VSummaryDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSummaryDisplay.swift; sourceTree = "<group>"; };
 		A10FEF312D7B2A1500595B66 /* VCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryCard.swift; sourceTree = "<group>"; };
 		A10FEF332D7B42D400595B66 /* VCategoryCardGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryCardGroup.swift; sourceTree = "<group>"; };
 		A11094FB2D85B55100B2B0F3 /* VReminderDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderDetails.swift; sourceTree = "<group>"; };
 		A11094FD2D85C09500B2B0F3 /* VDetailsDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsDisplay.swift; sourceTree = "<group>"; };
+		A1134C1D2DC13F2A00DAD0AF /* Result+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Util.swift"; sourceTree = "<group>"; };
 		A11C14152D919AFE0051156B /* _VExpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpModel.swift; sourceTree = "<group>"; };
 		A127D2AE2D7F1D7D00D4C43F /* _VExpObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable.swift; sourceTree = "<group>"; };
 		A12842E72D9435040021B7BD /* VReminderNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderNew.swift; sourceTree = "<group>"; };
 		A12842E92D9435A10021B7BD /* VReminderNewDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderNewDisplay.swift; sourceTree = "<group>"; };
+		A129B49C2DBA6AFB00FE84D9 /* _VExpObservable5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable5.swift; sourceTree = "<group>"; };
+		A129B4AB2DBAB76100FE84D9 /* RRemindersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RRemindersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A137715E2D709E860088C95A /* RReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13771612D709E860088C95A /* RRemindersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RRemindersApp.swift; sourceTree = "<group>"; };
 		A13771652D709E870088C95A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,6 +115,7 @@
 		A13D357F2D7367C300D1DEF9 /* _VExpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList.swift; sourceTree = "<group>"; };
 		A143378D2DA58E7E00B8AF9E /* VDetailsPriorityField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsPriorityField.swift; sourceTree = "<group>"; };
 		A1540B662D833AE0001F41FF /* VListInfoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoMenu.swift; sourceTree = "<group>"; };
+		A1715DF32DBE64AA00A88297 /* _VExpObservable6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable6.swift; sourceTree = "<group>"; };
 		A17A4D592D81F65C00A01584 /* VReminderListInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderListInfo.swift; sourceTree = "<group>"; };
 		A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoDisplay.swift; sourceTree = "<group>"; };
 		A17A4D5D2D820C8200A01584 /* VListInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoHeader.swift; sourceTree = "<group>"; };
@@ -87,20 +123,30 @@
 		A192EF842D7C7102007C9024 /* VCategoryBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryBadge.swift; sourceTree = "<group>"; };
 		A192EF862D7C719A007C9024 /* VCategoryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryListItem.swift; sourceTree = "<group>"; };
 		A192EF882D7C7DB6007C9024 /* _VExpList2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList2.swift; sourceTree = "<group>"; };
+		A193BA062DB6BA2A00D24F13 /* _VExpAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpAnim.swift; sourceTree = "<group>"; };
+		A19527412DB913FD007936AF /* _VExpNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpNav.swift; sourceTree = "<group>"; };
+		A19527432DB92269007936AF /* _VExpNav2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpNav2.swift; sourceTree = "<group>"; };
+		A19527452DB93A46007936AF /* _VExpSafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpSafeArea.swift; sourceTree = "<group>"; };
+		A19527472DB94233007936AF /* _VExpAnim2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpAnim2.swift; sourceTree = "<group>"; };
 		A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSummaryListItem.swift; sourceTree = "<group>"; };
-		A1B58F6F2D805CA5005B8435 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
-		A1B58F722D8062AD005B8435 /* ReminderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderList.swift; sourceTree = "<group>"; };
-		A1B58F742D8067CD005B8435 /* ReminderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderModel.swift; sourceTree = "<group>"; };
+		A1B58F6F2D805CA5005B8435 /* VMReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMReminder.swift; sourceTree = "<group>"; };
+		A1B58F722D8062AD005B8435 /* VMReminderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMReminderList.swift; sourceTree = "<group>"; };
+		A1B58F742D8067CD005B8435 /* VMReminderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMReminderStore.swift; sourceTree = "<group>"; };
 		A1B58F822D80717F005B8435 /* _VExpObservable2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable2.swift; sourceTree = "<group>"; };
+		A1B9E7E12DB968B300E9AE2A /* _VExpList3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList3.swift; sourceTree = "<group>"; };
+		A1B9E7E32DB9811700E9AE2A /* _VExpObservable3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable3.swift; sourceTree = "<group>"; };
+		A1B9E7E52DB98C2700E9AE2A /* _VExpObservable4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpObservable4.swift; sourceTree = "<group>"; };
 		A1BE0B632DA44074004F3AA6 /* VDetailsListField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsListField.swift; sourceTree = "<group>"; };
 		A1BE0B652DA44273004F3AA6 /* VReminderListSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderListSelection.swift; sourceTree = "<group>"; };
-		A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VTextEd.swift; sourceTree = "<group>"; };
+		A1BE0B692DA46EAE004F3AA6 /* _VExpTextEd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpTextEd.swift; sourceTree = "<group>"; };
 		A1BF283E2D8AF46400EB451F /* Color+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Util.swift"; sourceTree = "<group>"; };
 		A1BF28402D8AFE5900EB451F /* VDetailsTimeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsTimeField.swift; sourceTree = "<group>"; };
 		A1BF28422D8B28F700EB451F /* _VExpPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpPicker.swift; sourceTree = "<group>"; };
 		A1BF28442D8B3C6A00EB451F /* VTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTimePicker.swift; sourceTree = "<group>"; };
 		A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsField.swift; sourceTree = "<group>"; };
 		A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsSelection.swift; sourceTree = "<group>"; };
+		A1CEAE332DC39DD60033CDDC /* _VExpFriendly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpFriendly.swift; sourceTree = "<group>"; };
+		A1D47AA32DC900AD00AACA5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A1DB067B2D75F86800DE8D42 /* _VExpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpTextField.swift; sourceTree = "<group>"; };
 		A1E37E162D90516600D73BB6 /* VEndRepeatsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VEndRepeatsSelection.swift; sourceTree = "<group>"; };
 		A1E4BCE42D8701D40098D192 /* VDetailsDateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDetailsDateField.swift; sourceTree = "<group>"; };
@@ -112,6 +158,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		A129B4AC2DBAB76100FE84D9 /* RRemindersTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RRemindersTests;
+			sourceTree = "<group>";
+		};
 		A13771972D70A1CB0088C95A /* Preview Content */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Preview Content";
@@ -120,6 +171,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A129B4A82DBAB76100FE84D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A137715B2D709E860088C95A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -157,10 +215,22 @@
 			path = new;
 			sourceTree = "<group>";
 		};
+		A129B49E2DBA7E4900FE84D9 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				A105FCEE2DC28732006A8E98 /* VMReqs.swift */,
+				A1B58F742D8067CD005B8435 /* VMReminderStore.swift */,
+				A1B58F722D8062AD005B8435 /* VMReminderList.swift */,
+				A1B58F6F2D805CA5005B8435 /* VMReminder.swift */,
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
 		A13771552D709E860088C95A = {
 			isa = PBXGroup;
 			children = (
 				A13771922D70A19D0088C95A /* src */,
+				A129B4AC2DBAB76100FE84D9 /* RRemindersTests */,
 				A137715F2D709E860088C95A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -169,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				A137715E2D709E860088C95A /* RReminders.app */,
+				A129B4AB2DBAB76100FE84D9 /* RRemindersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,9 +267,10 @@
 		A13771942D70A1B10088C95A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A1B58F742D8067CD005B8435 /* ReminderModel.swift */,
-				A1B58F722D8062AD005B8435 /* ReminderList.swift */,
-				A1B58F6F2D805CA5005B8435 /* Reminder.swift */,
+				A1D47AA32DC900AD00AACA5F /* README.md */,
+				A105FCF92DC2C423006A8E98 /* ReminderStore.swift */,
+				A105FCFB2DC2C42C006A8E98 /* ReminderList.swift */,
+				A105FCFD2DC2C437006A8E98 /* Reminder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,6 +278,7 @@
 		A13771952D70A1B90088C95A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A129B49E2DBA7E4900FE84D9 /* viewmodel */,
 				A13D35762D735DB700D1DEF9 /* experiments */,
 				A166C83A2D7201F900ADDDC4 /* util */,
 				A1FD5DB32D74915B008057AC /* summary */,
@@ -231,7 +304,19 @@
 				A1B58F822D80717F005B8435 /* _VExpObservable2.swift */,
 				A1BF28422D8B28F700EB451F /* _VExpPicker.swift */,
 				A11C14152D919AFE0051156B /* _VExpModel.swift */,
-				A1BE0B692DA46EAE004F3AA6 /* _VTextEd.swift */,
+				A1BE0B692DA46EAE004F3AA6 /* _VExpTextEd.swift */,
+				A193BA062DB6BA2A00D24F13 /* _VExpAnim.swift */,
+				A19527412DB913FD007936AF /* _VExpNav.swift */,
+				A19527432DB92269007936AF /* _VExpNav2.swift */,
+				A19527452DB93A46007936AF /* _VExpSafeArea.swift */,
+				A19527472DB94233007936AF /* _VExpAnim2.swift */,
+				A1B9E7E12DB968B300E9AE2A /* _VExpList3.swift */,
+				A1B9E7E32DB9811700E9AE2A /* _VExpObservable3.swift */,
+				A1B9E7E52DB98C2700E9AE2A /* _VExpObservable4.swift */,
+				A129B49C2DBA6AFB00FE84D9 /* _VExpObservable5.swift */,
+				A1715DF32DBE64AA00A88297 /* _VExpObservable6.swift */,
+				A105FCEA2DC26D73006A8E98 /* _VExpList4.swift */,
+				A1CEAE332DC39DD60033CDDC /* _VExpFriendly.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -243,6 +328,7 @@
 				A10CD11D2D81BC310061F22F /* Model+Util.swift */,
 				A1E4BCE62D8748EE0098D192 /* Date+Util.swift */,
 				A1BF283E2D8AF46400EB451F /* Color+Util.swift */,
+				A1134C1D2DC13F2A00DAD0AF /* Result+Util.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -286,6 +372,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A129B4AA2DBAB76100FE84D9 /* RRemindersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A129B4B12DBAB76100FE84D9 /* Build configuration list for PBXNativeTarget "RRemindersTests" */;
+			buildPhases = (
+				A129B4A72DBAB76100FE84D9 /* Sources */,
+				A129B4A82DBAB76100FE84D9 /* Frameworks */,
+				A129B4A92DBAB76100FE84D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A129B4B02DBAB76100FE84D9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A129B4AC2DBAB76100FE84D9 /* RRemindersTests */,
+			);
+			name = RRemindersTests;
+			packageProductDependencies = (
+			);
+			productName = RRemindersTests;
+			productReference = A129B4AB2DBAB76100FE84D9 /* RRemindersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A137715D2D709E860088C95A /* RReminders */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A137716C2D709E870088C95A /* Build configuration list for PBXNativeTarget "RReminders" */;
@@ -316,8 +425,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					A129B4AA2DBAB76100FE84D9 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = A137715D2D709E860088C95A;
+					};
 					A137715D2D709E860088C95A = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -338,11 +451,19 @@
 			projectRoot = "";
 			targets = (
 				A137715D2D709E860088C95A /* RReminders */,
+				A129B4AA2DBAB76100FE84D9 /* RRemindersTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A129B4A92DBAB76100FE84D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A137715C2D709E860088C95A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,10 +476,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A129B4A72DBAB76100FE84D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A137715A2D709E860088C95A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A105FCEF2DC28732006A8E98 /* VMReqs.swift in Sources */,
+				A19527422DB913FD007936AF /* _VExpNav.swift in Sources */,
 				A11094FC2D85B55100B2B0F3 /* VReminderDetails.swift in Sources */,
 				A127D2AF2D7F1D7D00D4C43F /* _VExpObservable.swift in Sources */,
 				A1BF28492D8B630D00EB451F /* VRepeatsSelection.swift in Sources */,
@@ -371,30 +501,43 @@
 				A13D35732D7341DB00D1DEF9 /* VReminderGenericList.swift in Sources */,
 				A10FEF322D7B2A1500595B66 /* VCategoryCard.swift in Sources */,
 				A1BF28452D8B3C6A00EB451F /* VTimePicker.swift in Sources */,
+				A1B9E7E42DB9811700E9AE2A /* _VExpObservable3.swift in Sources */,
 				A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */,
 				A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */,
 				A137719E2D70B7930088C95A /* VStyleModifiers.swift in Sources */,
 				A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */,
 				A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */,
 				A12842E82D9435040021B7BD /* VReminderNew.swift in Sources */,
+				A19527462DB93A46007936AF /* _VExpSafeArea.swift in Sources */,
 				A13771622D709E860088C95A /* RRemindersApp.swift in Sources */,
+				A1CEAE342DC39DD60033CDDC /* _VExpFriendly.swift in Sources */,
 				A17A4D602D8229CD00A01584 /* VListInfoPicker.swift in Sources */,
+				A19527482DB94233007936AF /* _VExpAnim2.swift in Sources */,
 				A1FD5DD82D74A9D6008057AC /* _VExpEdit.swift in Sources */,
 				A1BE0B642DA44074004F3AA6 /* VDetailsListField.swift in Sources */,
+				A105FCEB2DC26D73006A8E98 /* _VExpList4.swift in Sources */,
 				A12842EA2D9435A10021B7BD /* VReminderNewDisplay.swift in Sources */,
 				A1F5A8772D773DA500AB406E /* _VExpSearchField.swift in Sources */,
+				A1B9E7E22DB968B300E9AE2A /* _VExpList3.swift in Sources */,
 				A10FEF302D7B23E700595B66 /* VSummaryDisplay.swift in Sources */,
+				A1CEAE302DC3956B0033CDDC /* ReminderStore.swift in Sources */,
+				A1CEAE312DC3956B0033CDDC /* Reminder.swift in Sources */,
+				A1CEAE322DC3956B0033CDDC /* ReminderList.swift in Sources */,
 				A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */,
 				A13D357A2D735DFE00D1DEF9 /* _VExpColor.swift in Sources */,
-				A13CDF972D80AFFF0041EF82 /* ReminderModel.swift in Sources */,
-				A13CDF992D80AFFF0041EF82 /* ReminderList.swift in Sources */,
+				A1715DF42DBE64AA00A88297 /* _VExpObservable6.swift in Sources */,
+				A13CDF992D80AFFF0041EF82 /* VMReminderList.swift in Sources */,
 				A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */,
-				A13CDF9A2D80AFFF0041EF82 /* Reminder.swift in Sources */,
-				A1BE0B6A2DA46EAE004F3AA6 /* _VTextEd.swift in Sources */,
+				A13CDF9A2D80AFFF0041EF82 /* VMReminder.swift in Sources */,
+				A193BA072DB6BA2A00D24F13 /* _VExpAnim.swift in Sources */,
+				A1BE0B6A2DA46EAE004F3AA6 /* _VExpTextEd.swift in Sources */,
 				A1E37E172D90516600D73BB6 /* VEndRepeatsSelection.swift in Sources */,
 				A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */,
 				A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */,
+				A19527442DB92269007936AF /* _VExpNav2.swift in Sources */,
 				A1DB067C2D75F86800DE8D42 /* _VExpTextField.swift in Sources */,
+				A1134C1E2DC13F2A00DAD0AF /* Result+Util.swift in Sources */,
+				A105FCF82DC2C3DF006A8E98 /* VMReminderStore.swift in Sources */,
 				A10CD11E2D81BC310061F22F /* Model+Util.swift in Sources */,
 				A1B58F832D80717F005B8435 /* _VExpObservable2.swift in Sources */,
 				A1FD5DDA2D74B9A6008057AC /* VSearchField.swift in Sources */,
@@ -402,7 +545,9 @@
 				A13D35802D7367C300D1DEF9 /* _VExpList.swift in Sources */,
 				A192EF872D7C719A007C9024 /* VCategoryListItem.swift in Sources */,
 				A143378E2DA58E7E00B8AF9E /* VDetailsPriorityField.swift in Sources */,
+				A129B49D2DBA6AFB00FE84D9 /* _VExpObservable5.swift in Sources */,
 				A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */,
+				A1B9E7E62DB98C2700E9AE2A /* _VExpObservable4.swift in Sources */,
 				A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */,
 				A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */,
 				A13D357C2D73673500D1DEF9 /* VReminderSummary.swift in Sources */,
@@ -411,7 +556,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A129B4B02DBAB76100FE84D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A137715D2D709E860088C95A /* RReminders */;
+			targetProxy = A129B4AF2DBAB76100FE84D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A129B4B22DBAB76100FE84D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.realproven.RRemindersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RReminders.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RReminders";
+			};
+			name = Debug;
+		};
+		A129B4B32DBAB76100FE84D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.realproven.RRemindersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RReminders.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RReminders";
+			};
+			name = Release;
+		};
 		A137716A2D709E870088C95A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -447,6 +634,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q9UQ5RW44T;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -510,6 +698,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Q9UQ5RW44T;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -540,7 +729,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"src/Views/Preview Content\"";
-				DEVELOPMENT_TEAM = Q9UQ5RW44T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -573,7 +761,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"src/Views/Preview Content\"";
-				DEVELOPMENT_TEAM = Q9UQ5RW44T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
@@ -600,6 +787,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A129B4B12DBAB76100FE84D9 /* Build configuration list for PBXNativeTarget "RRemindersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A129B4B22DBAB76100FE84D9 /* Debug */,
+				A129B4B32DBAB76100FE84D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A13771592D709E860088C95A /* Build configuration list for PBXProject "RReminders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
