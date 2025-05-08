@@ -26,22 +26,32 @@ struct RRemindersApp: App {
 fileprivate var hasLogged: Bool = false
 fileprivate struct RRemindersWindow: View {
 	@Environment(\.modelContext) private var context
-	@Query private var _model: [ReminderStore]		// - @Query must be a collection
+	@Query private var _model: [ReminderStore]		// - @Query for ReminderStore must be a collection
+	@StateObject private var storeState: StoreState = .init()
 	
-	var model: VMReminderStore {					// ...but we use it as a singleton
-		let ret = _model.first ?? .init()
+	// - produce singleton behavior without triggering updates.
+	var store: VMReminderStore {
+		if let ret = storeState.store { return ret }
+		let m = _model.first ?? .init()
 		if _model.isEmpty {
-			context.insert(ret)
+			context.insert(m)
 		}
 		if let u = context.container.configurations.first?.url, !hasLogged {
 			hasLogged = true
 			print("The RReminders data store is located at \(u.absoluteString).")
 		}
-		return VMReminderStore(store: ret, context: context)
+		let ret = VMReminderStore(store: m, context: context)
+		storeState.store = ret
+		return ret
 	}
 	
 	var body: some View {
 		VReminderSummary()
-			.environment(model)
+			.environment(store)
 	}
+}
+
+// - save in a @StateObject to preserve the singleton nature
+fileprivate class StoreState : ObservableObject {
+	var store: VMReminderStore?
 }
