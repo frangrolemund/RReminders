@@ -32,6 +32,7 @@ class VMReminderList: Identifiable, Hashable, AnyObject {
 		set {
 			model.showCompleted = newValue
 			self.save()
+			_sortedReminders = nil
 		}
 	}
 	
@@ -146,7 +147,9 @@ extension VMReminderList {
 		let resorted: [VMReminder]
 		switch sortOrder {
 		case .manual:
-			resorted = unsorted
+			resorted = unsorted.sorted(by: { r1, r2 in
+				(!r1.isCompleted || r2.isCompleted)
+			})
 		
 		case .dueDate:
 			resorted = unsorted.sorted(by: { r1, r2 in

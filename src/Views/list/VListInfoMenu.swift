@@ -26,7 +26,9 @@ struct VListInfoMenu: View {
 			}
 			
 			Button {
-				list.showCompleted.toggle()
+				withAnimation {
+					list.showCompleted.toggle()
+				}
 			} label: {
 				if list.showCompleted {
 					Label("Hide Completed", systemImage: "eye.slash")

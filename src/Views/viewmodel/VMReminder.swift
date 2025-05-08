@@ -44,7 +44,12 @@ final class VMReminder: Identifiable, Equatable {
 	}
 	
 	var completedOn: Date? {
-		get { _pendingModel?.completedOn ?? model.completedOn }
+		get {
+			if let pm = _pendingModel {
+				return pm.completedOn
+			}
+			return model.completedOn
+		}
 		set { pending.completedOn = newValue }
 	}
 	
