@@ -90,12 +90,7 @@ extension VMReminderList {
 	var count: Int { reminders.count }
 	
 	var reminders: [VMReminder] {
-		get {
-			if let ret = _reminders { return ret }
-			let ret = model.reminders.map({VMReminder(list: InternalProxy(list: self), reminder: $0)})
-			_reminders = ret
-			return ret
-		}
+		get { sortedReminders }
 		
 		set {
 			// - this operation is necessary to allow reordering, but it needs to be done
@@ -138,34 +133,45 @@ extension VMReminderList {
 	private var sortedReminders: [VMReminder] {
 		if let ret = _sortedReminders { return ret }
 		
+		let unsorted: [VMReminder]
+		if let tmp = _reminders {
+			unsorted = tmp
+			
+		} else {
+			unsorted = model.reminders.map({VMReminder(list: InternalProxy(list: self), reminder: $0)})
+			_reminders = unsorted
+			
+		}
+		
 		let resorted: [VMReminder]
 		switch sortOrder {
 		case .manual:
-			resorted = reminders
+			resorted = unsorted
 		
 		case .dueDate:
-			resorted = reminders.sorted(by: { r1, r2 in
-				r1.dueDate < r2.dueDate
+			resorted = unsorted.sorted(by: { r1, r2 in
+				(!r1.isCompleted || r2.isCompleted) && r1.dueDate < r2.dueDate
 			})
 			
 		case .creationDate:
-			resorted = reminders.sorted(by: { r1, r2 in
-				r1.created < r2.created
+			resorted = unsorted.sorted(by: { r1, r2 in
+				(!r1.isCompleted || r2.isCompleted) && r1.created < r2.created
 			})
 			
 		case .priority:
-			resorted = reminders.sorted(by: { r1, r2 in
-				(r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99)
+			resorted = unsorted.sorted(by: { r1, r2 in
+				(!r1.isCompleted || r2.isCompleted) && (r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99)
 			})
 			
 		case .title:
-			resorted = reminders.sorted(by: { r1, r2 in
-				r1.title.localizedCompare(r2.title) == .orderedAscending
+			resorted = unsorted.sorted(by: { r1, r2 in
+				(!r1.isCompleted || r2.isCompleted) && r1.title.localizedCompare(r2.title) == .orderedAscending
 			})
 		}
 		
-		_sortedReminders = resorted
-		return resorted
+		let filtered = resorted.filter( {showCompleted || !$0.isCompleted} )
+		_sortedReminders = filtered
+		return filtered
 	}
 	
 	func addReminder(title: String = "", notes: String? = nil, notifyOn: Reminder.RemindOn? = nil, priority: Reminder.Priority? = nil, completedOn: Date? = nil) -> VMReminder {
@@ -177,7 +183,7 @@ protocol VMReminderListInternal : AnyObject, Identifiable {
 	var id: UUID { get }
 	var vmList: VMReminderList? { get }
 	func asVMInternal(_ other: VMReminderList) -> any VMReminderListInternal
-	func save(reminder: Reminder, from: VMReminder) -> Result<Bool, Error>
+	func save(reminder: Reminder, from: VMReminder, forcedResort resort: Bool) -> Result<Bool, Error>
 	func remove(reminder: Reminder) -> Result<Bool, Error>
 }
 
@@ -195,7 +201,7 @@ private extension VMReminderList {
 			return VMReminderList.InternalProxy(list: other)
 		}
 		
-		func save(reminder: Reminder, from: VMReminder) -> Result<Bool, any Error> {
+		func save(reminder: Reminder, from: VMReminder, forcedResort resort: Bool) -> Result<Bool, any Error> {
 			guard let vmList else { return .failure(VMReminderStore.VMError.orphaned) }
 			
 			if vmList.reminders.firstIndex(of: from) == nil {
@@ -205,7 +211,12 @@ private extension VMReminderList {
 				vmList.model.reminders.append(reminder)
 				vmList._reminders = tmp
 				vmList._sortedReminders = nil
-			}			
+				
+			} else if resort {
+				vmList._sortedReminders = nil
+				
+			}
+			
 			return vmList.save()
 		}
 		

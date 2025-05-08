@@ -112,12 +112,13 @@ extension VMReminder {
 			} else {
 				completedOn = nil
 			}
+			self.save(forcedResort: true)
 		}
 	}
 		
 	var dueDate: Date { notifyOn?.date ?? Date.distantFuture }
 		
-	@discardableResult func save() -> Result<Bool, Error> {
+	@discardableResult func save(forcedResort resort: Bool = false) -> Result<Bool, Error> {
 		// - swap lists first to remove it from the prior list
 		if let pl = _pendingList, pl.id != _list.id {
 			let ret = _list.remove(reminder: self.model)
@@ -132,7 +133,7 @@ extension VMReminder {
 		self.model.notifyOn = self.notifyOn
 		self.model.priority = self.priority
 		self.model.completedOn = self.completedOn
-		let ret = (self._pendingList ?? self._list).save(reminder: self.model, from: self)
+		let ret = (self._pendingList ?? self._list).save(reminder: self.model, from: self, forcedResort: resort)
 		self._pendingList = nil
 		self._pendingModel = nil		
 		return ret

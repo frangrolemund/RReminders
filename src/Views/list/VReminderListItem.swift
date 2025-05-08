@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct VReminderListItem: View {
-	@Bindable var reminder: VMReminder
+	var reminder: VMReminder
 	@State private var title: String
 	@State private var notes: String
 	private let isSelected: Bool
 	@FocusState private var focused: FocusField?
 	@State private var isShowingDetails: Bool = false
+	@State private var isCompleted: Bool
 	
 	fileprivate enum FocusField: Hashable {
 		case title
@@ -25,14 +26,24 @@ struct VReminderListItem: View {
 		self.reminder = reminder
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
+		self._isCompleted = State(initialValue: reminder.isCompleted)
 		self.isSelected = isSelected
 	}
 	
     var body: some View {
 		HStack(alignment: .top) {
-			ReminderToggle(isOn: $reminder.isCompleted)
-				.foregroundStyle(reminder.isCompleted ? Color.accentColor : Color.secondary)
+			ReminderToggle(isOn: $isCompleted)
+				.foregroundStyle(isCompleted ? Color.accentColor : Color.secondary)
 				.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
+				.onChange(of: isCompleted, {
+					Task {
+						try? await Task.sleep(for: .seconds(2))
+						guard !Task.isCancelled, isCompleted != reminder.isCompleted else { return }
+						withAnimation {
+							reminder.isCompleted = isCompleted
+						}
+					}
+				})
 							
 			VStack(spacing: 4) {
 				HStack {
