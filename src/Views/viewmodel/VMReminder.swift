@@ -108,6 +108,10 @@ extension VMReminder {
 	var allowCreation: Bool {
 		return !(title.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty && self.list != nil
 	}
+	
+	var allowCommit: Bool {
+		allowCreation
+	}
 
 	var isCompleted: Bool {
 		get { completedOn != nil }
