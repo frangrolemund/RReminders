@@ -150,6 +150,7 @@ extension VMReminder {
 	}
 	
 	func revert() {
+		self._list.revert(reminder: self.model)
 		_pendingModel = nil
 		_pendingList = nil
 	}
