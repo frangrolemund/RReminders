@@ -71,6 +71,8 @@
 		A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E4BCE62D8748EE0098D192 /* Date+Util.swift */; };
 		A1E7E17B2D95901700302390 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E7E17A2D95901700302390 /* LaunchScreen.storyboard */; };
 		A1F5A8772D773DA500AB406E /* _VExpSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F5A8762D773DA500AB406E /* _VExpSearchField.swift */; };
+		A1F677C12DCE263900DD1471 /* VDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F677C02DCE263900DD1471 /* VDoneButton.swift */; };
+		A1F677C32DCE272F00DD1471 /* VCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F677C22DCE272F00DD1471 /* VCancelButton.swift */; };
 		A1FD5DD82D74A9D6008057AC /* _VExpEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD5DD72D74A9D6008057AC /* _VExpEdit.swift */; };
 		A1FD5DDA2D74B9A6008057AC /* VSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FD5DD92D74B9A6008057AC /* VSearchField.swift */; };
 /* End PBXBuildFile section */
@@ -153,6 +155,8 @@
 		A1E4BCE62D8748EE0098D192 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
 		A1E7E17A2D95901700302390 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1F5A8762D773DA500AB406E /* _VExpSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpSearchField.swift; sourceTree = "<group>"; };
+		A1F677C02DCE263900DD1471 /* VDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VDoneButton.swift; sourceTree = "<group>"; };
+		A1F677C22DCE272F00DD1471 /* VCancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCancelButton.swift; sourceTree = "<group>"; };
 		A1FD5DD72D74A9D6008057AC /* _VExpEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpEdit.swift; sourceTree = "<group>"; };
 		A1FD5DD92D74B9A6008057AC /* VSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSearchField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -329,6 +333,8 @@
 				A1E4BCE62D8748EE0098D192 /* Date+Util.swift */,
 				A1BF283E2D8AF46400EB451F /* Color+Util.swift */,
 				A1134C1D2DC13F2A00DAD0AF /* Result+Util.swift */,
+				A1F677C02DCE263900DD1471 /* VDoneButton.swift */,
+				A1F677C22DCE272F00DD1471 /* VCancelButton.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -535,6 +541,7 @@
 				A1E4BCE52D8701D40098D192 /* VDetailsDateField.swift in Sources */,
 				A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */,
 				A19527442DB92269007936AF /* _VExpNav2.swift in Sources */,
+				A1F677C32DCE272F00DD1471 /* VCancelButton.swift in Sources */,
 				A1DB067C2D75F86800DE8D42 /* _VExpTextField.swift in Sources */,
 				A1134C1E2DC13F2A00DAD0AF /* Result+Util.swift in Sources */,
 				A105FCF82DC2C3DF006A8E98 /* VMReminderStore.swift in Sources */,
@@ -548,6 +555,7 @@
 				A129B49D2DBA6AFB00FE84D9 /* _VExpObservable5.swift in Sources */,
 				A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */,
 				A1B9E7E62DB98C2700E9AE2A /* _VExpObservable4.swift in Sources */,
+				A1F677C12DCE263900DD1471 /* VDoneButton.swift in Sources */,
 				A1BF28432D8B28F700EB451F /* _VExpPicker.swift in Sources */,
 				A1BF283F2D8AF46400EB451F /* Color+Util.swift in Sources */,
 				A13D357C2D73673500D1DEF9 /* VReminderSummary.swift in Sources */,

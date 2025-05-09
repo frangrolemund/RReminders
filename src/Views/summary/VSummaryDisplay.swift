@@ -41,7 +41,7 @@ struct VSummaryDisplay: View {
 							.focused($isSearchFocused)
 						
 						if isSearching {
-							Button("Cancel") {
+							VCancelButton {
 								isSearchFocused = false
 							}
 						}

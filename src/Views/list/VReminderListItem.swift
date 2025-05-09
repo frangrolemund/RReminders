@@ -12,7 +12,6 @@ struct VReminderListItem: View {
 	var reminder: VMReminder
 	@State private var title: String
 	@State private var notes: String
-	private let isSelected: Bool
 	@FocusState private var focused: FocusField?
 	@State private var isShowingDetails: Bool = false
 	@State private var isCompleted: Bool
@@ -22,12 +21,11 @@ struct VReminderListItem: View {
 		case notes
 	}
 		
-	init(reminder: VMReminder, isSelected: Bool = false) {
+	init(reminder: VMReminder) {
 		self.reminder = reminder
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
 		self._isCompleted = State(initialValue: reminder.isCompleted)
-		self.isSelected = isSelected
 	}
 	
     var body: some View {
@@ -51,7 +49,7 @@ struct VReminderListItem: View {
 						Text(priorityText)
 							.foregroundStyle(Color.accentColor)
 						
-						let dimTitle = reminder.isCompleted && !isSelected
+						let dimTitle = reminder.isCompleted
 						TextField("", text: $title)
 							.focused($focused, equals: .title)
 							.foregroundStyle(dimTitle ? Color.secondary : Color.primary)
@@ -65,7 +63,7 @@ struct VReminderListItem: View {
 					.visible(focused != nil)
 				}
 				
-				if focused != nil || notes != "" {
+				if isFocused || notes != "" {
 					TextField("Add Note", text: $notes)
 						.focused($focused, equals: .notes)
 						.frame(maxWidth: .infinity, alignment: .leading)
@@ -86,12 +84,19 @@ struct VReminderListItem: View {
 			notes = reminder.notes ?? ""
 		}
 		.onAppear {
-			if isSelected {
+			if isFocused {
 				focused = .title
 			}
 		}
 		.sheet(isPresented: $isShowingDetails) {
 			VReminderDetails(reminder: reminder)
+		}
+		.toolbar {
+			if isFocused {
+				VDoneButton {
+					focused = nil
+				}
+			}
 		}
     }
     
@@ -110,6 +115,8 @@ struct VReminderListItem: View {
 			return "!!!"
 		}
 	}
+	
+	private var isFocused: Bool { focused != nil }
 }
 
 
@@ -122,10 +129,10 @@ struct VReminderListItem: View {
 		VReminderListItem(reminder: _PCReminderListDefault[2])
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[3])
+		VReminderListItem(reminder: _PCReminderListDefault[0])
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListAlt[1], isSelected: true)
+		VReminderListItem(reminder: _PCReminderListAlt[1])
 	}
 	.padding([.leading, .trailing], 20)
 }

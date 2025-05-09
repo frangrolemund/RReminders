@@ -25,7 +25,7 @@ struct VReminderDetails: View {
 				.navigationTitle("Details")
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
-						Button("Cancel") {
+						VCancelButton {
 							if reminder.isModified {
 								isConfirmCancel = true
 							} else {
@@ -35,11 +35,10 @@ struct VReminderDetails: View {
 					}
 					
 					ToolbarItem(placement: .topBarTrailing) {
-						Button("Done") {
+						VDoneButton {
 							reminder.save()
 							dismiss()
 						}
-						.fontWeight(.semibold)
 						.disabled(!canSave)
 					}
 				}
