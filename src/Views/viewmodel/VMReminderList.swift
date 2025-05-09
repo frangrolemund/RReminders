@@ -71,14 +71,12 @@ class VMReminderList: Identifiable, Hashable, AnyObject {
 		}
 	}
 	
-	func append(_ reminder: VMReminder) {
-		reminders.append(reminder)
-	}
-	
 	private let store: any VMReminderStoreInternal
 	private let model: ReminderList
 	private var _pendingName: String?
 	private var _pendingColor: ReminderList.Color?
+	
+	// ...two caches of VMReminder are necessary: (a) one to save all of the committed instances and (b) one for the arbitrary sort order that can be changed
 	private var _reminders: [VMReminder]?
 	private var _sortedReminders: [VMReminder]?
 }
@@ -148,7 +146,7 @@ extension VMReminderList {
 		switch sortOrder {
 		case .manual:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted)
+				(!r1.isCompleted || r2.isCompleted) && r1.listOrder < r2.listOrder
 			})
 		
 		case .dueDate:

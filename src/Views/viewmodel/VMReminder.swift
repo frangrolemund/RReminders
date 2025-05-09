@@ -22,6 +22,7 @@ final class VMReminder: Identifiable, Equatable {
 
 	var id: UUID { model.id }
 	var created: Date { model.created }
+	var listOrder: Int { model.arrayOrder }
 	
 	var title: String {
 		get { _pendingModel?.title ?? model.title }

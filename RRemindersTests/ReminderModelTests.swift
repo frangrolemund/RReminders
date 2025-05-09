@@ -423,11 +423,15 @@ private extension ReminderModelTests {
 			XCTAssertNoThrow(base = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
 			let u = base.appending(path: "model-\(UUID().uuidString)")
 			self.url = u
+			print("UT: initializing model stack located at \(u.path(percentEncoded: false))")
 			self.reopen()
 		}
 		
 		// - repopen the container/context to verify persistence.
 		func reopen() {
+			if self.container != nil {
+				print("UT: closing/reopening model stack.")
+			}
 			self.container = nil
 			self.context   = nil
 			self._store    = nil
