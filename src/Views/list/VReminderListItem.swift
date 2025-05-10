@@ -71,7 +71,7 @@ struct VReminderListItem: View {
 						isShowingDetails = true
 					}
 					.foregroundStyle(.tint)
-					.visible(focused != nil)
+					.visible(isFocused)
 				}
 				
 				if isFocused || notes != "" {
@@ -97,6 +97,14 @@ struct VReminderListItem: View {
 		.onChange(of: [title, notes], { _, newValue in
 			reminder.title = newValue[0]
 			reminder.notes = newValue[1].isEmpty ? nil : newValue[1]
+		})
+		.onChange(of: focused, { _, newValue in
+			guard newValue == nil, reminder.isModified else { return }
+			if reminder.allowCommit {
+				reminder.save()
+			} else {
+				reminder.discard()
+			}
 		})
 		.onAppear {
 			if pendingReminder == reminder {
