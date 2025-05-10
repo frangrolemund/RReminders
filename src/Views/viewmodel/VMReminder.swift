@@ -149,8 +149,8 @@ extension VMReminder {
 		return ret
 	}
 	
-	func revert() {
-		self._list.revert(reminder: self.model)
+	func discard() {
+		self._list.discard(reminder: self.model)
 		_pendingModel = nil
 		_pendingList = nil
 	}

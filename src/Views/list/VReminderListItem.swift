@@ -15,14 +15,19 @@ struct VReminderListItem: View {
 	@FocusState private var focused: FocusField?
 	@State private var isShowingDetails: Bool = false
 	@State private var isCompleted: Bool
+	@Binding var pendingReminder: VMReminder?
+	private var titleReturn: ReturnBlock?
 	
 	fileprivate enum FocusField: Hashable {
 		case title
 		case notes
 	}
 		
-	init(reminder: VMReminder) {
+	typealias ReturnBlock = (_ reminder: VMReminder) -> Void
+	init(reminder: VMReminder, pendingReminder: Binding<VMReminder?>, titleReturn: ReturnBlock? = nil) {
 		self.reminder = reminder
+		self._pendingReminder = pendingReminder
+		self.titleReturn = titleReturn
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
 		self._isCompleted = State(initialValue: reminder.isCompleted)
@@ -53,6 +58,12 @@ struct VReminderListItem: View {
 						TextField("", text: $title)
 							.focused($focused, equals: .title)
 							.foregroundStyle(dimTitle ? Color.secondary : Color.primary)
+							.onKeyPress(.return) {
+								guard let titleReturn, reminder.allowCommit else { return .handled }
+								reminder.save()
+								titleReturn(reminder)
+								return .handled
+							}
 					}
 					
 					Spacer()
@@ -83,8 +94,13 @@ struct VReminderListItem: View {
 			title = reminder.title
 			notes = reminder.notes ?? ""
 		}
+		.onChange(of: [title, notes], { _, newValue in
+			reminder.title = newValue[0]
+			reminder.notes = newValue[1].isEmpty ? nil : newValue[1]
+		})
 		.onAppear {
-			if isFocused {
+			if pendingReminder == reminder {
+				pendingReminder = nil
 				focused = .title
 			}
 		}
@@ -94,6 +110,11 @@ struct VReminderListItem: View {
 		.toolbar {
 			if isFocused {
 				VDoneButton {
+					if reminder.allowCommit {
+						reminder.save()
+					} else {
+						reminder.discard()
+					}
 					focused = nil
 				}
 			}
@@ -123,16 +144,16 @@ struct VReminderListItem: View {
 #Preview {
 	VStack {
 		Divider()
-		VReminderListItem(reminder:  _PCReminderListDefault[1])
+		VReminderListItem(reminder:  _PCReminderListDefault[1], pendingReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[2])
+		VReminderListItem(reminder: _PCReminderListDefault[2], pendingReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[0])
+		VReminderListItem(reminder: _PCReminderListDefault[0], pendingReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListAlt[1])
+		VReminderListItem(reminder: _PCReminderListAlt[1], pendingReminder: .constant(nil))
 	}
 	.padding([.leading, .trailing], 20)
 }

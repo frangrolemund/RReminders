@@ -45,7 +45,7 @@ struct VReminderDetails: View {
 				.confirmationDialog("", isPresented: $isConfirmCancel, titleVisibility: .hidden, actions: {
 					Button("Discard Changes", role: .destructive) {
 						dismiss()
-						Task { reminder.revert() }
+						Task { reminder.discard() }
 					}
 				})
 				.onChange(of: reminder.title) {

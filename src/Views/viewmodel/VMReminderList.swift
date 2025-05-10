@@ -102,6 +102,11 @@ extension VMReminderList {
 		}
 	}
 	
+	var hasPendingReminder: Bool {
+		guard let sr = _sortedReminders, let rr = _rawReminders else { return false }
+		return sr.count == rr.count + 1
+	}
+	
 	var isNew: Bool { store.isNew(list: model) }
 	
 	// - modification is only tracked for elements that require an explicit save()
@@ -195,6 +200,18 @@ extension VMReminderList {
 		_sortedReminders?.insert(rem, at: i)
 		return rem
 	}
+	
+	func addPendingReminder() -> VMReminder? {
+		guard !hasPendingReminder else { return nil }
+		return insertReminder(at: self.reminders.count)
+	}
+	
+	func discardPendingReminder() {
+		guard hasPendingReminder else { return }
+		self._sortedReminders = self._sortedReminders?.filter({ rem in
+			self._rawReminders?.firstIndex(of: rem) != nil
+		})
+	}
 }
 
 protocol VMReminderListInternal : AnyObject, Identifiable {
@@ -203,7 +220,7 @@ protocol VMReminderListInternal : AnyObject, Identifiable {
 	func asVMInternal(_ other: VMReminderList) -> any VMReminderListInternal
 	func save(reminder: Reminder, from: VMReminder, forcedResort resort: Bool) -> Result<Bool, Error>
 	func remove(reminder: Reminder) -> Result<Bool, Error>
-	func revert(reminder: Reminder)
+	func discard(reminder: Reminder)
 }
 
 private extension VMReminderList {
@@ -258,7 +275,7 @@ private extension VMReminderList {
 			return vmList.save()
 		}
 		
-		func revert(reminder: Reminder) {
+		func discard(reminder: Reminder) {
 			guard let vmList else { return }
 			if let _ = vmList._sortedReminders?.firstIndex(where: {$0.id == reminder.id}), vmList._rawReminders?.firstIndex(where: {$0.id == reminder.id}) == nil {
 				vmList._sortedReminders = nil
