@@ -9,6 +9,7 @@ import SwiftUI
 
 struct VListInfoMenu: View {
 	@Bindable var list: VMReminderList
+	@Binding var isEditing: Bool
 	@State private var isShowingListInfo: Bool = false
 	
     var body: some View {
@@ -20,7 +21,9 @@ struct VListInfoMenu: View {
 			}
 			
 			Button {
-				print("TODO: select reminders")
+				withAnimation {
+					isEditing = true					
+				}
 			} label: {
 				Label("Select Reminders", systemImage: "checkmark.circle")
 			}
@@ -49,5 +52,6 @@ struct VListInfoMenu: View {
 
 #Preview {
 	@Previewable @State var list: VMReminderList = _PCReminderListAlt
-	VListInfoMenu(list: list)
+	@Previewable @State var isEditing: Bool = false
+	VListInfoMenu(list: list, isEditing: $isEditing)
 }

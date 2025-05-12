@@ -71,15 +71,13 @@ class VMReminderList: Identifiable, Hashable, AnyObject {
 		}
 	}
 	
-	func append(_ reminder: VMReminder) {
-		reminders.append(reminder)
-	}
-	
 	private let store: any VMReminderStoreInternal
 	private let model: ReminderList
 	private var _pendingName: String?
 	private var _pendingColor: ReminderList.Color?
-	private var _reminders: [VMReminder]?
+	
+	// ...two caches of VMReminder are necessary: (a) one to save all of the committed instances and (b) one for the arbitrary sort order that can be changed
+	private var _rawReminders: Set<VMReminder>?
 	private var _sortedReminders: [VMReminder]?
 }
 
@@ -97,15 +95,15 @@ extension VMReminderList {
 			// - this operation is necessary to allow reordering, but it needs to be done
 			//   carefully to ensure the backing data is consistent.
 			newValue.forEach({$0.save()})
-			model.reminders = newValue.map({ vmr in
-				model.reminders.first { r in
-					r.id == vmr.id
-				}!
-			})
-			_reminders = newValue
+			syncModelItemsAndSortOrder(withSorted: newValue)
 			_sortedReminders = nil
 			self.save()
 		}
+	}
+	
+	var hasPendingReminder: Bool {
+		guard let sr = _sortedReminders, let rr = _rawReminders else { return false }
+		return sr.count == rr.count + 1
 	}
 	
 	var isNew: Bool { store.isNew(list: model) }
@@ -135,12 +133,12 @@ extension VMReminderList {
 		if let ret = _sortedReminders { return ret }
 		
 		let unsorted: [VMReminder]
-		if let tmp = _reminders {
-			unsorted = tmp
+		if let tmp = _rawReminders {
+			unsorted = Array(tmp)
 			
 		} else {
 			unsorted = model.reminders.map({VMReminder(list: InternalProxy(list: self), reminder: $0)})
-			_reminders = unsorted
+			_rawReminders = Set(unsorted)
 			
 		}
 		
@@ -148,7 +146,7 @@ extension VMReminderList {
 		switch sortOrder {
 		case .manual:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted)
+				(!r1.isCompleted || r2.isCompleted) && r1.listOrder < r2.listOrder
 			})
 		
 		case .dueDate:
@@ -176,9 +174,69 @@ extension VMReminderList {
 		_sortedReminders = filtered
 		return filtered
 	}
+			
+	// - modifies _rawReminders
+	private func syncModelItemsAndSortOrder(withSorted list: [VMReminder]) {
+		// - the objectives are to (a) handle deletions correctly, (b) reorder
+		//   records to match the inbound list and (c) ensure that the authoritative
+		//   cache of viewmodel reminders is consistent with the model.  Because the
+		//   list will possibly omit records that were completed, that state must be
+		//   considered when deciding on deletion.
+		var newModeled = model.reminders.filter({ rem in
+			if let _ = rem.completedOn, !self.showCompleted {
+				return true
+			}
+			
+			if let _ = list.firstIndex(where: { vrem in
+				vrem.id == rem.id
+			}) {
+				return true
+			}
+			
+			return false
+		})
+		
+		newModeled = newModeled.sorted(by: { r1, r2 in
+			let o1 = list.firstIndex(where: {$0.id == r1.id} ) ?? newModeled.count
+			let o2 = list.firstIndex(where: {$0.id == r2.id} ) ?? newModeled.count
+			return o1 < o2
+		})
+		
+		model.reminders = newModeled
+
+		// - only filter _rawReminders based on the model because that is how it
+		//   was originally built, they must remain in sync.
+		self._rawReminders = Set(list).union(self._rawReminders?.filter({ vrem in
+			newModeled.firstIndex { $0.id == vrem.id } != nil
+		}) ?? .init())
+	}
 	
+	// - not tracked in the sorted list and can be quietly discarded
 	func addReminder(title: String = "", notes: String? = nil, notifyOn: Reminder.RemindOn? = nil, priority: Reminder.Priority? = nil, completedOn: Date? = nil) -> VMReminder {
 		VMReminder(list: InternalProxy(list: self), title: title, notes: notes, notifyOn: notifyOn, priority: priority, completedOn: completedOn)
+	}
+	
+	// - the sorted list is a temporary scratchpad to manage position
+	func insertReminder(at pos: Int, title: String = "", notes: String? = nil, notifyOn: Reminder.RemindOn? = nil, priority: Reminder.Priority? = nil, completedOn: Date? = nil) -> VMReminder {
+		assert((_rawReminders?.count ?? 0) == (_sortedReminders?.count ?? 0))	// - only one at a time
+		let count = self.reminders.count
+		assert(pos >= 0 && pos <= count)
+		let i = min(pos, count)
+		let rem = VMReminder(list: InternalProxy(list: self), title: title, notes: notes, notifyOn: notifyOn, priority: priority, completedOn: completedOn)
+		_sortedReminders?.insert(rem, at: i)
+		return rem
+	}
+	
+	func addPendingReminder() -> VMReminder? {
+		guard !hasPendingReminder else { return nil }
+		return insertReminder(at: self.reminders.count)
+	}
+	
+	func discardPendingReminder() {
+		guard hasPendingReminder else { return }
+		self._sortedReminders = self._sortedReminders?.filter({ rem in
+			self._rawReminders?.contains(rem) ?? false
+		})
 	}
 }
 
@@ -188,6 +246,8 @@ protocol VMReminderListInternal : AnyObject, Identifiable {
 	func asVMInternal(_ other: VMReminderList) -> any VMReminderListInternal
 	func save(reminder: Reminder, from: VMReminder, forcedResort resort: Bool) -> Result<Bool, Error>
 	func remove(reminder: Reminder) -> Result<Bool, Error>
+	func discard(reminder: Reminder)
+	func isPending(reminder: VMReminder) -> Bool
 }
 
 private extension VMReminderList {
@@ -204,16 +264,25 @@ private extension VMReminderList {
 			return VMReminderList.InternalProxy(list: other)
 		}
 		
-		func save(reminder: Reminder, from: VMReminder, forcedResort resort: Bool) -> Result<Bool, any Error> {
+		func save(reminder: Reminder, from fromVM: VMReminder, forcedResort resort: Bool) -> Result<Bool, any Error> {
 			guard let vmList else { return .failure(VMReminderStore.VMError.orphaned) }
 			
-			if vmList.reminders.firstIndex(of: from) == nil {
-				var tmp = vmList.reminders
-				tmp.append(from)
-				reminder.list = vmList.model
+			let sortedPos = vmList.reminders.firstIndex(of: fromVM)
+			
+			// - there are 3 possibilities for the reminder:
+			//   1. not in sorted, meaning it is a transient reminder that needs to be appended to all lists (legacy approach)
+			//   2. in sorted, but not in reminders, it is a new reminder with a specific sort position
+			//   3. in sorted and in reminders, nothing to add
+			if sortedPos == nil {
+				// - option #1
+				vmList._sortedReminders?.append(fromVM)
+			}
+			
+			if let _ = vmList._sortedReminders?.firstIndex(of: fromVM), !(vmList._rawReminders?.contains(fromVM) ?? false) {
+				// - option #1, #2
 				vmList.model.reminders.append(reminder)
-				vmList._reminders = tmp
-				vmList._sortedReminders = nil
+				let updSorted = vmList.reminders
+				vmList.syncModelItemsAndSortOrder(withSorted: updSorted)
 				
 			} else if resort {
 				vmList._sortedReminders = nil
@@ -230,6 +299,20 @@ private extension VMReminderList {
 			}
 			vmList.model.reminders.remove(at: idx)
 			return vmList.save()
+		}
+		
+		func discard(reminder: Reminder) {
+			guard let vmList else { return }
+			if let _ = vmList._sortedReminders?.firstIndex(where: {$0.id == reminder.id}), vmList._rawReminders?.firstIndex(where: {$0.id == reminder.id}) == nil {
+				vmList._sortedReminders = nil
+			}			
+		}
+		
+		func isPending(reminder: VMReminder) -> Bool {
+			if let _ = vmList?._sortedReminders?.firstIndex(of: reminder), !(vmList?._rawReminders?.contains(reminder) ?? false) {
+				return true
+			}
+			return false
 		}
 	}
 }

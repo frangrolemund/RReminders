@@ -410,6 +410,36 @@ final class ReminderModelTests: XCTestCase {
 			XCTAssertEqual(vms.lists[0].reminders[2].title, "Groceries")
 		}	
 	}
+	
+	func testDeletionBug() throws {
+		let ms = ModelStack()
+		let vms = VMReminderStore(store: ms.store, context: ms.context)
+		let l1 = vms.addReminderList(name: "Deletion Test", color: .red)
+		XCTAssertNoThrow(try l1.save().get())
+		
+		let r1 = l1.addReminder(title: "Groceries")
+		let r2 = l1.addReminder(title: "Post Office")
+		let r3 = l1.addReminder(title: "Mow Lawn")
+		let r4 = l1.addReminder(title: "Paint House")
+		let r5 = l1.addReminder(title: "Pick up Kids")
+		let r6 = l1.addReminder(title: "Start business")
+		for r in [r1, r2, r3, r4, r5, r6] {
+			XCTAssertNoThrow(try r.save().get())
+		}
+		
+		r3.isCompleted = true
+		r6.isCompleted = true
+		
+		XCTAssertEqual(l1.count, 4)
+		l1.showCompleted = true
+		XCTAssertEqual(l1.count, 6)
+		
+		l1.showCompleted = false
+		l1.reminders.remove(at: 2)
+		l1.showCompleted = true
+		
+		XCTAssertEqual(l1.count, 5)
+	}
 }
 
 private extension ReminderModelTests {
@@ -423,11 +453,15 @@ private extension ReminderModelTests {
 			XCTAssertNoThrow(base = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
 			let u = base.appending(path: "model-\(UUID().uuidString)")
 			self.url = u
+			print("UT: initializing model stack located at \(u.path(percentEncoded: false))")
 			self.reopen()
 		}
 		
 		// - repopen the container/context to verify persistence.
 		func reopen() {
+			if self.container != nil {
+				print("UT: closing/reopening model stack.")
+			}
 			self.container = nil
 			self.context   = nil
 			self._store    = nil

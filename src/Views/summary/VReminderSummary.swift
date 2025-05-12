@@ -25,12 +25,13 @@ struct VReminderSummary: View {
 					.offset(y: isSearching ? 50 : 0)
 			}
 			.navigationDestination(for: VMReminderList.self, destination: { list in
-				VReminderGenericList(list: list)
+				return VReminderGenericList(list: list)
 			})
 			.sheet(isPresented: $isNewListDisplayed, content: {
 				VReminderListInfo(list: modelData.addReminderList(), added: { (newList) in
 					Task {
 						try? await Task.sleep(for: .milliseconds(400))
+						let _ = newList.addPendingReminder()
 						navPath.append(newList)
 					}
 				})
@@ -53,7 +54,6 @@ struct VReminderSummary: View {
 		.environment(_PCReminderModelNew)
 }
 
-
 fileprivate struct BottomBar: View {
 	var modelData: VMReminderStore
 	@Binding var isNewListDisplayed: Bool
@@ -74,16 +74,7 @@ fileprivate struct BottomBar: View {
 				Button {
 					isNewReminderDisplayed = true
 				} label: {
-					HStack(spacing: 10) {
-						Circle()
-							.reminderIconSized(iconDimension: 25)
-							.overlay {
-								Image(systemName: "plus")
-									.foregroundStyle(.white)
-							}
-						Text("New Reminder")
-					}
-					.bold()
+					VNewReminderButtonLabel()
 				}
 				.disabled(modelData.lists.isEmpty)
 						
@@ -97,5 +88,20 @@ fileprivate struct BottomBar: View {
 			}
 			.padding()
 		}
+	}
+}
+
+struct VNewReminderButtonLabel: View {
+	var body: some View {
+		HStack(spacing: 10) {
+			Circle()
+				.reminderIconSized(iconDimension: 25)
+				.overlay {
+					Image(systemName: "plus")
+						.foregroundStyle(.white)
+				}
+			Text("New Reminder")
+		}
+		.bold()
 	}
 }

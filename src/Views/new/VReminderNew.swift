@@ -70,7 +70,7 @@ extension VReminderNew {
 	}
 	
 	private func revertDismiss() {
-		reminder.revert()
+		reminder.discard()
 		dismiss()
 	}
 }

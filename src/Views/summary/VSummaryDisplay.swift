@@ -41,7 +41,7 @@ struct VSummaryDisplay: View {
 							.focused($isSearchFocused)
 						
 						if isSearching {
-							Button("Cancel") {
+							VCancelButton {
 								isSearchFocused = false
 							}
 						}
@@ -83,6 +83,10 @@ struct VSummaryDisplay: View {
 					}
 					.onMove { indices, toOffset in
 						modelData.lists.move(fromOffsets: indices, toOffset: toOffset)
+					}
+					.onDelete { row in
+						guard let idx = row.first else { return }
+						modelData.lists.remove(at: idx)
 					}
 				} header: {
 					Text("My Lists")

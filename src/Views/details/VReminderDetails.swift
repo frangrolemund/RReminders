@@ -11,9 +11,11 @@ struct VReminderDetails: View {
 	@Environment(\.dismiss) var dismiss
 	@Bindable var reminder: VMReminder
 	@State private var isConfirmCancel: Bool = false
+	@State private var canSave: Bool
 	
 	init(reminder: VMReminder) {
 		self.reminder = reminder
+		self._canSave = State(initialValue: reminder.allowCommit)
 	}
 
     var body: some View {
@@ -23,7 +25,7 @@ struct VReminderDetails: View {
 				.navigationTitle("Details")
 				.toolbar {
 					ToolbarItem(placement: .topBarLeading) {
-						Button("Cancel") {
+						VCancelButton {
 							if reminder.isModified {
 								isConfirmCancel = true
 							} else {
@@ -33,18 +35,22 @@ struct VReminderDetails: View {
 					}
 					
 					ToolbarItem(placement: .topBarTrailing) {
-						Button("Done") {
+						VDoneButton {
 							reminder.save()
 							dismiss()
 						}
-						.fontWeight(.semibold)
+						.disabled(!canSave)
 					}
 				}
 				.confirmationDialog("", isPresented: $isConfirmCancel, titleVisibility: .hidden, actions: {
 					Button("Discard Changes", role: .destructive) {
 						dismiss()
+						Task { reminder.discard() }
 					}
 				})
+				.onChange(of: reminder.title) {
+					canSave = reminder.allowCommit
+				}
 		}
     }
 }

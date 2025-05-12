@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-final class VMReminder: Identifiable, Equatable {
+final class VMReminder: Identifiable, Equatable, Hashable {
 	static func == (lhs: VMReminder, rhs: VMReminder) -> Bool {
 		guard lhs !== rhs else { return true }
 		return lhs.id == rhs.id &&
@@ -19,9 +19,14 @@ final class VMReminder: Identifiable, Equatable {
 				lhs.priority == rhs.priority &&
 				lhs.completedOn == rhs.completedOn
 	}
+	
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(model.id)
+	}
 
 	var id: UUID { model.id }
 	var created: Date { model.created }
+	var listOrder: Int { model.arrayOrder }
 	
 	var title: String {
 		get { _pendingModel?.title ?? model.title }
@@ -42,6 +47,8 @@ final class VMReminder: Identifiable, Equatable {
 		get { _pendingModel?.priority ?? model.priority }
 		set { pending.priority = newValue }
 	}
+	
+	var isPending: Bool { _list.isPending(reminder: self) }
 	
 	var completedOn: Date? {
 		get {
@@ -108,6 +115,10 @@ extension VMReminder {
 	var allowCreation: Bool {
 		return !(title.trimmingCharacters(in: .whitespacesAndNewlines)).isEmpty && self.list != nil
 	}
+	
+	var allowCommit: Bool {
+		allowCreation
+	}
 
 	var isCompleted: Bool {
 		get { completedOn != nil }
@@ -144,7 +155,8 @@ extension VMReminder {
 		return ret
 	}
 	
-	func revert() {
+	func discard() {
+		self._list.discard(reminder: self.model)
 		_pendingModel = nil
 		_pendingList = nil
 	}
