@@ -18,14 +18,26 @@ struct VReminderSummary: View {
 	var body: some View {
 		NavigationStack(path: $navPath) {
 			ZStack {
-				VSummaryDisplay(isSearching: $isSearching)
+				VSummaryDisplay(isSearching: $isSearching, navPath: $navPath)
 
 				BottomBar(modelData, $isNewListDisplayed, $isNewReminderDisplayed)
 					.opacity(isSearching ? 0.0 : 1.0)
 					.offset(y: isSearching ? 50 : 0)
 			}
 			.navigationDestination(for: VMReminderList.self, destination: { list in
-				return VReminderGenericList(list: list)
+				VReminderGenericList(list: list)
+			})
+			.navigationDestination(for: ReminderStore.SummaryCategory.self, destination: { sc in
+				switch sc {
+				case .all:
+					VReminderAllCategoryList()
+				case .scheduled:
+					Text("Scheduled")
+				case .today:
+					Text("Today")
+				case .completed:
+					Text("Completed")
+				}
 			})
 			.sheet(isPresented: $isNewListDisplayed, content: {
 				VReminderListInfo(list: modelData.addReminderList(), added: { (newList) in

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct VCategoryCardGroup: View {
 	let categories: [ReminderStore.SummaryCategoryConfig]
+	@Binding var navPath: NavigationPath	
 	let countedWith: (_ cat: ReminderStore.SummaryCategory) -> Int
 	
     var body: some View {
@@ -16,21 +17,21 @@ struct VCategoryCardGroup: View {
 		if !vCat.isEmpty {
 			VStack(spacing: 15) {
 				HStack(spacing: 15) {
-					VCategoryCard(category: vCat[0].id, count: countedWith(vCat[0].id))
+					VCategoryCard(category: vCat[0].id, count: countedWith(vCat[0].id), navPath: $navPath)
 					
 					let hasSecond = vCat.count > 1
 					let cCat      = vCat[hasSecond ? 1 : 0].id
-					VCategoryCard(category: cCat, count: countedWith(cCat))
+					VCategoryCard(category: cCat, count: countedWith(cCat), navPath: $navPath)
 						.visible(hasSecond)
 				}
 				
 				if vCat.count > 2 {
 					HStack(spacing: 15) {
-						VCategoryCard(category: vCat[2].id, count: countedWith(vCat[2].id))
+						VCategoryCard(category: vCat[2].id, count: countedWith(vCat[2].id), navPath: $navPath)
 						
 						let hasFourth = vCat.count > 3
 						let cCat      = vCat[hasFourth ? 3 : 2].id
-						VCategoryCard(category: cCat, count: countedWith(cCat))
+						VCategoryCard(category: cCat, count: countedWith(cCat), navPath: $navPath)
 							.visible(hasFourth)
 					}
 				}
@@ -44,10 +45,11 @@ struct VCategoryCardGroup: View {
 }
 
 #Preview {
+	@Previewable @State var navPath: NavigationPath = .init()
 	ZStack {
 		Color.secondarySystemBackground
 		VStack(spacing: 50) {
-			VCategoryCardGroup(categories: _PCReminderModel.summaryCategories) { cat in
+			VCategoryCardGroup(categories: _PCReminderModel.summaryCategories, navPath: $navPath) { cat in
 				switch cat {
 				case .all: return 55
 				case .scheduled: return 3
@@ -56,7 +58,7 @@ struct VCategoryCardGroup: View {
 				}
 			}
 			
-			VCategoryCardGroup(categories: [.all, .completed, .today]) { cat in
+			VCategoryCardGroup(categories: [.all, .completed, .today], navPath: $navPath) { cat in
 				switch cat {
 				case .all: return 13
 				case .scheduled: return 4
@@ -65,7 +67,7 @@ struct VCategoryCardGroup: View {
 				}
 			}
 			
-			VCategoryCardGroup(categories: [.scheduled]) { cat in
+			VCategoryCardGroup(categories: [.scheduled], navPath: $navPath) { cat in
 				switch cat {
 				case .all: return 13
 				case .scheduled: return 17
