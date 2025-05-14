@@ -45,7 +45,7 @@ struct VReminderGenericList: View {
 					.visible(!isTitleInline)
 				
 				ForEach(list.reminders) { (reminder: VMReminder) in
-					VReminderListItem(reminder: reminder, pendingReminder: $toFocus, titleReturn: { reminder in
+					VReminderListItem(reminder: reminder, focusedReminder: $toFocus, titleReturn: { reminder in
 						if let idx = list.reminders.firstIndex(of: reminder) {
 							toFocus = list.insertReminder(at: idx + 1)
 						}
@@ -112,6 +112,7 @@ struct VReminderGenericList: View {
 #Preview {
 	NavigationStack {
 		VReminderGenericList(list: _PCReminderListDefault)
+			.environment(VNavigationBarInfo())
 	}
 }
 

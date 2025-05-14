@@ -9,11 +9,12 @@ import SwiftUI
 
 struct VReminderAllCategoryList: View {
 	@Environment(VMReminderStore.self) private var modelData
+	@State private var toFocus: VMReminder?
 	
     var body: some View {
     	List {
 			ForEach(modelData.lists) { list in
-				VReminderListSection(list, withDivider: list != modelData.lists[0])
+				VReminderListSection(list, withDivider: list != modelData.lists[0], toFocus: $toFocus)
 			}
 		}
 		.listStyle(.plain)
@@ -25,17 +26,22 @@ struct VReminderAllCategoryList: View {
 fileprivate struct VReminderListSection: View {
 	let list: VMReminderList
 	let hasDivider: Bool
+	@Binding private var toFocus: VMReminder?
+	@State private var pending: VMReminder
 	
-	init(_ list: VMReminderList, withDivider: Bool) {
+	init(_ list: VMReminderList, withDivider: Bool, toFocus: Binding<VMReminder?>) {
 		self.list = list
 		self.hasDivider = withDivider
+		self._toFocus = toFocus
+		self._pending = .init(initialValue: list.addReminder())
 	}
 	
 	var body: some View {
 		Section {
 			ForEach(list.reminders) { reminder in
-				VReminderListItem(reminder: reminder, pendingReminder: .constant(nil))
+				VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
 			}
+			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false)
 			
 		} header: {
 			VStack(alignment: .leading) {
@@ -59,10 +65,12 @@ fileprivate struct VReminderListSection: View {
 			.background(Color.white)
 		}
 		.listSectionSeparator(.hidden)
+		.listSectionSpacing(.compact)
 	}
 }
 
 #Preview {
+	@Previewable @State var toFocus: VMReminder?
 	NavigationStack {
     	VReminderAllCategoryList()
 	}

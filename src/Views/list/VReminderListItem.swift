@@ -15,8 +15,9 @@ struct VReminderListItem: View {
 	@FocusState private var focused: FocusField?
 	@State private var isShowingDetails: Bool = false
 	@State private var isCompleted: Bool
-	@Binding var pendingReminder: VMReminder?
+	@Binding var focusedReminder: VMReminder?
 	private var titleReturn: ReturnBlock?
+	private let allowCompletion: Bool
 	
 	fileprivate enum FocusField: Hashable {
 		case title
@@ -24,18 +25,19 @@ struct VReminderListItem: View {
 	}
 		
 	typealias ReturnBlock = (_ reminder: VMReminder) -> Void
-	init(reminder: VMReminder, pendingReminder: Binding<VMReminder?>, titleReturn: ReturnBlock? = nil) {
+	init(reminder: VMReminder, focusedReminder: Binding<VMReminder?>, allowCompletion: Bool = true, titleReturn: ReturnBlock? = nil) {
 		self.reminder = reminder
-		self._pendingReminder = pendingReminder
+		self._focusedReminder = focusedReminder
 		self.titleReturn = titleReturn
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
 		self._isCompleted = State(initialValue: reminder.isCompleted)
+		self.allowCompletion = allowCompletion
 	}
 	
     var body: some View {
 		HStack(alignment: .top) {
-			ReminderToggle(isOn: $isCompleted)
+			ReminderToggle(isOn: $isCompleted, allowCompletion: allowCompletion)
 				.foregroundStyle(isCompleted ? Color.accentColor : Color.secondary)
 				.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
 				.onChange(of: isCompleted, {
@@ -112,8 +114,8 @@ struct VReminderListItem: View {
 			}
 		})
 		.onAppear {
-			if pendingReminder == reminder {
-				pendingReminder = nil
+			if focusedReminder == reminder {
+				focusedReminder = nil
 				focused = .title
 			}
 		}
@@ -157,16 +159,16 @@ struct VReminderListItem: View {
 #Preview {
 	VStack {
 		Divider()
-		VReminderListItem(reminder:  _PCReminderListDefault[1], pendingReminder: .constant(nil))
+		VReminderListItem(reminder:  _PCReminderListDefault[1], focusedReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[2], pendingReminder: .constant(nil))
+		VReminderListItem(reminder: _PCReminderListDefault[2], focusedReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[0], pendingReminder: .constant(nil))
+		VReminderListItem(reminder: _PCReminderListDefault[0], focusedReminder: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListAlt[1], pendingReminder: .constant(nil))
+		VReminderListItem(reminder: _PCReminderListAlt[1], focusedReminder: .constant(nil), allowCompletion: false)
 	}
 	.padding([.leading, .trailing], 20)
 }
@@ -190,14 +192,21 @@ fileprivate struct InfoButton: View {
 
 fileprivate struct ReminderToggle: View {
 	@Binding var isOn: Bool
+	let allowCompletion: Bool
 	
 	var body: some View {
 		Button {
+			guard allowCompletion else { return }
 			isOn.toggle()
 		} label: {
 			ZStack {
-				Circle()
-					.stroke(lineWidth: 1)
+				if allowCompletion {
+					Circle()
+						.stroke(lineWidth: 1)
+				} else {
+					Circle()
+						.stroke(Color.gray, style: StrokeStyle(dash: [2]))
+				}
 					
 				if isOn {
 					Circle()
