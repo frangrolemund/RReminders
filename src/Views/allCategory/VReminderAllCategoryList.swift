@@ -15,7 +15,6 @@ struct VReminderAllCategoryList: View {
 			ForEach(modelData.lists) { list in
 				VReminderListSection(list, withDivider: list != modelData.lists[0])
 			}
-//			.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
 		}
 		.listStyle(.plain)
 		.navigationBarTitleDisplayMode(.large)
@@ -47,13 +46,17 @@ fileprivate struct VReminderListSection: View {
 						.padding(.bottom, 10)
 				}
 			
-				Text(list.name)
-					.font(.title2)
-					.fontWeight(.bold)
-					.foregroundStyle(list.color.uiColor)
-					.padding(EdgeInsets(top: 0, leading: 20, bottom: 15, trailing: 20))
+				HStack {
+					Text(list.name)
+						.font(.title2)
+						.fontWeight(.bold)
+						.foregroundStyle(list.color.uiColor)
+						.padding(EdgeInsets(top: 0, leading: 20, bottom: 15, trailing: 20))
+					Spacer()
+				}
 			}
 			.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+			.background(Color.white)
 		}
 		.listSectionSeparator(.hidden)
 	}
