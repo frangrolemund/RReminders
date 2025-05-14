@@ -10,28 +10,39 @@ import SwiftUI
 struct VReminderAllCategoryList: View {
 	@Environment(VMReminderStore.self) private var modelData
 	@State private var toFocus: VMReminder?
+	@State var isEditing: Bool = false
+	@State var showCompleted: Bool = false
 	
     var body: some View {
     	List {
 			ForEach(modelData.lists) { list in
-				VReminderListSection(list, withDivider: list != modelData.lists[0], toFocus: $toFocus)
+				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, toFocus: $toFocus)
 			}
 		}
 		.listStyle(.plain)
 		.navigationBarTitleDisplayMode(.large)
 		.navigationTitle("All")
+		.toolbar {
+			ToolbarItem {
+				if !isEditing {
+					VAllCategoryInfoMenu(isEditing: $isEditing, showCompleted: $showCompleted)
+				}
+			}
+		}
     }
 }
 
 fileprivate struct VReminderListSection: View {
 	let list: VMReminderList
 	let hasDivider: Bool
+	@Binding private var showCompleted: Bool
 	@Binding private var toFocus: VMReminder?
 	@State private var pending: VMReminder
 	
-	init(_ list: VMReminderList, withDivider: Bool, toFocus: Binding<VMReminder?>) {
+	init(_ list: VMReminderList, withDivider: Bool, showCompleted: Binding<Bool>, toFocus: Binding<VMReminder?>) {
 		self.list = list
 		self.hasDivider = withDivider
+		self._showCompleted = showCompleted
 		self._toFocus = toFocus
 		self._pending = .init(initialValue: list.addReminder())
 	}
@@ -39,7 +50,9 @@ fileprivate struct VReminderListSection: View {
 	var body: some View {
 		Section {
 			ForEach(list.reminders) { reminder in
-				VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
+				if showCompleted || !reminder.isCompleted {
+					VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
+				}
 			}
 			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false)
 			

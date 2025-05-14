@@ -65,6 +65,7 @@
 		A1BF28452D8B3C6A00EB451F /* VTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28442D8B3C6A00EB451F /* VTimePicker.swift */; };
 		A1BF28472D8B61DF00EB451F /* VRepeatsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */; };
 		A1BF28492D8B630D00EB451F /* VRepeatsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */; };
+		A1C82F1D2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C82F1C2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift */; };
 		A1CEAE302DC3956B0033CDDC /* ReminderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCF92DC2C423006A8E98 /* ReminderStore.swift */; };
 		A1CEAE312DC3956B0033CDDC /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCFD2DC2C437006A8E98 /* Reminder.swift */; };
 		A1CEAE322DC3956B0033CDDC /* ReminderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A105FCFB2DC2C42C006A8E98 /* ReminderList.swift */; };
@@ -155,6 +156,7 @@
 		A1BF28442D8B3C6A00EB451F /* VTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VTimePicker.swift; sourceTree = "<group>"; };
 		A1BF28462D8B61DF00EB451F /* VRepeatsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsField.swift; sourceTree = "<group>"; };
 		A1BF28482D8B630D00EB451F /* VRepeatsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VRepeatsSelection.swift; sourceTree = "<group>"; };
+		A1C82F1C2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAllCategoryInfoMenu.swift; sourceTree = "<group>"; };
 		A1CEAE332DC39DD60033CDDC /* _VExpFriendly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpFriendly.swift; sourceTree = "<group>"; };
 		A1D47AA32DC900AD00AACA5F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A1DB067B2D75F86800DE8D42 /* _VExpTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpTextField.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				A19ED6DB2DD36D7700CE1F31 /* VReminderAllCategoryList.swift */,
+				A1C82F1C2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift */,
 			);
 			path = allCategory;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				A1B9E7E42DB9811700E9AE2A /* _VExpObservable3.swift in Sources */,
 				A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */,
 				A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */,
+				A1C82F1D2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift in Sources */,
 				A137719E2D70B7930088C95A /* VStyleModifiers.swift in Sources */,
 				A1540B672D833AE0001F41FF /* VListInfoMenu.swift in Sources */,
 				A137719C2D70B0F00088C95A /* VReminderListItem.swift in Sources */,

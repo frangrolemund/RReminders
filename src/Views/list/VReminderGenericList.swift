@@ -83,15 +83,7 @@ struct VReminderGenericList: View {
 			isEditing = editMode?.wrappedValue == .active
 		})
 		.toolbar {
-			if isEditing {
-				ToolbarItem {
-					VDoneButton {
-						withAnimation {
-							isEditing = false
-						}
-					}
-				}
-			} else {
+			if !isEditing {
 				ToolbarItem {
 					VListInfoMenu(list: list, isEditing: $isEditing)
 				}
