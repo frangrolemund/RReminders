@@ -10,9 +10,11 @@ import SwiftUI
 
 struct VReminderGenericList: View {
 	@Environment(\.editMode) private var editMode
+	@Environment(VNavigationBarInfo.self) var navBarInfo
 	@Bindable var list: VMReminderList
 	@State private var toFocus: VMReminder?
 	@State private var isEditing: Bool = false
+	@State private var isTitleInline: Bool = false
 	
 	init(list: VMReminderList) {
 		self.list = list
@@ -29,6 +31,18 @@ struct VReminderGenericList: View {
 					.foregroundStyle(list.color.uiColor)
 					.selectionDisabled()
 					.listRowSeparator(.hidden)
+					.onGeometryChange(for: Bool.self) { proxy in
+						// - simulates the traditional list behavior where it will
+						//   merge into the nav bar when scrolling upwards, while
+						//   retaining the ability to change its styling
+						let f = proxy.frame(in: .scrollView)
+						return f.minY < navBarInfo.height
+					} action: { newValue in
+						withAnimation {
+							isTitleInline = newValue
+						}
+					}
+					.visible(!isTitleInline)
 				
 				ForEach(list.reminders) { (reminder: VMReminder) in
 					VReminderListItem(reminder: reminder, pendingReminder: $toFocus, titleReturn: { reminder in
@@ -45,6 +59,7 @@ struct VReminderGenericList: View {
 			}
 			.listStyle(.plain)
 			.navigationBarTitleDisplayMode(.inline)
+			.navigationTitle(isTitleInline ? list.name : "")
 			.onConditionalTapGesture(apply: !(editMode?.wrappedValue.isEditing ?? false)) {
 				managePendingReminder()
 			}
