@@ -87,6 +87,11 @@ extension VMReminderList {
 	var startIndex: Int { reminders.startIndex }
 	var endIndex: Int { reminders.endIndex }
 	var count: Int { reminders.count }
+	var numCompleted: Int {
+		return model.reminders.reduce(0) { partialResult, rem in
+			return partialResult + (rem.completedOn != nil ? 1 : 0)
+		}
+	}
 	
 	var reminders: [VMReminder] {
 		get { sortedReminders }
@@ -237,6 +242,10 @@ extension VMReminderList {
 		self._sortedReminders = self._sortedReminders?.filter({ rem in
 			self._rawReminders?.contains(rem) ?? false
 		})
+	}
+	
+	func clearCompleted() {
+		self.reminders = self.reminders.filter({ !$0.isCompleted })
 	}
 }
 

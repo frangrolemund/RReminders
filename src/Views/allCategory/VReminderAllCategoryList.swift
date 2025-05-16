@@ -15,6 +15,14 @@ struct VReminderAllCategoryList: View {
 	
     var body: some View {
     	List {
+    		if showCompleted {
+    			Section {
+					VReminderCompletedHeader(modelData: modelData, count: modelData.numCompleted)
+						.listRowSeparator(.hidden)
+    			}
+    			.listSectionSeparator(.hidden)
+    		}
+    	
 			ForEach(modelData.lists) { list in
 				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, toFocus: $toFocus)
 			}
@@ -30,6 +38,33 @@ struct VReminderAllCategoryList: View {
 			}
 		}
     }
+}
+
+fileprivate struct VReminderCompletedHeader: View {
+	let modelData: VMReminderStore
+	let count: Int
+	
+	var body: some View {
+		HStack {
+			Text("\(count) Completed")
+				.foregroundStyle(.secondary)
+				
+			Text("•")
+				.foregroundStyle(.secondary)
+				.bold()
+	
+			Menu {
+				Section("Clear Completed Reminders") {
+					Button("All Completed") {
+						modelData.clearCompleted()
+					}
+				}
+			} label: {
+				Text("Clear")
+					.foregroundStyle(.tint)
+			}
+		}
+	}
 }
 
 fileprivate struct VReminderListSection: View {
@@ -82,10 +117,18 @@ fileprivate struct VReminderListSection: View {
 	}
 }
 
-#Preview {
+#Preview("Basic") {
 	@Previewable @State var toFocus: VMReminder?
 	NavigationStack {
     	VReminderAllCategoryList()
 	}
 	.environment(_PCReminderModel)
+}
+
+#Preview("Completed") {
+	@Previewable @State var modelData = _PCReminderModel
+	VStack {
+		VReminderCompletedHeader(modelData: modelData, count: 5)
+		VReminderCompletedHeader(modelData: modelData, count: 0)
+	}
 }
