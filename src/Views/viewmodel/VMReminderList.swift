@@ -150,31 +150,36 @@ extension VMReminderList {
 			
 		}
 		
+		let cmpCompleted = {(_ r1: VMReminder, _ r2: VMReminder) -> Bool? in
+			guard r1.isCompleted != r2.isCompleted else { return nil }
+			return (!r1.isCompleted && r2.isCompleted)
+		}
+		
 		let resorted: [VMReminder]
 		switch sortOrder {
 		case .manual:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.listOrder < r2.listOrder
+				cmpCompleted(r1, r2) ?? (r1.listOrder < r2.listOrder)
 			})
 		
 		case .dueDate:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.dueDate < r2.dueDate
+				cmpCompleted(r1, r2) ?? (r1.dueDate < r2.dueDate)
 			})
 			
 		case .creationDate:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.created < r2.created
+				cmpCompleted(r1, r2) ?? (r1.created < r2.created)
 			})
 			
 		case .priority:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && (r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99)
+				cmpCompleted(r1, r2) ?? ((r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99))
 			})
 			
 		case .title:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.title.localizedCompare(r2.title) == .orderedAscending
+				cmpCompleted(r1, r2) ?? (r1.title.localizedCompare(r2.title) == .orderedAscending)
 			})
 		}
 		
