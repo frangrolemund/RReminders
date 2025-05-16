@@ -117,6 +117,7 @@ extension VMReminderStore {
 		self.lists.forEach { list in
 			list.clearCompleted()
 		}
+		self.save()
 	}
 }
 

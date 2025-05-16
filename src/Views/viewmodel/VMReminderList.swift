@@ -32,7 +32,6 @@ class VMReminderList: Identifiable, Hashable, AnyObject {
 		set {
 			model.showCompleted = newValue
 			self.save()
-			_sortedReminders = nil
 		}
 	}
 	
@@ -94,7 +93,7 @@ extension VMReminderList {
 	}
 	
 	var reminders: [VMReminder] {
-		get { sortedReminders }
+		get { sortedReminders.filter( { showCompleted || !$0.isCompleted } ) }
 		
 		set {
 			// - this operation is necessary to allow reordering, but it needs to be done
@@ -104,6 +103,10 @@ extension VMReminderList {
 			_sortedReminders = nil
 			self.save()
 		}
+	}
+
+	func reminders(includingCompleted: Bool) -> [VMReminder] {
+		return includingCompleted ? sortedReminders : reminders
 	}
 	
 	var hasPendingReminder: Bool {
@@ -175,9 +178,8 @@ extension VMReminderList {
 			})
 		}
 		
-		let filtered = resorted.filter( {showCompleted || !$0.isCompleted} )
-		_sortedReminders = filtered
-		return filtered
+		_sortedReminders = resorted
+		return resorted
 	}
 			
 	// - modifies _rawReminders
@@ -245,7 +247,9 @@ extension VMReminderList {
 	}
 	
 	func clearCompleted() {
-		self.reminders = self.reminders.filter({ !$0.isCompleted })
+		self.model.reminders = self.model.reminders.filter({ $0.completedOn == nil })
+		self._rawReminders = self._rawReminders?.filter({ !$0.isCompleted })
+		self._sortedReminders = nil
 	}
 }
 

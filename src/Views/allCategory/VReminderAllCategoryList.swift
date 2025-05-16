@@ -56,13 +56,16 @@ fileprivate struct VReminderCompletedHeader: View {
 			Menu {
 				Section("Clear Completed Reminders") {
 					Button("All Completed") {
-						modelData.clearCompleted()
+						withAnimation {
+							modelData.clearCompleted()
+						}
 					}
 				}
 			} label: {
 				Text("Clear")
 					.foregroundStyle(.tint)
 			}
+			.disabled(count == 0)
 		}
 	}
 }
@@ -84,10 +87,8 @@ fileprivate struct VReminderListSection: View {
 	
 	var body: some View {
 		Section {
-			ForEach(list.reminders) { reminder in
-				if showCompleted || !reminder.isCompleted {
-					VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
-				}
+			ForEach(list.reminders(includingCompleted: showCompleted)) { reminder in
+				VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
 			}
 			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false)
 			
