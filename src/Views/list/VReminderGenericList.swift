@@ -57,10 +57,14 @@ struct VReminderGenericList: View {
 					})
 					.tag(reminder.id)
 				}
-				.onDelete { row in
-					guard let idx = row.first else { return }
+				.onDelete { isDel in
+					guard let idx = isDel.first else { return }
 					list.reminders.remove(at: idx)
 				}
+				.onMove(perform: { isMove, toIdx in
+					print("MOVE")
+				})
+				.deleteDisabled(isEditing)
 			}
 			.listStyle(.plain)
 			.navigationBarTitleDisplayMode(.inline)
