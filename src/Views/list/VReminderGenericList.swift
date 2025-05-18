@@ -31,17 +31,22 @@ struct VReminderGenericList: View {
 					.foregroundStyle(list.color.uiColor)
 					.selectionDisabled()
 					.listRowSeparator(.hidden)
-					.onGeometryChange(for: Bool.self) { proxy in
-						// - simulates the traditional list behavior where it will
-						//   merge into the nav bar when scrolling upwards, while
-						//   retaining the ability to change its styling
-						let f = proxy.frame(in: .scrollView)
-						return f.minY < navBarInfo.height
-					} action: { newValue in
-						withAnimation {
-							isTitleInline = newValue
+					.background(content: {
+						// - if this isn't in the background, SwiftUI renders a
+						//   separator between the toolbar and the content
+						Color.clear
+							.onGeometryChange(for: Bool.self) { proxy in
+								// ...simulates the traditional list behavior where it will
+								//   merge into the nav bar when scrolling upwards, while
+								//   retaining the ability to change its styling
+								let f = proxy.frame(in: .scrollView)
+								return f.minY < navBarInfo.height
+							} action: { newValue in
+								withAnimation {
+									isTitleInline = newValue
+							}
 						}
-					}
+					})
 					.visible(!isTitleInline)
 				
 				ForEach(list.reminders) { (reminder: VMReminder) in
