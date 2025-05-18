@@ -15,6 +15,7 @@ struct VReminderGenericList: View {
 	@State private var toFocus: VMReminder?
 	@State private var isEditing: Bool = false
 	@State private var isTitleInline: Bool = false
+	@State private var selItems: Set<VMReminder>?
 	
 	init(list: VMReminderList) {
 		self.list = list
@@ -25,7 +26,7 @@ struct VReminderGenericList: View {
     var body: some View {
 		ZStack {
 			List {
-				Text(list.name)
+				Text(self.reminderListTitle)
 					.font(.largeTitle)
 					.bold()
 					.foregroundStyle(list.color.uiColor)
@@ -50,7 +51,7 @@ struct VReminderGenericList: View {
 					.visible(!isTitleInline)
 				
 				ForEach(list.reminders) { (reminder: VMReminder) in
-					VReminderListItem(reminder: reminder, focusedReminder: $toFocus, titleReturn: { reminder in
+					VReminderListItem(reminder: reminder, focusedReminder: $toFocus, groupSelection: $selItems, titleReturn: { reminder in
 						if let idx = list.reminders.firstIndex(of: reminder) {
 							toFocus = list.insertReminder(at: idx + 1)
 						}
@@ -68,7 +69,7 @@ struct VReminderGenericList: View {
 			}
 			.listStyle(.plain)
 			.navigationBarTitleDisplayMode(.inline)
-			.navigationTitle(isTitleInline ? list.name : "")
+			.navigationTitle(isTitleInline ? self.reminderListTitle : "")
 			.onConditionalTapGesture(apply: !(editMode?.wrappedValue.isEditing ?? false)) {
 				managePendingReminder()
 			}
@@ -90,6 +91,7 @@ struct VReminderGenericList: View {
 		}
 		.onAppear(perform: {
 			isEditing = editMode?.wrappedValue == .active
+			selItems = isEditing ? .init() : nil
 		})
 		.toolbar {
 			ToolbarItem {
@@ -110,9 +112,23 @@ struct VReminderGenericList: View {
 			//   in a NavigationStack (see _VExpEditMode), so this technique
 			//   modifies it in response to the state changing.
 			withAnimation {
-				editMode?.wrappedValue = newValue ? .active : .inactive				
+				selItems = newValue ? .init() : nil
+				editMode?.wrappedValue = newValue ? .active : .inactive
 			}
 		}
+    }
+    
+    private var reminderListTitle: String {
+    	if isEditing {
+    		if let ct = selItems?.count, ct > 0 {
+    			return "\(ct) Selected"
+    		} else {
+    			return "Select Reminders"
+    		}
+    		
+    	} else {
+    		return list.name
+    	}
     }
 }
 

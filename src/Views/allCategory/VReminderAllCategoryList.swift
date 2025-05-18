@@ -13,6 +13,7 @@ struct VReminderAllCategoryList: View {
 	@State private var toFocus: VMReminder?
 	@State var isEditing: Bool = false
 	@State var showCompleted: Bool = false
+	@State private var selItems: Set<VMReminder>?
 	
     var body: some View {
     	List {
@@ -25,7 +26,7 @@ struct VReminderAllCategoryList: View {
     		}
     	
 			ForEach(modelData.lists) { list in
-				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, isEditing: $isEditing, toFocus: $toFocus)
+				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, isEditing: $isEditing, toFocus: $toFocus, groupSelection: $selItems)
 			}
 		}
 		.listStyle(.plain)
@@ -90,20 +91,22 @@ fileprivate struct VReminderListSection: View {
 	@Binding private var toFocus: VMReminder?
 	@Binding private var isEditing: Bool
 	@State private var pending: VMReminder
+	@Binding private var selItems: Set<VMReminder>?
 	
-	init(_ list: VMReminderList, withDivider: Bool, showCompleted: Binding<Bool>, isEditing: Binding<Bool>, toFocus: Binding<VMReminder?>) {
+	init(_ list: VMReminderList, withDivider: Bool, showCompleted: Binding<Bool>, isEditing: Binding<Bool>, toFocus: Binding<VMReminder?>, groupSelection: Binding<Set<VMReminder>?>) {
 		self.list = list
 		self.hasDivider = withDivider
 		self._showCompleted = showCompleted
 		self._isEditing = isEditing
 		self._toFocus = toFocus
 		self._pending = .init(initialValue: list.addReminder())
+		self._selItems = groupSelection
 	}
 	
 	var body: some View {
 		Section {
 			ForEach(list.reminders(includingCompleted: showCompleted)) { reminder in
-				VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
+				VReminderListItem(reminder: reminder, focusedReminder: $toFocus, groupSelection: $selItems)
 			}
 			.onDelete { isDel in
 				print("DELETE")
@@ -113,7 +116,7 @@ fileprivate struct VReminderListSection: View {
 			}
 			.deleteDisabled(isEditing)
 					
-			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false)
+			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false, groupSelection: $selItems)
 				.disabled(isEditing)
 			
 		} header: {

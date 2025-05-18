@@ -16,6 +16,7 @@ struct VReminderListItem: View {
 	@State private var isShowingDetails: Bool = false
 	@State private var isCompleted: Bool
 	@Binding var focusedReminder: VMReminder?
+	@Binding var groupSelection: Set<VMReminder>?
 	private var titleReturn: ReturnBlock?
 	private let allowCompletion: Bool
 	
@@ -25,9 +26,14 @@ struct VReminderListItem: View {
 	}
 		
 	typealias ReturnBlock = (_ reminder: VMReminder) -> Void
-	init(reminder: VMReminder, focusedReminder: Binding<VMReminder?>, allowCompletion: Bool = true, titleReturn: ReturnBlock? = nil) {
+	init(reminder: VMReminder,
+		focusedReminder: Binding<VMReminder?>,
+		allowCompletion: Bool = true,
+		groupSelection: Binding<Set<VMReminder>?>,
+		titleReturn: ReturnBlock? = nil) {
 		self.reminder = reminder
 		self._focusedReminder = focusedReminder
+		self._groupSelection = groupSelection
 		self.titleReturn = titleReturn
 		self._title = State(initialValue: reminder.title)
 		self._notes = State(initialValue: reminder.notes ?? "")
@@ -37,18 +43,22 @@ struct VReminderListItem: View {
 	
     var body: some View {
 		HStack(alignment: .top) {
-			ReminderToggle(isOn: $isCompleted, allowCompletion: allowCompletion)
-				.foregroundStyle(isCompleted ? Color.accentColor : Color.secondary)
-				.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
-				.onChange(of: isCompleted, {
-					Task {
-						try? await Task.sleep(for: .seconds(2))
-						guard !Task.isCancelled, isCompleted != reminder.isCompleted else { return }
-						withAnimation {
-							reminder.isCompleted = isCompleted
+			if groupSelection != nil {
+				ReminderSelection(reminder: reminder, groupSelection: $groupSelection)
+				
+			} else {
+				ReminderToggle(isOn: $isCompleted, allowCompletion: allowCompletion)
+					.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
+					.onChange(of: isCompleted, {
+						Task {
+							try? await Task.sleep(for: .seconds(2))
+							guard !Task.isCancelled, isCompleted != reminder.isCompleted else { return }
+							withAnimation {
+								reminder.isCompleted = isCompleted
+							}
 						}
-					}
-				})
+					})
+			}
 							
 			VStack(spacing: 4) {
 				HStack {
@@ -157,18 +167,25 @@ struct VReminderListItem: View {
 
 
 #Preview {
+	@Previewable @State var groupSelection: Set<VMReminder>? = .init()
 	VStack {
+		HStack {
+			Text("Group Selected (only second item):")
+				.bold()
+			Text("\(groupSelection?.count ?? 0)")
+			Spacer()
+		}
 		Divider()
-		VReminderListItem(reminder:  _PCReminderListDefault[1], focusedReminder: .constant(nil))
+		VReminderListItem(reminder:  _PCReminderListDefault[1], focusedReminder: .constant(nil), groupSelection: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[2], focusedReminder: .constant(nil))
+		VReminderListItem(reminder: _PCReminderListDefault[2], focusedReminder: .constant(nil), groupSelection: $groupSelection)
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListDefault[0], focusedReminder: .constant(nil))
+		VReminderListItem(reminder: _PCReminderListDefault[0], focusedReminder: .constant(nil), groupSelection: .constant(nil))
 		Divider()
 		
-		VReminderListItem(reminder: _PCReminderListAlt[1], focusedReminder: .constant(nil), allowCompletion: false)
+		VReminderListItem(reminder: _PCReminderListAlt[1], focusedReminder: .constant(nil), allowCompletion: false, groupSelection: .constant(nil))
 	}
 	.padding([.leading, .trailing], 20)
 }
@@ -216,9 +233,32 @@ fileprivate struct ReminderToggle: View {
 				}
 			}
 		}
+		.foregroundStyle(isOn ? Color.accentColor : Color.secondary)
 		.buttonStyle(.plain)
 		.frame(width: 22, height: 22)
+	}
+}
 
+fileprivate struct ReminderSelection: View {
+	@State private var isOn: Bool
+	let rem: VMReminder
+	@Binding private var selItems: Set<VMReminder>?
+	
+	init(reminder: VMReminder, groupSelection: Binding<Set<VMReminder>?>) {
+		self.rem = reminder
+		self._selItems = groupSelection
+		self._isOn = .init(initialValue: groupSelection.wrappedValue?.contains(reminder) ?? false)
+	}
+	
+	var body: some View {
+		ReminderToggle(isOn: $isOn, allowCompletion: true)
+			.onChange(of: isOn) { _, newValue in
+				if newValue {
+					selItems?.insert(rem)
+				} else {
+					selItems?.remove(rem)
+				}
+			}
 	}
 }
 
