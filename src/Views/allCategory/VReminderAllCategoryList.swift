@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VReminderAllCategoryList: View {
+	@Environment(\.editMode) private var editMode
 	@Environment(VMReminderStore.self) private var modelData
 	@State private var toFocus: VMReminder?
 	@State var isEditing: Bool = false
@@ -24,7 +25,7 @@ struct VReminderAllCategoryList: View {
     		}
     	
 			ForEach(modelData.lists) { list in
-				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, toFocus: $toFocus)
+				VReminderListSection(list, withDivider: list != modelData.lists[0], showCompleted: $showCompleted, isEditing: $isEditing, toFocus: $toFocus)
 			}
 		}
 		.listStyle(.plain)
@@ -32,9 +33,21 @@ struct VReminderAllCategoryList: View {
 		.navigationTitle("All")
 		.toolbar {
 			ToolbarItem {
-				if !isEditing {
+				if isEditing {
+					VDoneButton {
+						isEditing = false
+					}
+				} else {
 					VAllCategoryInfoMenu(isEditing: $isEditing, showCompleted: $showCompleted)
 				}
+			}
+		}
+		.onChange(of: isEditing) { _, newValue in
+			// - the reactivity of the .editMode doesn't work when views are
+			//   in a NavigationStack (see _VExpEditMode), so this technique
+			//   modifies it in response to the state changing.
+			withAnimation {
+				editMode?.wrappedValue = newValue ? .active : .inactive				
 			}
 		}
     }
@@ -75,12 +88,14 @@ fileprivate struct VReminderListSection: View {
 	let hasDivider: Bool
 	@Binding private var showCompleted: Bool
 	@Binding private var toFocus: VMReminder?
+	@Binding private var isEditing: Bool
 	@State private var pending: VMReminder
 	
-	init(_ list: VMReminderList, withDivider: Bool, showCompleted: Binding<Bool>, toFocus: Binding<VMReminder?>) {
+	init(_ list: VMReminderList, withDivider: Bool, showCompleted: Binding<Bool>, isEditing: Binding<Bool>, toFocus: Binding<VMReminder?>) {
 		self.list = list
 		self.hasDivider = withDivider
 		self._showCompleted = showCompleted
+		self._isEditing = isEditing
 		self._toFocus = toFocus
 		self._pending = .init(initialValue: list.addReminder())
 	}
@@ -90,7 +105,16 @@ fileprivate struct VReminderListSection: View {
 			ForEach(list.reminders(includingCompleted: showCompleted)) { reminder in
 				VReminderListItem(reminder: reminder, focusedReminder: $toFocus)
 			}
+			.onDelete { isDel in
+				print("DELETE")
+			}
+			.onMove { isMove, toIdx in
+				print("MOVE")
+			}
+			.deleteDisabled(isEditing)
+					
 			VReminderListItem(reminder: pending, focusedReminder: $toFocus, allowCompletion: false)
+				.disabled(isEditing)
 			
 		} header: {
 			VStack(alignment: .leading) {

@@ -83,8 +83,12 @@ struct VReminderGenericList: View {
 			isEditing = editMode?.wrappedValue == .active
 		})
 		.toolbar {
-			if !isEditing {
-				ToolbarItem {
+			ToolbarItem {
+				if isEditing {
+					VDoneButton {
+						isEditing = false
+					}
+				} else {
 					VListInfoMenu(list: list, isEditing: $isEditing)
 				}
 			}
@@ -96,7 +100,9 @@ struct VReminderGenericList: View {
 			// - the reactivity of the .editMode doesn't work when views are
 			//   in a NavigationStack (see _VExpEditMode), so this technique
 			//   modifies it in response to the state changing.
-			editMode?.wrappedValue = newValue ? .active : .inactive
+			withAnimation {
+				editMode?.wrappedValue = newValue ? .active : .inactive				
+			}
 		}
     }
 }
