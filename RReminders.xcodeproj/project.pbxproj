@@ -48,6 +48,7 @@
 		A19527462DB93A46007936AF /* _VExpSafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527452DB93A46007936AF /* _VExpSafeArea.swift */; };
 		A19527482DB94233007936AF /* _VExpAnim2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527472DB94233007936AF /* _VExpAnim2.swift */; };
 		A19E10E22DDB55DE00F7D8B2 /* _VexpList6.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */; };
+		A19E10E42DDB6F4700F7D8B2 /* _VExpList7.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E10E32DDB6F4700F7D8B2 /* _VExpList7.swift */; };
 		A19ED6DC2DD36D7700CE1F31 /* VReminderAllCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ED6DB2DD36D7700CE1F31 /* VReminderAllCategoryList.swift */; };
 		A19ED6E02DD3801C00CE1F31 /* _VExpNavTitleCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */; };
 		A19F1C492D7DEBC7003D6E43 /* VSummaryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */; };
@@ -137,6 +138,7 @@
 		A19527452DB93A46007936AF /* _VExpSafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpSafeArea.swift; sourceTree = "<group>"; };
 		A19527472DB94233007936AF /* _VExpAnim2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpAnim2.swift; sourceTree = "<group>"; };
 		A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VexpList6.swift; sourceTree = "<group>"; };
+		A19E10E32DDB6F4700F7D8B2 /* _VExpList7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList7.swift; sourceTree = "<group>"; };
 		A19ED6DB2DD36D7700CE1F31 /* VReminderAllCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderAllCategoryList.swift; sourceTree = "<group>"; };
 		A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpNavTitleCustom.swift; sourceTree = "<group>"; };
 		A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSummaryListItem.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				A1A8C5AC2DD130E00045129F /* _VExpEditMode.swift */,
 				A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */,
 				A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */,
+				A19E10E32DDB6F4700F7D8B2 /* _VExpList7.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				A143378E2DA58E7E00B8AF9E /* VDetailsPriorityField.swift in Sources */,
 				A1A8C5AD2DD130E00045129F /* _VExpEditMode.swift in Sources */,
 				A129B49D2DBA6AFB00FE84D9 /* _VExpObservable5.swift in Sources */,
+				A19E10E42DDB6F4700F7D8B2 /* _VExpList7.swift in Sources */,
 				A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */,
 				A1B9E7E62DB98C2700E9AE2A /* _VExpObservable4.swift in Sources */,
 				A1F677C12DCE263900DD1471 /* VDoneButton.swift in Sources */,

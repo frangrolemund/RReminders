@@ -1,5 +1,5 @@
 //
-//  _VexpList6.swift
+//  _VExpList7.swift
 //  RReminders
 //
 //  Created by Francis Grolemund on 5/19/25.
@@ -8,18 +8,14 @@
 import SwiftUI
 
 // - this experiment is attempting to find a way to detect taps below the
-//   rows while allowing each row to receive taps of its own.  This is
-//   mostly possible if the row is explicitly sized and no automatic
-//   insets, spacing or padding are used from the default list.
-// - even with the solution provided here, small things can impact whether
-//   taps are interpreted correctly or very clear taps on a row are just
-//   not received there and passed onto the list.  It is only partially
-//   reliable at best and completely unreliable at worst.
-
-fileprivate struct _VexpList6: View {
+//   rows while allowing each row to receive taps of its own. (continuation
+//   of _VExpList6.
+// - it turns out that ScrollView does this naturally without any extra
+//   effort.
+fileprivate struct _VExpList7: View {
     var body: some View {
-		VStack {
-			List {
+        ScrollView {
+			VStack(spacing: 0) {
 				RowItem("One")
 				RowItem("Two")
 				RowItem("Three")
@@ -30,15 +26,18 @@ fileprivate struct _VexpList6: View {
 				RowItem("Eight")
 				RowItem("Nine")
 			}
-			.listStyle(.plain)
-			.listRowSpacing(0)		// - appears to be important
-			.border(.red)
-			.onTapGesture {
-				print("TAP LIST 2")
-			}
+		}
+		.border(.red)
+		.onTapGesture {
+			print("TAP SCROLL")
 		}
     }
 }
+
+#Preview {
+    _VExpList7()
+}
+
 
 fileprivate struct RowItem : View {
 	let text: String
@@ -54,6 +53,7 @@ fileprivate struct RowItem : View {
 				.border(.orange)
 			Spacer()
 		}
+		.frame(minHeight: 45)
 		.contentShape(Rectangle())
 		.onTapGesture {
 			print("TAP ROW \(text)")
@@ -61,8 +61,4 @@ fileprivate struct RowItem : View {
 		.border(.green)
 		.listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
 	}
-}
-
-#Preview {
-    _VexpList6()
 }
