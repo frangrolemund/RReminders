@@ -48,7 +48,6 @@ struct VReminderListItem: View {
 				
 			} else {
 				ReminderToggle(isOn: $isCompleted, allowCompletion: allowCompletion)
-					.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
 					.onChange(of: isCompleted, {
 						Task {
 							try? await Task.sleep(for: .seconds(2))
@@ -236,6 +235,7 @@ fileprivate struct ReminderToggle: View {
 		.foregroundStyle(isOn ? Color.accentColor : Color.secondary)
 		.buttonStyle(.plain)
 		.frame(width: 22, height: 22)
+		.padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
 	}
 }
 
