@@ -47,6 +47,7 @@
 		A19527442DB92269007936AF /* _VExpNav2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527432DB92269007936AF /* _VExpNav2.swift */; };
 		A19527462DB93A46007936AF /* _VExpSafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527452DB93A46007936AF /* _VExpSafeArea.swift */; };
 		A19527482DB94233007936AF /* _VExpAnim2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19527472DB94233007936AF /* _VExpAnim2.swift */; };
+		A19E10E22DDB55DE00F7D8B2 /* _VexpList6.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */; };
 		A19ED6DC2DD36D7700CE1F31 /* VReminderAllCategoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ED6DB2DD36D7700CE1F31 /* VReminderAllCategoryList.swift */; };
 		A19ED6E02DD3801C00CE1F31 /* _VExpNavTitleCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */; };
 		A19F1C492D7DEBC7003D6E43 /* VSummaryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */; };
@@ -135,6 +136,7 @@
 		A19527432DB92269007936AF /* _VExpNav2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpNav2.swift; sourceTree = "<group>"; };
 		A19527452DB93A46007936AF /* _VExpSafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpSafeArea.swift; sourceTree = "<group>"; };
 		A19527472DB94233007936AF /* _VExpAnim2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpAnim2.swift; sourceTree = "<group>"; };
+		A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VexpList6.swift; sourceTree = "<group>"; };
 		A19ED6DB2DD36D7700CE1F31 /* VReminderAllCategoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VReminderAllCategoryList.swift; sourceTree = "<group>"; };
 		A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpNavTitleCustom.swift; sourceTree = "<group>"; };
 		A19F1C482D7DEBC7003D6E43 /* VSummaryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSummaryListItem.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				A1A8C5AA2DD0DDC70045129F /* _VExpList5.swift */,
 				A1A8C5AC2DD130E00045129F /* _VExpEditMode.swift */,
 				A19ED6DF2DD3801C00CE1F31 /* _VExpNavTitleCustom.swift */,
+				A19E10E12DDB55DE00F7D8B2 /* _VexpList6.swift */,
 			);
 			path = experiments;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				A10FEF322D7B2A1500595B66 /* VCategoryCard.swift in Sources */,
 				A1BF28452D8B3C6A00EB451F /* VTimePicker.swift in Sources */,
 				A1B9E7E42DB9811700E9AE2A /* _VExpObservable3.swift in Sources */,
+				A19E10E22DDB55DE00F7D8B2 /* _VexpList6.swift in Sources */,
 				A1BF28412D8AFE5900EB451F /* VDetailsTimeField.swift in Sources */,
 				A1BE0B662DA44273004F3AA6 /* VReminderListSelection.swift in Sources */,
 				A1C82F1D2DD4EF63003FD5E9 /* VAllCategoryInfoMenu.swift in Sources */,
