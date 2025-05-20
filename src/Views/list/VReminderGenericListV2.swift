@@ -27,8 +27,7 @@ struct VReminderGenericListV2: View {
     var body: some View {
 		ZStack {
 			ScrollView {
-				// TODO: make this lazy
-				VStack(alignment: .leading, spacing: 0) {
+				LazyVStack(alignment: .leading, spacing: 0) {
 					Text(self.reminderListTitle)
 						.font(.largeTitle)
 						.bold()
@@ -69,7 +68,7 @@ struct VReminderGenericListV2: View {
 								.foregroundStyle(Color.gray.opacity(0.3))
 						}
 						.contentShape(Rectangle())
-//						.onTapGesture{} // - prevents taps from going thru
+						.onTapGesture{} // - prevents taps from going thru
 					}
 					.onDelete { isDel in
 						guard let idx = isDel.first else { return }
@@ -82,13 +81,12 @@ struct VReminderGenericListV2: View {
 				}
 				.navigationBarTitleDisplayMode(.inline)
 				.navigationTitle(isTitleInline ? self.reminderListTitle : "")
-				.onTapGesture(perform: {
-					guard !(editMode?.wrappedValue.isEditing ?? false) else { return }
-					managePendingReminder()
-				})
-				.border(.red, width: 3)
 			}
-			
+			.onTapGesture(perform: {
+				guard !(editMode?.wrappedValue.isEditing ?? false) else { return }
+				managePendingReminder()
+			})
+						
 			VStack(alignment: .leading) {
 				Spacer()
 				HStack {
