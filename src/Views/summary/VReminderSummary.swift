@@ -27,7 +27,7 @@ struct VReminderSummary: View {
 						.offset(y: isSearching ? 50 : 0)
 				}
 				.navigationDestination(for: VMReminderList.self, destination: { list in
-					VReminderGenericList(list: list)
+					VReminderGenericListV2(list: list)
 				})
 				.navigationDestination(for: ReminderStore.SummaryCategory.self, destination: { sc in
 					switch sc {

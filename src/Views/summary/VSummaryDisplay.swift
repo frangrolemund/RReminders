@@ -71,9 +71,7 @@ struct VSummaryDisplay: View {
 						if isEditing {
 							VSummaryListItem(list: list)
 						} else {
-							NavigationLink {
-								VReminderGenericList(list: list)
-							} label: {
+							NavigationLink(value: list) {
 								VSummaryListItem(list: list, displayStyle: .count)
 							}
 						}

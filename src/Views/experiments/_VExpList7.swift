@@ -14,22 +14,30 @@ import SwiftUI
 //   effort.
 fileprivate struct _VExpList7: View {
     var body: some View {
-        ScrollView {
-			VStack(spacing: 0) {
-				RowItem("One")
-				RowItem("Two")
-				RowItem("Three")
-				RowItem("Four")
-				RowItem("Five")
-				RowItem("Six")
-				RowItem("Seven")
-				RowItem("Eight")
-				RowItem("Nine")
+    	ZStack {
+			ScrollView {
+				LazyVStack(spacing: 0) {
+					RowItem("One")
+					RowItem("Two")
+					RowItem("Three")
+					RowItem("Four")
+					RowItem("Five")
+					RowItem("Six")
+					RowItem("Seven")
+					RowItem("Eight")
+					RowItem("Nine")
+				}
+				.border(.purple, width: 3)
 			}
-		}
-		.border(.red)
-		.onTapGesture {
-			print("TAP SCROLL")
+			.border(.red, width: 2)
+			.onTapGesture {
+				print("TAP SCROLL")
+			}
+		
+			VStack {
+				Spacer()
+				Text("At the bottom...")
+			}
 		}
     }
 }
