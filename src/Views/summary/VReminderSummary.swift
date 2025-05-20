@@ -87,10 +87,8 @@ fileprivate struct BottomBar: ToolbarContent {
 	
 	var body: some ToolbarContent {
 		ToolbarItemGroup(placement: .bottomBar) {
-			Button {
+			VNewReminderButton {
 				isNewReminderDisplayed = true
-			} label: {
-				VNewReminderButtonLabel()
 			}
 			.disabled(modelData.lists.isEmpty)
 		
@@ -103,20 +101,7 @@ fileprivate struct BottomBar: ToolbarContent {
 	}
 }
 
-struct VNewReminderButtonLabel: View {
-	var body: some View {
-		HStack(spacing: 10) {
-			Circle()
-				.reminderIconSized(iconDimension: 25)
-				.overlay {
-					Image(systemName: "plus")
-						.foregroundStyle(.white)
-				}
-			Text("New Reminder")
-		}
-		.bold()
-	}
-}
+
 
 // - used for recreating the nav title merge effect.
 @Observable

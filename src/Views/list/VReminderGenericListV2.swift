@@ -90,10 +90,8 @@ struct VReminderGenericListV2: View {
 				if !list.hasPendingReminder {
 					ToolbarItemGroup(placement: .bottomBar) {
 						HStack {
-							Button {
+							VNewReminderButton {
 								managePendingReminder()
-							} label: {
-								VNewReminderButtonLabel()
 							}
 							.foregroundStyle(list.color.uiColor)
 							

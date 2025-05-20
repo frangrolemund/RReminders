@@ -77,10 +77,8 @@ struct VReminderGenericList: View {
 			VStack(alignment: .leading) {
 				Spacer()
 				HStack {
-					Button {
+					VNewReminderButton {
 						managePendingReminder()
-					} label: {
-						VNewReminderButtonLabel()
 					}
 					.foregroundStyle(list.color.uiColor)
 					Spacer()

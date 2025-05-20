@@ -39,6 +39,7 @@
 		A17A4D5C2D81FB1A00A01584 /* VListInfoDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */; };
 		A17A4D5E2D820C8200A01584 /* VListInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5D2D820C8200A01584 /* VListInfoHeader.swift */; };
 		A17A4D602D8229CD00A01584 /* VListInfoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A4D5F2D8229CD00A01584 /* VListInfoPicker.swift */; };
+		A17C6B522DDCBA9A00CC8013 /* VNewReminderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C6B512DDCBA9A00CC8013 /* VNewReminderButton.swift */; };
 		A192EF852D7C7102007C9024 /* VCategoryBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF842D7C7102007C9024 /* VCategoryBadge.swift */; };
 		A192EF872D7C719A007C9024 /* VCategoryListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF862D7C719A007C9024 /* VCategoryListItem.swift */; };
 		A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192EF882D7C7DB6007C9024 /* _VExpList2.swift */; };
@@ -130,6 +131,7 @@
 		A17A4D5B2D81FB1A00A01584 /* VListInfoDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoDisplay.swift; sourceTree = "<group>"; };
 		A17A4D5D2D820C8200A01584 /* VListInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoHeader.swift; sourceTree = "<group>"; };
 		A17A4D5F2D8229CD00A01584 /* VListInfoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VListInfoPicker.swift; sourceTree = "<group>"; };
+		A17C6B512DDCBA9A00CC8013 /* VNewReminderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VNewReminderButton.swift; sourceTree = "<group>"; };
 		A192EF842D7C7102007C9024 /* VCategoryBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryBadge.swift; sourceTree = "<group>"; };
 		A192EF862D7C719A007C9024 /* VCategoryListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCategoryListItem.swift; sourceTree = "<group>"; };
 		A192EF882D7C7DB6007C9024 /* _VExpList2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _VExpList2.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				A13D357B2D73673500D1DEF9 /* VReminderSummary.swift */,
+				A17C6B512DDCBA9A00CC8013 /* VNewReminderButton.swift */,
 				A10FEF2F2D7B23E700595B66 /* VSummaryDisplay.swift */,
 				A1FD5DD92D74B9A6008057AC /* VSearchField.swift */,
 				A10FEF312D7B2A1500595B66 /* VCategoryCard.swift */,
@@ -566,6 +569,7 @@
 				A1CEAE322DC3956B0033CDDC /* ReminderList.swift in Sources */,
 				A192EF892D7C7DB6007C9024 /* _VExpList2.swift in Sources */,
 				A13D357A2D735DFE00D1DEF9 /* _VExpColor.swift in Sources */,
+				A17C6B522DDCBA9A00CC8013 /* VNewReminderButton.swift in Sources */,
 				A1715DF42DBE64AA00A88297 /* _VExpObservable6.swift in Sources */,
 				A13CDF992D80AFFF0041EF82 /* VMReminderList.swift in Sources */,
 				A1E4BCE72D8748EE0098D192 /* Date+Util.swift in Sources */,
