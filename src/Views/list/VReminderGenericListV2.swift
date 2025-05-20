@@ -86,21 +86,22 @@ struct VReminderGenericListV2: View {
 				guard !(editMode?.wrappedValue.isEditing ?? false) else { return }
 				managePendingReminder()
 			})
-						
-			VStack(alignment: .leading) {
-				Spacer()
-				HStack {
-					Button {
-						managePendingReminder()
-					} label: {
-						VNewReminderButtonLabel()
+			.toolbar {
+				if !list.hasPendingReminder {
+					ToolbarItemGroup(placement: .bottomBar) {
+						HStack {
+							Button {
+								managePendingReminder()
+							} label: {
+								VNewReminderButtonLabel()
+							}
+							.foregroundStyle(list.color.uiColor)
+							
+							Spacer()
+						}
 					}
-					.foregroundStyle(list.color.uiColor)
-					Spacer()
 				}
-				.padding()
 			}
-			.visible(!list.hasPendingReminder)
 		}
 		.onAppear(perform: {
 			isEditing = editMode?.wrappedValue == .active
