@@ -69,6 +69,12 @@ extension VMReminderStore {
 			self.save()
 		}
 	}
+	
+	var numCompleted: Int {
+		return lists.reduce(0) { partialResult, list in
+			partialResult + list.numCompleted
+		}
+	}
 		
 	var hasVisibleCategories: Bool { summaryCategories.firstIndex(where: {$0.isVisible}) != nil }
 	
@@ -105,6 +111,13 @@ extension VMReminderStore {
 			print("ERROR: Failed to save reminder store.  \(error.localizedDescription)")
 			return .failure(error)
 		}
+	}
+	
+	func clearCompleted() {
+		self.lists.forEach { list in
+			list.clearCompleted()
+		}
+		self.save()
 	}
 }
 

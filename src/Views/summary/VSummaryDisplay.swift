@@ -9,15 +9,12 @@ import SwiftUI
 
 struct VSummaryDisplay: View {
 	@Binding var isSearching: Bool
+	@Binding var navPath: NavigationPath
 
 	@Environment(VMReminderStore.self) var modelData
 	@State private var searchText: String = ""
 	@Environment(\.editMode) var editMode
 	@FocusState private var isSearchFocused: Bool
-	
-	init(isSearching: Binding<Bool>) {
-		self._isSearching = isSearching
-	}
 
     var body: some View {
     	@Bindable var modelData = modelData
@@ -59,7 +56,7 @@ struct VSummaryDisplay: View {
 							modelData.summaryCategories.move(fromOffsets: indices, toOffset: newOffset)
 						}
 					} else if modelData.hasVisibleCategories {
-						VCategoryCardGroup(categories: modelData.summaryCategories) { cat in
+						VCategoryCardGroup(categories: modelData.summaryCategories, navPath: $navPath) { cat in
 							return modelData.reminders(for: cat).count
 						}
 						.background(.secondarySystemBackground)
@@ -74,9 +71,7 @@ struct VSummaryDisplay: View {
 						if isEditing {
 							VSummaryListItem(list: list)
 						} else {
-							NavigationLink {
-								VReminderGenericList(list: list)
-							} label: {
+							NavigationLink(value: list) {
 								VSummaryListItem(list: list, displayStyle: .count)
 							}
 						}
@@ -120,7 +115,8 @@ struct VSummaryDisplay: View {
 
 #Preview {
 	@Previewable @State var isSearching: Bool = false
-	VSummaryDisplay(isSearching: $isSearching)
+	@Previewable @State var navPath: NavigationPath = .init()
+	VSummaryDisplay(isSearching: $isSearching, navPath: $navPath)
 		.environment(_PCReminderModel)
 }
 

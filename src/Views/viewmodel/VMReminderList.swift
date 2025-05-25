@@ -32,7 +32,6 @@ class VMReminderList: Identifiable, Hashable, AnyObject {
 		set {
 			model.showCompleted = newValue
 			self.save()
-			_sortedReminders = nil
 		}
 	}
 	
@@ -87,9 +86,14 @@ extension VMReminderList {
 	var startIndex: Int { reminders.startIndex }
 	var endIndex: Int { reminders.endIndex }
 	var count: Int { reminders.count }
+	var numCompleted: Int {
+		return model.reminders.reduce(0) { partialResult, rem in
+			return partialResult + (rem.completedOn != nil ? 1 : 0)
+		}
+	}
 	
 	var reminders: [VMReminder] {
-		get { sortedReminders }
+		get { sortedReminders.filter( { showCompleted || !$0.isCompleted } ) }
 		
 		set {
 			// - this operation is necessary to allow reordering, but it needs to be done
@@ -99,6 +103,10 @@ extension VMReminderList {
 			_sortedReminders = nil
 			self.save()
 		}
+	}
+
+	func reminders(includingCompleted: Bool) -> [VMReminder] {
+		return includingCompleted ? sortedReminders : reminders
 	}
 	
 	var hasPendingReminder: Bool {
@@ -142,37 +150,41 @@ extension VMReminderList {
 			
 		}
 		
+		let cmpCompleted = {(_ r1: VMReminder, _ r2: VMReminder) -> Bool? in
+			guard r1.isCompleted != r2.isCompleted else { return nil }
+			return (!r1.isCompleted && r2.isCompleted)
+		}
+		
 		let resorted: [VMReminder]
 		switch sortOrder {
 		case .manual:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.listOrder < r2.listOrder
+				cmpCompleted(r1, r2) ?? (r1.listOrder < r2.listOrder)
 			})
 		
 		case .dueDate:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.dueDate < r2.dueDate
+				cmpCompleted(r1, r2) ?? (r1.dueDate < r2.dueDate)
 			})
 			
 		case .creationDate:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.created < r2.created
+				cmpCompleted(r1, r2) ?? (r1.created < r2.created)
 			})
 			
 		case .priority:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && (r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99)
+				cmpCompleted(r1, r2) ?? ((r1.priority?.rawValue ?? 99) < (r2.priority?.rawValue ?? 99))
 			})
 			
 		case .title:
 			resorted = unsorted.sorted(by: { r1, r2 in
-				(!r1.isCompleted || r2.isCompleted) && r1.title.localizedCompare(r2.title) == .orderedAscending
+				cmpCompleted(r1, r2) ?? (r1.title.localizedCompare(r2.title) == .orderedAscending)
 			})
 		}
 		
-		let filtered = resorted.filter( {showCompleted || !$0.isCompleted} )
-		_sortedReminders = filtered
-		return filtered
+		_sortedReminders = resorted
+		return resorted
 	}
 			
 	// - modifies _rawReminders
@@ -237,6 +249,12 @@ extension VMReminderList {
 		self._sortedReminders = self._sortedReminders?.filter({ rem in
 			self._rawReminders?.contains(rem) ?? false
 		})
+	}
+	
+	func clearCompleted() {
+		self.model.reminders = self.model.reminders.filter({ $0.completedOn == nil })
+		self._rawReminders = self._rawReminders?.filter({ !$0.isCompleted })
+		self._sortedReminders = nil
 	}
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct VCategoryCard: View {
 	let category: ReminderStore.SummaryCategory
 	let count: Int
+	@Binding var navPath: NavigationPath
 	
     var body: some View {
 		Group {
@@ -34,21 +35,25 @@ struct VCategoryCard: View {
 		}
 		.background(Color.white)
 		.cornerRadius(10)
+		.onTapGesture {
+			navPath.append(category)
+		}
     }
 }
 
 
 #Preview {
+	@Previewable @State var navPath: NavigationPath = .init()
 	ZStack {
 		Color.secondarySystemBackground
 		VStack(spacing: 15) {
 			HStack(spacing: 15) {
-				VCategoryCard(category: .today, count: 10)
-				VCategoryCard(category: .scheduled, count: 3)
+				VCategoryCard(category: .today, count: 10, navPath: $navPath)
+				VCategoryCard(category: .scheduled, count: 3, navPath: $navPath)
 			}
 			HStack(spacing: 15) {
-				VCategoryCard(category: .all, count: 28)
-				VCategoryCard(category: .completed, count: 15)
+				VCategoryCard(category: .all, count: 28, navPath: $navPath)
+				VCategoryCard(category: .completed, count: 15, navPath: $navPath)
 			}
 		}
 	}

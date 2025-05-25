@@ -14,32 +14,50 @@ struct VReminderSummary: View {
 	@State private var isNewListDisplayed: Bool = false
 	@State private var isNewReminderDisplayed: Bool = false
 	@State private var navPath: NavigationPath = .init()
+	@State private var nbi: VNavigationBarInfo = .init()
 
 	var body: some View {
-		NavigationStack(path: $navPath) {
-			ZStack {
-				VSummaryDisplay(isSearching: $isSearching)
-
-				BottomBar(modelData, $isNewListDisplayed, $isNewReminderDisplayed)
-					.opacity(isSearching ? 0.0 : 1.0)
-					.offset(y: isSearching ? 50 : 0)
+		GeometryReader { proxy in
+			NavigationStack(path: $navPath) {
+				VSummaryDisplay(isSearching: $isSearching, navPath: $navPath)
+					.navigationDestination(for: VMReminderList.self, destination: { list in
+						VReminderGenericListV2(list: list)
+					})
+					.navigationDestination(for: ReminderStore.SummaryCategory.self, destination: { sc in
+						switch sc {
+						case .all:
+							VReminderAllCategoryList()
+						case .scheduled:
+							Text("Scheduled")
+						case .today:
+							Text("Today")
+						case .completed:
+							Text("Completed")
+						}
+					})
+					.toolbar(content: {
+						if !isSearching {
+							BottomBar(modelData, $isNewListDisplayed, $isNewReminderDisplayed)	
+						}
+					})
+					.sheet(isPresented: $isNewListDisplayed, content: {
+						VReminderListInfo(list: modelData.addReminderList(), added: { (newList) in
+							Task {
+								try? await Task.sleep(for: .milliseconds(400))
+								let _ = newList.addPendingReminder()
+								navPath.append(newList)
+							}
+						})
+					})
+					.sheet(isPresented: $isNewReminderDisplayed, content: {
+						VReminderNew(model: modelData, list: modelData.lists.first!)
+					})
 			}
-			.navigationDestination(for: VMReminderList.self, destination: { list in
-				return VReminderGenericList(list: list)
-			})
-			.sheet(isPresented: $isNewListDisplayed, content: {
-				VReminderListInfo(list: modelData.addReminderList(), added: { (newList) in
-					Task {
-						try? await Task.sleep(for: .milliseconds(400))
-						let _ = newList.addPendingReminder()
-						navPath.append(newList)
-					}
-				})
-			})
-			.sheet(isPresented: $isNewReminderDisplayed, content: {
-				VReminderNew(model: modelData, list: modelData.lists.first!)
-			})
+			.onAppear {
+				nbi.height = proxy.safeAreaInsets.top
+			}
 		}
+		.environment(nbi)
     }
 }
 
@@ -54,7 +72,7 @@ struct VReminderSummary: View {
 		.environment(_PCReminderModelNew)
 }
 
-fileprivate struct BottomBar: View {
+fileprivate struct BottomBar: ToolbarContent {
 	var modelData: VMReminderStore
 	@Binding var isNewListDisplayed: Bool
 	@Binding var isNewReminderDisplayed: Bool
@@ -67,41 +85,26 @@ fileprivate struct BottomBar: View {
 		self._isNewReminderDisplayed = isNewReminderDisplayed
 	}
 	
-	var body: some View {
-		VStack(alignment: .leading) {
-			Spacer()
-			HStack {
-				Button {
-					isNewReminderDisplayed = true
-				} label: {
-					VNewReminderButtonLabel()
-				}
-				.disabled(modelData.lists.isEmpty)
-						
-				Spacer()
-						
-				Button {
-					isNewListDisplayed = true
-				} label: {
-					Text("Add List")
-				}
+	var body: some ToolbarContent {
+		ToolbarItemGroup(placement: .bottomBar) {
+			VNewReminderButton {
+				isNewReminderDisplayed = true
 			}
-			.padding()
+			.disabled(modelData.lists.isEmpty)
+		
+			Button {
+				isNewListDisplayed = true
+			} label: {
+				Text("Add List")
+			}
 		}
 	}
 }
 
-struct VNewReminderButtonLabel: View {
-	var body: some View {
-		HStack(spacing: 10) {
-			Circle()
-				.reminderIconSized(iconDimension: 25)
-				.overlay {
-					Image(systemName: "plus")
-						.foregroundStyle(.white)
-				}
-			Text("New Reminder")
-		}
-		.bold()
-	}
+
+
+// - used for recreating the nav title merge effect.
+@Observable
+final class VNavigationBarInfo {
+	var height: CGFloat = 0
 }

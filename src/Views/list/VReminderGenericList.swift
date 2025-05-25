@@ -10,9 +10,12 @@ import SwiftUI
 
 struct VReminderGenericList: View {
 	@Environment(\.editMode) private var editMode
+	@Environment(VNavigationBarInfo.self) var navBarInfo
 	@Bindable var list: VMReminderList
 	@State private var toFocus: VMReminder?
 	@State private var isEditing: Bool = false
+	@State private var isTitleInline: Bool = false
+	@State private var selItems: Set<VMReminder>?
 	
 	init(list: VMReminderList) {
 		self.list = list
@@ -23,28 +26,50 @@ struct VReminderGenericList: View {
     var body: some View {
 		ZStack {
 			List {
-				Text(list.name)
+				Text(self.reminderListTitle)
 					.font(.largeTitle)
 					.bold()
 					.foregroundStyle(list.color.uiColor)
 					.selectionDisabled()
 					.listRowSeparator(.hidden)
+					.background(content: {
+						// - if this isn't in the background, SwiftUI renders a
+						//   separator between the toolbar and the content
+						Color.clear
+							.onGeometryChange(for: Bool.self) { proxy in
+								// ...simulates the traditional list behavior where it will
+								//   merge into the nav bar when scrolling upwards, while
+								//   retaining the ability to change its styling
+								let f = proxy.frame(in: .scrollView)
+								return f.minY < navBarInfo.height
+							} action: { newValue in
+								withAnimation {
+									isTitleInline = newValue
+							}
+						}
+					})
+					.visible(!isTitleInline)
 				
 				ForEach(list.reminders) { (reminder: VMReminder) in
-					VReminderListItem(reminder: reminder, pendingReminder: $toFocus, titleReturn: { reminder in
+					VReminderListItem(reminder: reminder, focusedReminder: $toFocus, groupSelection: $selItems, titleReturn: { reminder in
 						if let idx = list.reminders.firstIndex(of: reminder) {
 							toFocus = list.insertReminder(at: idx + 1)
 						}
 					})
 					.tag(reminder.id)
 				}
-				.onDelete { row in
-					guard let idx = row.first else { return }
+				.onDelete { isDel in
+					guard let idx = isDel.first else { return }
 					list.reminders.remove(at: idx)
 				}
+				.onMove(perform: { isMove, toIdx in
+					print("MOVE")
+				})
+				.deleteDisabled(isEditing)
 			}
 			.listStyle(.plain)
 			.navigationBarTitleDisplayMode(.inline)
+			.navigationTitle(isTitleInline ? self.reminderListTitle : "")
 			.onConditionalTapGesture(apply: !(editMode?.wrappedValue.isEditing ?? false)) {
 				managePendingReminder()
 			}
@@ -52,10 +77,8 @@ struct VReminderGenericList: View {
 			VStack(alignment: .leading) {
 				Spacer()
 				HStack {
-					Button {
+					VNewReminderButton {
 						managePendingReminder()
-					} label: {
-						VNewReminderButtonLabel()
 					}
 					.foregroundStyle(list.color.uiColor)
 					Spacer()
@@ -66,18 +89,15 @@ struct VReminderGenericList: View {
 		}
 		.onAppear(perform: {
 			isEditing = editMode?.wrappedValue == .active
+			selItems = isEditing ? .init() : nil
 		})
 		.toolbar {
-			if isEditing {
-				ToolbarItem {
+			ToolbarItem {
+				if isEditing {
 					VDoneButton {
-						withAnimation {
-							isEditing = false
-						}
+						isEditing = false
 					}
-				}
-			} else {
-				ToolbarItem {
+				} else {
 					VListInfoMenu(list: list, isEditing: $isEditing)
 				}
 			}
@@ -89,14 +109,31 @@ struct VReminderGenericList: View {
 			// - the reactivity of the .editMode doesn't work when views are
 			//   in a NavigationStack (see _VExpEditMode), so this technique
 			//   modifies it in response to the state changing.
-			editMode?.wrappedValue = newValue ? .active : .inactive
+			withAnimation {
+				selItems = newValue ? .init() : nil
+				editMode?.wrappedValue = newValue ? .active : .inactive
+			}
 		}
+    }
+    
+    private var reminderListTitle: String {
+    	if isEditing {
+    		if let ct = selItems?.count, ct > 0 {
+    			return "\(ct) Selected"
+    		} else {
+    			return "Select Reminders"
+    		}
+    		
+    	} else {
+    		return list.name
+    	}
     }
 }
 
 #Preview {
 	NavigationStack {
 		VReminderGenericList(list: _PCReminderListDefault)
+			.environment(VNavigationBarInfo())
 	}
 }
 
